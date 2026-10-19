@@ -120,17 +120,21 @@ textarea.notes{width:100%;margin-top:10px;border:1px solid var(--line-2);border-
 /* TV mode (#tv or ?tv=1): a dashboard, not a document. Everything in .wrap is hidden and
    renderTv() builds #tvdash: KPI tiles, the Gantt (moved in), the current and next sprint as
    compact cards with tick lists, and a strip of every sprint's progress. Reloads every ten minutes. */
-body.tv{font-size:17px;background:#0f1f1a;color:#eef3f0}
+/* TV mode is a fixed 1920 by 1080 stage that scales itself to the screen (tvFit), so the layout
+   is the same on a 4K panel, a 1080 panel or a TV browser running at 150 percent zoom. */
+body.tv{font-size:17px;background:#0f1f1a;color:#eef3f0;overflow:hidden;height:100vh}
 body.tv .wrap>*:not(#tvdash){display:none}
-body.tv .wrap{max-width:none;padding:14px 22px 20px}
-body.tv .brand{padding:12px 22px}
-body.tv .brand h1{font-size:24px}
-body.tv .brand .sub{font-size:12px}
+body.tv .wrap{max-width:none;width:1920px;height:1080px;padding:22px 30px;position:absolute;top:0;left:0;transform-origin:top left}
+body.tv .brand{display:none}
 body.tv .btn{display:none}
-.tvgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:12px}
-.tvk{background:#17302a;border:1px solid #244840;border-radius:14px;padding:14px 16px}
-.tvk .v{font-size:42px;font-weight:800;line-height:1;color:#fff}
-.tvk .l{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;font-weight:700;color:#8fc4b4;margin-top:6px}
+.tvhead{display:flex;align-items:baseline;gap:14px;margin-bottom:14px}
+.tvhead .t{font-size:30px;font-weight:800;color:#fff}
+.tvhead .s{font-size:16px;color:#8fc4b4;font-weight:700;text-transform:uppercase;letter-spacing:1.6px}
+.tvhead .d{margin-left:auto;font-size:22px;color:#8fc4b4;font-weight:700}
+.tvgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:14px}
+.tvk{background:#17302a;border:1px solid #244840;border-radius:16px;padding:16px 18px}
+.tvk .v{font-size:50px;font-weight:800;line-height:1;color:#fff}
+.tvk .l{font-size:13px;text-transform:uppercase;letter-spacing:1.4px;font-weight:700;color:#8fc4b4;margin-top:8px}
 .tvk.rag-Green .v{color:#4fd1a5}.tvk.rag-Amber .v{color:#f0b24f}.tvk.rag-Red .v{color:#f0706e}
 .tvpanel{background:#fff;color:var(--ink);border-radius:14px;padding:12px 16px;margin-bottom:12px}
 .tvpanel h3{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--ink-3);margin-bottom:6px}
@@ -143,7 +147,7 @@ body.tv .btn{display:none}
 .tvcard .bar{height:16px;background:var(--line);border-radius:8px;overflow:hidden;margin:6px 0 14px}
 .tvcard .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--green-l))}
 .tvcard .pct{font-size:56px;font-weight:800;color:var(--green);line-height:1;float:right;margin-left:12px}
-.tvcard .items{columns:2;column-gap:24px;font-size:17px}
+.tvcard .items{columns:2;column-gap:24px;font-size:19px}
 .tvcard .chk{break-inside:avoid;display:flex;gap:8px;align-items:flex-start;padding:4px 0}
 .tvcard .chk .box{width:18px;height:18px;border:2px solid var(--line-2);border-radius:5px;flex:none;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff}
 .tvcard .chk.done .box{background:var(--green);border-color:var(--green)}
@@ -165,19 +169,19 @@ body.tv .gbar{height:18px;font-size:12px}
 .tvweeks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:12px}
 .tvw{background:#fff;color:var(--ink);border-radius:14px;padding:16px 18px 12px;border-top:7px solid var(--line-2)}
 .tvw.last{border-top-color:var(--green)}.tvw.this{border-top-color:var(--gold)}.tvw.next{border-top-color:#4E2E8E}
-.tvw .tag{font-size:13px;text-transform:uppercase;letter-spacing:1.4px;font-weight:700;color:var(--ink-3)}
-.tvw .rng{font-size:28px;font-weight:800;line-height:1.1;margin:2px 0 8px}
-.tvw .cnt{display:flex;align-items:baseline;gap:10px}
-.tvw .cnt .n{font-size:46px;font-weight:800;line-height:1;color:var(--green)}
+.tvw .tag{font-size:15px;text-transform:uppercase;letter-spacing:1.6px;font-weight:700;color:var(--ink-3)}
+.tvw .rng{font-size:34px;font-weight:800;line-height:1.1;margin:2px 0 10px}
+.tvw .cnt{display:flex;align-items:baseline;gap:12px}
+.tvw .cnt .n{font-size:58px;font-weight:800;line-height:1;color:var(--green)}
 .tvw.this .cnt .n{color:var(--amber)}.tvw.next .cnt .n{color:#4E2E8E}
-.tvw .cnt .of{font-size:24px;color:var(--ink-3)}
-.tvw .cnt .l{font-size:15px;color:var(--ink-3);font-weight:700}
-.tvw .bar{height:12px;background:var(--line);border-radius:6px;overflow:hidden;margin:8px 0 10px}
+.tvw .cnt .of{font-size:28px;color:var(--ink-3)}
+.tvw .cnt .l{font-size:18px;color:var(--ink-3);font-weight:700}
+.tvw .bar{height:14px;background:var(--line);border-radius:7px;overflow:hidden;margin:10px 0 12px}
 .tvw .bar i{display:block;height:100%;background:var(--green)}
 .tvw.this .bar i{background:var(--gold)}.tvw.next .bar i{background:#4E2E8E}
-.tvw .head{font-size:16px;color:var(--ink-2);margin-bottom:6px}
-.tvw .it{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-top:1px solid var(--line);font-size:16.5px;line-height:1.3}
-.tvw .st{width:84px;font-size:11px;padding:4px 0;margin-top:2px}
+.tvw .head{font-size:19px;color:var(--ink-2);margin-bottom:8px}
+.tvw .it{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--line);font-size:21px;line-height:1.3}
+.tvw .st{width:104px;font-size:13px;padding:6px 0;margin-top:3px;border-radius:6px}
 .tvstale{background:#17302a;border:1px solid #f0b24f;color:#f0b24f;border-radius:10px;padding:8px 12px;font-size:14px;margin-bottom:10px}
 </style>
 </head>
@@ -595,34 +599,29 @@ function sprintByN(n){return SPRINTS.find(s=>s.n===n)}
 // that has not been updated shows its own dates and a notice rather than passing as current.
 const WEEKS=[
  {wk:"2026-10-12",head:"Nine sprints advanced on the laptop while the hosting invites were awaited.",items:[
-  {s:"18",st:"done",t:"Meg Answers: the two-phase question path with typed tools on the read-only role"},
-  {s:"A1",st:"done",t:"Data structures confirmed and reconciled from the database: dictionary, registry, hygiene tests in CI"},
-  {s:"M1",st:"done",t:"Tool registry live over MCP; closed after the golden questions ran through Claude Code"},
-  {s:"7, 9, A2",st:"done",t:"Sprints 7 and 9 closed; the scoring logic made one definition with the review rules in code"},
-  {s:"10",st:"done",t:"Every item done on the laptop; decisions 17 and 18 (London, meg.su-llp.com); the restore rehearsed and timed"},
-  {s:"M2",st:"done",t:"Meg agent on the Tool Runner; model choice measured on the golden set (Sonnet 5.5 answers, Haiku 5.5 routes); injection check passed"},
-  {s:"H1",st:"done",t:"Packaging for Vercel and Supabase built without an account; migrations generated with a drift check in CI"},
-  {s:"M3, M4",st:"done",t:"Tokens, audit log and rate limits on the MCP plug; the site assessment server-side as a tool"},
-  {s:"H4",st:"done",t:"Four DNO headroom sets refetched, the first real capacity-change diff, Watchman alerts on the Monitoring page"},
-  {s:"A7",st:"done",t:"Multi-user load test: 24 workers, no errors; the servers kept up by a logon task"}]},
+  {s:"18",st:"done",t:"Meg Answers: typed tools on the read-only role"},
+  {s:"A1, A2",st:"done",t:"Data structures reconciled; scoring logic made one definition"},
+  {s:"M1, M2",st:"done",t:"Tool registry over MCP; Meg agent with the model decision"},
+  {s:"10",st:"done",t:"Hosting items done on the laptop; London and the domain decided"},
+  {s:"H1",st:"done",t:"Packaging for Vercel and Supabase; migrations checked in CI"},
+  {s:"M3, M4, H4",st:"done",t:"MCP tokens and audit; assessment as a tool; Watchman alerts"},
+  {s:"7, 9, A7",st:"done",t:"Sprints 7 and 9 closed; load test passed at 24 workers"}]},
  {wk:"2026-10-19",head:"Hosting proof week: the database goes to London.",items:[
-  {s:"H2",st:"done",t:"Day one proofs on the firm's Supabase project: PostgreSQL 17.11, PostGIS with raster, so the database stays on Supabase; meg_ro verified through the pooler"},
-  {s:"9",st:"done",t:"Scotland's nature designations fetched from NatureScot at full resolution (SSSI, SAC, SPA, Ramsar, NNR, ancient woodland)"},
-  {s:"Team",st:"done",t:"The sprint tracker on the office screen: public mirror, dashboard layout, the week-by-week view"},
-  {s:"H2",st:"doing",t:"Fresh dump of the laptop database for the restore (44 GB, running)"},
-  {s:"9",st:"planned",t:"Scored views rebuilt with the Scottish polygons once the dump releases the tables; schema baseline and migrations regenerated"},
-  {s:"H2",st:"planned",t:"Restore into the London project, the post-restore steps, the parity check and the slow-query timings"},
-  {s:"H2",st:"planned",t:"Vercel: the repository import and the environment variables in the firm's team (Jacob)"},
-  {s:"M2",st:"waiting",t:"Mark's recorded review of the 12 core questions (the M2 gate)"}]},
+  {s:"H2",st:"done",t:"Supabase proofs passed: PostGIS and raster in London"},
+  {s:"9",st:"done",t:"Scotland's nature designations at full resolution"},
+  {s:"Team",st:"done",t:"Sprint tracker on the office screen"},
+  {s:"H2",st:"doing",t:"Fresh 44 GB dump of the laptop database"},
+  {s:"H2",st:"planned",t:"Restore to London, parity check, slow-query timings"},
+  {s:"H2",st:"planned",t:"Vercel import and environment variables"},
+  {s:"M2",st:"waiting",t:"Mark's review of the 12 core questions"}]},
  {wk:"2026-10-26",head:"Planned: the hosted stack in front of the team.",items:[
-  {s:"H2",st:"planned",t:"API and app deployed to Vercel production in London with CORS locked"},
-  {s:"H2",st:"planned",t:"Full regression on the hosted stack; latency re-measured against the laptop baseline"},
-  {s:"H2",st:"planned",t:"Backups on, the weekly off-platform dump and a timed restore drill"},
-  {s:"H2",st:"waiting",t:"Entra ID sign-in through Supabase Auth SAML (needs the registration from IT)"},
-  {s:"H2",st:"planned",t:"Loaders run from a GitHub Actions runner"},
-  {s:"M3",st:"waiting",t:"The tunnel for named colleagues: Cloudflare Tunnel or Tailscale, a decision and an account"},
-  {s:"M4",st:"planned",t:"GeoPackage export and the recorded Claude Code walk-through of meg_assess_site"},
-  {s:"A0",st:"planned",t:"Mobilise and decide, per the calendar (26 to 30 Oct)"}]}
+  {s:"H2",st:"planned",t:"API and app live on Vercel production"},
+  {s:"H2",st:"planned",t:"Full regression and latency on the hosted stack"},
+  {s:"H2",st:"planned",t:"Backups, off-platform dump, restore drill"},
+  {s:"H2",st:"waiting",t:"Entra sign-in through Supabase Auth (IT registration)"},
+  {s:"H2",st:"planned",t:"Loaders on a GitHub Actions runner"},
+  {s:"M3",st:"waiting",t:"Tunnel for named colleagues: decision and account"},
+  {s:"A0",st:"planned",t:"Mobilise and decide, per the calendar"}]}
 ];
 const ST_LABEL={done:"Done",doing:"In progress",planned:"Planned",waiting:"Waiting"};
 function ymd(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
@@ -750,7 +749,8 @@ function renderTv(k){
   const {cols,stale}=weekCols();
   const tw=cols[1].w?wkStats(cols[1].w):null, lw=cols[0].w?wkStats(cols[0].w):null;
   const sub='<span style="font-size:20px;color:#8fc4b4">';
-  el.innerHTML=`<div class="tvgrid">
+  el.innerHTML=`<div class="tvhead"><span class="t">Project Meg</span><span class="s">Sprint tracker</span><span class="d">${now.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"})}</span></div>
+    <div class="tvgrid">
       <div class="tvk"><div class="v">${lw?lw.d:"-"}${lw?sub+"/"+lw.n+"</span>":""}</div><div class="l">Last week done</div></div>
       <div class="tvk"><div class="v">${tw?tw.d:"-"}${tw?sub+"/"+tw.n+"</span>":""}</div><div class="l">This week done${tw&&tw.g?" · "+tw.g+" in progress":""}</div></div>
       <div class="tvk"><div class="v">${k.done}${sub}/${k.items}</span></div><div class="l">Deliverables shipped</div></div>
@@ -768,8 +768,9 @@ function renderTv(k){
     </div>
     <div class="tvscreen"><div class="tvpanel"><h3>Forward plan</h3><div id="tv-gantt"></div></div></div>
     <div class="tvdots"><i class="on"></i><i></i><i></i></div>
-    <div class="tvfoot">Project Meg sprint tracker · three screens, 20 seconds each: the weeks, the sprints, the plan · refreshes every ten minutes</div>`;
+    <div class="tvfoot">Three screens, 20 seconds each: the weeks, the sprints, the plan · refreshes every ten minutes</div>`;
   const g=document.getElementById("gantt"); if(g)document.getElementById("tv-gantt").appendChild(g);
+  tvFit();
   if(!window._tvTimer){
     let i=0;
     window._tvTimer=setInterval(function(){
@@ -779,6 +780,15 @@ function renderTv(k){
     },20000);
   }
 }
+// Scale the 1920 by 1080 stage to the screen and centre it, whatever the browser's viewport.
+function tvFit(){
+  const w=document.querySelector(".wrap"); if(!w||!document.body.classList.contains("tv"))return;
+  const k=Math.min(innerWidth/1920,innerHeight/1080);
+  w.style.transform="scale("+k+")";
+  w.style.left=Math.max(0,(innerWidth-1920*k)/2)+"px";
+  w.style.top=Math.max(0,(innerHeight-1080*k)/2)+"px";
+}
+addEventListener("resize",tvFit);
 // TV mode: open with #tv (or ?tv=1). Larger type, editing controls hidden, the current sprint
 // expanded, and the page reloads itself every ten minutes so the screen follows each republish.
 (function(){
