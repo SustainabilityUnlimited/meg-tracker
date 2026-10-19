@@ -182,6 +182,58 @@ body.tv .gbar{height:18px;font-size:12px}
 .tvw .it{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--line);font-size:21px;line-height:1.3}
 .tvw .st{width:104px;font-size:13px;padding:6px 0;margin-top:3px;border-radius:6px}
 .tvstale{background:#17302a;border:1px solid #f0b24f;color:#f0b24f;border-radius:10px;padding:8px 12px;font-size:14px;margin-bottom:10px}
+/* Screen 0: the business overview (the Empiricis one-page brief) with completion rings on the platforms. */
+#tvdash.ov0 .tvgrid{display:none}
+.ov{display:grid;gap:8px;grid-template-columns:repeat(4,1fr);color:var(--ink)}
+.ovhead{grid-column:1/-1;display:grid;grid-template-columns:1fr 420px;gap:8px}
+.ovhero{background:linear-gradient(135deg,#0b2a4a,#123f6b 60%,#0F6E56);color:#fff;border-radius:12px;padding:12px 20px}
+.ovhero .t{font-size:28px;font-weight:800;line-height:1.1}.ovhero .t b{color:#9fd3ff}
+.ovhero .u{font-size:18px;font-weight:700;margin-top:2px}
+.ovhero .k{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#9fd3ff;margin:5px 0 3px;font-weight:700}
+.ovhero .p{font-size:13px;color:#dbe7f2}
+.ovbrand{background:#fff;border-radius:12px;padding:10px 18px;display:flex;flex-direction:column;justify-content:center}
+.ovbrand .n{font-size:30px;font-weight:800;letter-spacing:1px;color:#0b2a4a;line-height:1}
+.ovbrand .n i{display:inline-block;width:0;height:0;border-left:13px solid transparent;border-right:13px solid transparent;border-bottom:22px solid #1D9E75;margin-right:8px;vertical-align:-2px}
+.ovbrand .e{font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#185FA5;font-weight:700;margin:4px 0 6px}
+.ovbrand .q{font-size:13px;color:var(--ink-2);font-style:italic;border-left:4px solid #185FA5;padding-left:10px}
+.ovp{background:#fff;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.ovp .h{background:#0b2a4a;color:#fff;padding:5px 12px;display:flex;align-items:center;gap:10px}
+.ovp .h .n{width:24px;height:24px;border-radius:12px;background:#1D9E75;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:13px;flex:none}
+.ovp .h .t{font-size:16px;font-weight:800;line-height:1.1}
+.ovp .h .s{font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:#9fd3ff;font-weight:700}
+.ovp .b{padding:5px 12px;flex:1}
+.ovp .r{display:flex;gap:8px;padding:3px 0;border-top:1px solid var(--line);font-size:12.5px;line-height:1.25}
+.ovp .r:first-child{border-top:0}
+.ovp .r b{flex:none;min-width:92px;color:#0b2a4a}
+.ovp .r.k b{min-width:66px}
+.ovp .r .i{flex:none;width:16px;color:#1D9E75;font-weight:800}
+.ovp .call{background:#0b2a4a;color:#fff;font-size:13px;font-weight:700;padding:6px 10px;border-radius:8px;margin-top:4px}
+.ovp .foot{font-size:12px;color:var(--ink-2);padding:4px 12px 6px;border-top:1px solid var(--line)}
+.ovp.wide{grid-column:span 3}
+.ovstack{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:8px 12px}
+.ovpl{border-radius:10px;padding:8px 12px;color:#fff;display:grid;grid-template-columns:1fr 96px;gap:8px;align-items:center}
+.ovpl.meg{background:linear-gradient(135deg,#0F6E56,#1D9E75)}.ovpl.syn{background:linear-gradient(135deg,#123f6b,#185FA5)}.ovpl.emp{background:linear-gradient(135deg,#3b2a6b,#6E4FA8)}
+.ovpl .t{font-size:19px;font-weight:800;line-height:1.1}
+.ovpl .s{font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;font-weight:700;opacity:.85;margin:2px 0 4px}
+.ovpl .d{font-size:12px;line-height:1.3;opacity:.95}
+.ovpl .m{font-size:11px;margin-top:4px;opacity:.9}
+.ring{width:96px;height:96px;position:relative}
+.ring svg{width:96px;height:96px;transform:rotate(-90deg)}
+.ring .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:26px;line-height:1}
+.ring .c small{font-size:9px;letter-spacing:1px;text-transform:uppercase;font-weight:700;opacity:.85;margin-top:3px}
+.ring.na .c{font-size:11px;text-align:center;opacity:.9;padding:0 8px}
+.ovexp{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:8px 12px 2px}
+.ovexp div{background:#F5F3EC;border-radius:8px;padding:6px 10px;font-size:12px;line-height:1.25}
+.ovexp div b{display:block;font-size:13px;color:#0b2a4a;margin-bottom:2px}
+.ovstat{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:8px 12px}
+.ovstat div{background:#F5F3EC;border-radius:8px;padding:8px 10px;font-size:11.5px;line-height:1.25}
+.ovstat div b{display:block;font-size:22px;color:#0b2a4a;line-height:1;margin-bottom:3px}
+.ovfoot{grid-column:1/-1;background:#0b2a4a;color:#fff;border-radius:12px;padding:8px 20px;display:flex;align-items:center;gap:18px;white-space:nowrap}
+.ovfoot .st{display:flex;align-items:baseline;gap:8px;flex:none}
+.ovfoot .st b{font-size:15px;letter-spacing:1px}
+.ovfoot .st span{font-size:11px;color:#9fd3ff;text-transform:uppercase;letter-spacing:1px;font-weight:700}
+.ovfoot .arrow{color:#9fd3ff;font-size:20px;flex:none}
+.ovfoot .eq{margin-left:auto;flex:none;border:1px solid #9fd3ff;border-radius:8px;padding:5px 12px;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;font-weight:700;color:#9fd3ff}
 </style>
 </head>
 <body>
@@ -740,6 +792,100 @@ function tvCard(s,kind){
     <div class="items">${items}</div>
   </div>`;
 }
+// Screen 0 of the TV carousel: the Empiricis one-page brief with a completion ring on each platform.
+// Meg's figure is the tracker's own (deliverables shipped over deliverables planned, computed live).
+// The other platforms are not tracked in this file: pct null renders "not yet tracked" until a
+// figure is given here, with its source in `note`, rather than a number nobody measured.
+const PROGRAMMES={
+  meg:{pct:null,note:"from this tracker"},
+  odin:{pct:null,note:"within Meg; not yet tracked"},
+  synapsis:{pct:null,note:"not yet tracked"},
+  empiricis:{pct:null,note:"not yet tracked"}
+};
+function ring(p,label){
+  const R=50,C=2*Math.PI*R;
+  if(p==null)return `<div class="ring na"><svg viewBox="0 0 118 118"><circle cx="59" cy="59" r="${R}" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="10" stroke-dasharray="6 8"/></svg><div class="c">${esc(label)}</div></div>`;
+  return `<div class="ring"><svg viewBox="0 0 118 118"><circle cx="59" cy="59" r="${R}" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="10"/><circle cx="59" cy="59" r="${R}" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-dasharray="${C*p/100} ${C}"/></svg><div class="c">${p}%<small>${esc(label)}</small></div></div>`;
+}
+function tvOverview(k){
+  const megPct=k.items?Math.round(100*k.done/k.items):null;
+  const row=(b,t)=>`<div class="r"><b>${esc(b)}</b><span>${esc(t)}</span></div>`;
+  const tick=t=>`<div class="r"><span class="i">&#10003;</span><span>${esc(t)}</span></div>`;
+  const krow=(b,t)=>`<div class="r k"><b>${esc(b)}</b><span>${esc(t)}</span></div>`;
+  const head=(n,t,s)=>`<div class="h"><div class="n">${n}</div><div><div class="t">${esc(t)}</div><div class="s">${esc(s)}</div></div></div>`;
+  return `<div class="ov">
+    <div class="ovhead">
+      <div class="ovhero"><div class="t">From <b>Vision</b> to <b>Viable Projects.</b></div><div class="u">Connecting People, Data, Expertise and Capital.</div>
+        <div class="k">Less uncertainty. Lower cost. Higher success.</div>
+        <div class="p">Professional services technology for the energy, property and infrastructure economy. Proven in practice. Refined for scale.</div></div>
+      <div class="ovbrand"><div class="n"><i></i>EMPIRICIS</div><div class="e">People + Intelligence + Experience = Real world outcomes</div>
+        <div class="q">"The right questions. The right evidence. The right experts. The right time."</div></div>
+    </div>
+    <div class="ovp">${head(1,"A £Billions Problem","Important projects fail or stall")}<div class="b">
+      ${row("2 to 5 years+","Typical delay for major energy and infrastructure projects.")}
+      ${row("£billions","Lost through delay, abortive work, poor advice and inefficient processes.")}
+      ${row("High attrition","Many viable projects never reach build due to risk, cost or complexity.")}
+      ${row("Fragmented advice","Developers, investors and landowners navigate a siloed professional market.")}
+      <div class="call">Too often, good projects never get built.</div></div></div>
+    <div class="ovp">${head(2,"Why It Happens","Silos. Assumptions. Uncertainty.")}<div class="b">
+      ${row("Disconnected data","Planning, grid, land, environment, legal and market data in different places.")}
+      ${row("Fragmented professionals","Each adviser sees part of the picture.")}
+      ${row("Unchallenged assumptions","Critical risks and opportunities missed.")}
+      ${row("Time-based incentives","Reward activity, not outcomes.")}
+      ${row("Behavioural bias","Loss aversion, anchoring and optimism can distort decisions.")}
+      ${row("No joined-up accountability","Clients often bear the residual loss.")}</div></div>
+    <div class="ovp">${head(3,"The Solution","An integrated approach")}<div class="b">
+      ${tick("Join up data, people and processes")}
+      ${tick("Test and challenge assumptions early")}
+      ${tick("Use AI to remove 80% of the grind")}
+      ${tick("Apply multidisciplinary expertise when it adds real value")}
+      ${tick("Compare alternatives, visualise risks and quantify outcomes")}
+      ${tick("Improve decisions, reduce cost and increase the likelihood of build")}</div></div>
+    <div class="ovp">${head(4,"Guided by a Clear Philosophy","Reason before action. Impact before ambition.")}<div class="b">
+      ${krow("Power","Understand energy, grid and infrastructure potential.")}
+      ${krow("Purpose","Clarify the real objective and who it benefits.")}
+      ${krow("Planning","Establish constraints, opportunities and consent pathway.")}
+      ${krow("Property","Determine the right rights, structure and ownership.")}
+      ${krow("Structure","Compare legal, commercial and delivery models.")}
+      ${krow("Finance","Build optimal capital stacks and funding routes.")}
+      ${krow("Execute","Manage delivery with integrated workflows.")}
+      ${krow("Optimise","Refinance, expand or exit.")}</div></div>
+    <div class="ovp wide">${head(5,"Our Integrated Software Stack","Three connected platforms. A shared data layer.")}
+      <div class="ovstack">
+        <div class="ovpl meg"><div><div class="t">MEG (including ODIN)</div><div class="s">Opportunity intelligence</div><div class="d">Find and assess the best opportunities in energy, property and infrastructure.</div>
+          <div class="m">${megPct==null?"":k.done+" of "+k.items+" deliverables shipped, "+k.doneN+" of "+SPRINTS.length+" sprints complete"}${PROGRAMMES.odin.pct==null?" · ODIN "+esc(PROGRAMMES.odin.note):" · ODIN "+PROGRAMMES.odin.pct+"%"}</div></div>
+          ${ring(megPct,"complete")}</div>
+        <div class="ovpl syn"><div><div class="t">SYNAPSIS</div><div class="s">Professional practice management</div><div class="d">Turn opportunities into deliverable projects with integrated professional services.</div><div class="m">${esc(PROGRAMMES.synapsis.note)}</div></div>
+          ${ring(PROGRAMMES.synapsis.pct,PROGRAMMES.synapsis.pct==null?"not yet tracked":"complete")}</div>
+        <div class="ovpl emp"><div><div class="t">EMPIRICIS</div><div class="s">Client platform for funds and developers</div><div class="d">A secure client platform to track opportunities, projects and outcomes.</div><div class="m">${esc(PROGRAMMES.empiricis.note)}</div></div>
+          ${ring(PROGRAMMES.empiricis.pct,PROGRAMMES.empiricis.pct==null?"not yet tracked":"complete")}</div>
+      </div></div>
+    <div class="ovp">${head(6,"Rich Data. Real Insight.","GIS, 3D models and multi-layer analysis")}<div class="b">
+      ${["Planning boundaries and designations","Property boundaries","Grid connections and capacity","Water, gas, fibre and utilities","Ground conditions and terrain","Cable route options (least cost to best)","3D models (wind, solar, BESS, hydrogen, bio-gas, pyrolysis, data centres)","Environmental and biodiversity","Drag, drop and test scenarios"].map(tick).join("")}</div>
+      <div class="foot">See the full picture. Test ideas. Compare options. Reduce site visits.</div></div>
+    <div class="ovp wide">${head(7,"Human Expertise When It Matters","The software catches the gaps. Our people provide the judgement.")}
+      <div class="ovexp">
+        <div><b>Lawyers</b>Contracts, regulation and risk allocation.</div>
+        <div><b>Planners</b>Consent, policy and design strategy.</div>
+        <div><b>Engineers</b>Grid, design, construction and O&amp;M.</div>
+        <div><b>Financial experts</b>Funding, models and investment.</div>
+        <div><b>Commercial advisers</b>Strategy, negotiation and market insight.</div></div>
+      <div class="foot">We sell expertise and judgement, supported by intelligent technology and structured methodology.</div></div>
+    <div class="ovp">${head(8,"Proven in Practice. Built for Scale.","17 years of real world experience")}
+      <div class="ovstat">
+        <div><b>17+</b>Years applying the methodology in practice.</div>
+        <div><b>100s</b>of projects across energy, property and infrastructure.</div>
+        <div><b>£bn</b>of value analysed, structured or supported.</div>
+        <div><b>Track record</b>of turning complex opportunities into investable projects.</div></div></div>
+    <div class="ovfoot">
+      <div class="st"><b>OPPORTUNITIES</b><span>Find the right projects</span></div><div class="arrow">&#8250;</div>
+      <div class="st"><b>DECISIONS</b><span>Make better choices</span></div><div class="arrow">&#8250;</div>
+      <div class="st"><b>DELIVERY</b><span>Build more projects</span></div><div class="arrow">&#8250;</div>
+      <div class="st"><b>IMPACT</b><span>A cleaner, stronger economy</span></div>
+      <div class="eq">People + Data + Judgement = Real world outcomes</div>
+    </div>
+  </div>`;
+}
 function renderTv(k){
   const el=document.getElementById("tvdash"); if(!el)return;
   const cur=sprintByN(NOW.current), nxt=sprintByN(NOW.next);
@@ -757,7 +903,8 @@ function renderTv(k){
       <div class="tvk rag-${k.rag}"><div class="v">${k.rag}</div><div class="l">Plan RAG</div></div>
       <div class="tvk"><div class="v">${cur?cur.n:"-"}</div><div class="l">Current sprint · ${now.toLocaleDateString("en-GB",{day:"numeric",month:"short"})}</div></div>
     </div>
-    <div class="tvscreen on">
+    <div class="tvscreen on">${tvOverview(k)}</div>
+    <div class="tvscreen">
       ${stale?`<div class="tvstale">${staleNote(cols)}</div>`:""}
       <div class="tvweeks">${cols.map(c=>wkCard(c,true)).join("")}</div>
     </div>
@@ -766,14 +913,16 @@ function renderTv(k){
       <div class="tvstrip">${strip}</div>
     </div>
     <div class="tvscreen"><div class="tvpanel"><h3>Forward plan</h3><div id="tv-gantt"></div></div></div>
-    <div class="tvdots"><i class="on"></i><i></i><i></i></div>
-    <div class="tvfoot">Three screens, 20 seconds each: the weeks, the sprints, the plan · refreshes every ten minutes</div>`;
+    <div class="tvdots"><i class="on"></i><i></i><i></i><i></i></div>
+    <div class="tvfoot">Four screens, 20 seconds each: the business, the weeks, the sprints, the plan · refreshes every ten minutes</div>`;
+  el.classList.add("ov0");
   const g=document.getElementById("gantt"); if(g)document.getElementById("tv-gantt").appendChild(g);
   tvFit();
   if(!window._tvTimer){
     let i=0;
     window._tvTimer=setInterval(function(){
       const n=document.querySelectorAll(".tvscreen").length; i=(i+1)%n;
+      el.classList.toggle("ov0",i===0);
       document.querySelectorAll(".tvscreen").forEach((e,k)=>e.classList.toggle("on",k===i));
       document.querySelectorAll(".tvdots i").forEach((e,k)=>e.classList.toggle("on",k===i));
     },20000);
