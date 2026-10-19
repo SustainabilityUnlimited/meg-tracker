@@ -98,15 +98,51 @@ textarea.notes{width:100%;margin-top:10px;border:1px solid var(--line-2);border-
 .also{font-size:12px;color:var(--ink-2);margin:4px 0 12px}
 .also b{color:var(--ink)}
 @media (max-width:860px){.now{grid-template-columns:1fr}}
-/* TV mode (#tv or ?tv=1): larger type, no editing controls, reload every ten minutes */
-body.tv{font-size:16px}
-body.tv .wrap{max-width:none;padding:16px 28px 60px}
-body.tv .nowcard .big{font-size:30px}
-body.tv .nowcard .gate,body.tv .nowcard .dep,body.tv .nowcard .meta,body.tv .nowcard .chk,body.tv .also,body.tv .ph,body.tv .dep,body.tv .gate{font-size:15px}
-body.tv .kpi .v{font-size:30px}
-body.tv .sprint .nm{font-size:16px}
-body.tv .btn,body.tv .notes,body.tv .micro:last-of-type{display:none}
-body.tv .brand h1{font-size:22px}
+/* TV mode (#tv or ?tv=1): a dashboard, not a document. Everything in .wrap is hidden and
+   renderTv() builds #tvdash: KPI tiles, the Gantt (moved in), the current and next sprint as
+   compact cards with tick lists, and a strip of every sprint's progress. Reloads every ten minutes. */
+body.tv{font-size:17px;background:#0f1f1a;color:#eef3f0}
+body.tv .wrap>*:not(#tvdash){display:none}
+body.tv .wrap{max-width:none;padding:14px 22px 20px}
+body.tv .brand{padding:12px 22px}
+body.tv .brand h1{font-size:24px}
+body.tv .brand .sub{font-size:12px}
+body.tv .btn{display:none}
+.tvgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:12px}
+.tvk{background:#17302a;border:1px solid #244840;border-radius:14px;padding:14px 16px}
+.tvk .v{font-size:42px;font-weight:800;line-height:1;color:#fff}
+.tvk .l{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;font-weight:700;color:#8fc4b4;margin-top:6px}
+.tvk.rag-Green .v{color:#4fd1a5}.tvk.rag-Amber .v{color:#f0b24f}.tvk.rag-Red .v{color:#f0706e}
+.tvpanel{background:#fff;color:var(--ink);border-radius:14px;padding:12px 16px;margin-bottom:12px}
+.tvpanel h3{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--ink-3);margin-bottom:6px}
+.tvcols{display:grid;grid-template-columns:3fr 2fr;gap:12px;margin-bottom:12px}
+.tvcard{background:#fff;color:var(--ink);border-radius:14px;padding:16px 18px;border-top:6px solid var(--green)}
+.tvcard.next{border-top-color:var(--gold)}
+.tvcard .tag{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;font-weight:700;color:var(--ink-3)}
+.tvcard .big{font-size:36px;font-weight:800;line-height:1.15;margin:4px 0 8px}
+.tvcard .line{font-size:18px;color:var(--ink-2);margin:4px 0 10px}
+.tvcard .bar{height:16px;background:var(--line);border-radius:8px;overflow:hidden;margin:6px 0 14px}
+.tvcard .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--green-l))}
+.tvcard .pct{font-size:56px;font-weight:800;color:var(--green);line-height:1;float:right;margin-left:12px}
+.tvcard .items{columns:2;column-gap:24px;font-size:17px}
+.tvcard .chk{break-inside:avoid;display:flex;gap:8px;align-items:flex-start;padding:4px 0}
+.tvcard .chk .box{width:18px;height:18px;border:2px solid var(--line-2);border-radius:5px;flex:none;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff}
+.tvcard .chk.done .box{background:var(--green);border-color:var(--green)}
+.tvcard .chk.done label{color:var(--ink-3)}
+.tvstrip{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+.tvs{background:#17302a;border:1px solid #244840;border-radius:10px;padding:10px 12px}
+.tvs .n{font-size:16px;font-weight:800;color:#fff}
+.tvs .nm{font-size:12px;color:#b9d4c9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tvs .bar{height:8px;background:#244840;border-radius:4px;overflow:hidden;margin-top:8px}
+.tvs .bar i{display:block;height:100%;background:#4fd1a5}
+.tvs.cur{outline:2px solid #f0b24f}
+body.tv .glabel{font-size:13px;color:var(--ink)}
+body.tv .grow{grid-template-columns:250px 1fr;margin-bottom:4px}
+body.tv .gbar{height:18px;font-size:12px}
+.tvscreen{display:none}.tvscreen.on{display:block}
+.tvdots{display:flex;gap:6px;justify-content:center;margin:6px 0 0}
+.tvdots i{width:10px;height:10px;border-radius:5px;background:#244840}.tvdots i.on{background:#4fd1a5}
+.tvfoot{font-size:12px;color:#8fc4b4;margin-top:8px}
 </style>
 </head>
 <body>
@@ -117,6 +153,7 @@ body.tv .brand h1{font-size:22px}
   <button class="btn gold sm" onclick="copyReport()">Copy status report</button>
 </div>
 <div class="wrap">
+  <div id="tvdash"></div>
   <div class="kpis">
     <div class="kpi"><div class="v" id="k-done">-</div><div class="l">Sprints complete</div></div>
     <div class="kpi"><div class="v" id="k-items">-</div><div class="l">Items complete</div></div>
@@ -582,6 +619,51 @@ function render(){
   r.style.color=rag==="Green"?"#0F6E56":rag==="Amber"?"#854F0B":"#993536";
   renderGantt();
   renderNow();
+  if(document.body.classList.contains("tv"))renderTv({doneN,items,done,rag});
+}
+// The screen dashboard: the numbers render() just computed, the Gantt moved in, two compact
+// sprint cards and a strip of every sprint. Text is cut to one sentence; the page stays the record.
+function firstSentence(t){const m=String(t||"").match(/^.*?[.!?](\s|$)/);return m?m[0].trim():String(t||"").slice(0,160)}
+function tvCard(s,kind){
+  const p=pct(s), note=STATUS_NOTE[s.n]||"", st=sprintStatus(s);
+  const items=s.items.map((it,i)=>`<div class="chk ${state[s.n].checks[i]?"done":""}"><span class="box">${state[s.n].checks[i]?"&#10003;":""}</span><label>${esc(it)}</label></div>`).join("");
+  return `<div class="tvcard ${kind}">
+    <div class="tag">${kind==="next"?"Next sprint":"Current sprint"}</div>
+    ${kind==="next"?"":`<div class="pct">${p}%</div>`}
+    <div class="big">${s.n} · ${esc(s.name)}</div>
+    <div class="line">${kind==="next"?(s.dep?esc(firstSentence(s.dep)):esc(s.ws)):esc(firstSentence(note)||st.label)}</div>
+    ${kind==="next"?"":`<div class="bar"><i style="width:${p}%"></i></div>`}
+    <div class="items">${items}</div>
+  </div>`;
+}
+function renderTv(k){
+  const el=document.getElementById("tvdash"); if(!el)return;
+  const cur=sprintByN(NOW.current), nxt=sprintByN(NOW.next);
+  const strip=SPRINTS.map(s=>`<div class="tvs ${s.n===NOW.current?"cur":""}"><div class="n">${s.n}</div><div class="nm" title="${esc(s.name)}">${esc(s.name)}</div><div class="bar"><i style="width:${pct(s)}%"></i></div></div>`).join("");
+  const now=new Date();
+  el.innerHTML=`<div class="tvgrid">
+      <div class="tvk"><div class="v">${k.doneN}<span style="font-size:20px;color:#8fc4b4">/${SPRINTS.length}</span></div><div class="l">Sprints complete</div></div>
+      <div class="tvk"><div class="v">${k.done}<span style="font-size:20px;color:#8fc4b4">/${k.items}</span></div><div class="l">Deliverables shipped</div></div>
+      <div class="tvk rag-${k.rag}"><div class="v">${k.rag}</div><div class="l">Plan RAG</div></div>
+      <div class="tvk"><div class="v">${cur?cur.n:"-"}</div><div class="l">Current sprint</div></div>
+      <div class="tvk"><div class="v" style="font-size:26px;padding-top:8px">${now.toLocaleDateString("en-GB",{day:"numeric",month:"short"})}</div><div class="l">As of ${esc(NOW.asOf)}</div></div>
+    </div>
+    <div class="tvscreen on" id="tvs1">
+      <div class="tvcols">${cur?tvCard(cur,"current"):""}${nxt?tvCard(nxt,"next"):""}</div>
+      <div class="tvstrip">${strip}</div>
+    </div>
+    <div class="tvscreen" id="tvs2"><div class="tvpanel"><h3>Forward plan</h3><div id="tv-gantt"></div></div></div>
+    <div class="tvdots"><i class="on"></i><i></i></div>
+    <div class="tvfoot">Project Meg sprint tracker · two screens, 20 seconds each · refreshes every ten minutes</div>`;
+  const g=document.getElementById("gantt"); if(g)document.getElementById("tv-gantt").appendChild(g);
+  if(!window._tvTimer){
+    let i=0;
+    window._tvTimer=setInterval(function(){
+      i=(i+1)%2;
+      document.querySelectorAll(".tvscreen").forEach((e,k)=>e.classList.toggle("on",k===i));
+      document.querySelectorAll(".tvdots i").forEach((e,k)=>e.classList.toggle("on",k===i));
+    },20000);
+  }
 }
 // TV mode: open with #tv (or ?tv=1). Larger type, editing controls hidden, the current sprint
 // expanded, and the page reloads itself every ten minutes so the screen follows each republish.
