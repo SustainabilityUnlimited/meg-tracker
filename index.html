@@ -840,10 +840,9 @@ function tvCard(s,kind){
 }
 // Screen 0 of the TV carousel: the Empiricis one-page brief with a completion ring on each platform.
 // Meg's and Synapsis's figures are the tracker's own (deliverables shipped over deliverables planned,
-// computed live from the Meg sprints and the SY cards). ODIN and the client platform are not tracked
+// computed live from the Meg sprints and the SY cards). The client platform is not tracked
 // here: pct null renders "not yet tracked" until a figure is given with its source in `note`.
 const PROGRAMMES={
-  odin:{pct:null,note:"within Meg; not yet tracked"},
   empiricis:{pct:null,note:"not yet tracked; figures to be supplied with their source"}
 };
 function ring(p,label){
@@ -869,9 +868,9 @@ function tvOverview(k){
       <div class="tvk"><div class="v">£bn</div><div class="l">Value supported</div></div>
       <div class="tvk"><div class="v">3</div><div class="l">Connected platforms</div></div>
     </div>
-    ${plat("","Platform 1 · Opportunity intelligence","Meg (including ODIN)","Find and assess the best opportunities in energy, property and infrastructure.",megPct,
+    ${plat("","Platform 1 · Opportunity intelligence","Meg","Find and assess the best opportunities in energy, property and infrastructure.",megPct,
       fig(k.done+" of "+k.items,"deliverables shipped")+fig(k.doneN+" of "+(SPRINTS.length-sy.n),"sprints complete"),
-      (cur?`<b>Now:</b> ${esc(cur.n+" "+cur.name)}, ${pct(cur)}%. `:"")+`<b>ODIN:</b> ${esc(PROGRAMMES.odin.note)}.`)}
+      (cur?`<b>Now:</b> ${esc(cur.n+" "+cur.name)}, ${pct(cur)}%. `:""))}
     ${plat("b","Platform 2 · Professional practice management","Synapsis","Turn opportunities into deliverable projects with integrated professional services.",syPct,
       fig(sy.done+" of "+sy.items,"deliverables shipped")+fig(sy.doneN+" of "+sy.n,"sprints complete"),
       syOpen?`<b>Open:</b> ${esc(syOpen)}.`:"Every card complete.")}
