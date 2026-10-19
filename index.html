@@ -83,6 +83,25 @@ textarea.notes{width:100%;margin-top:10px;border:1px solid var(--line-2);border-
 @media (max-width:720px){.kpis{grid-template-columns:repeat(2,1fr)}.grow{grid-template-columns:112px 1fr}}
 /* Now and next (TV display, 19 Oct 2026): the current sprint and the one after it, above everything else */
 .now{display:grid;grid-template-columns:3fr 2fr;gap:12px;margin-bottom:14px}
+.weeks{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.wk{border:1px solid var(--line);border-radius:12px;padding:12px 14px;border-top:5px solid var(--line-2)}
+.wk.last{border-top-color:var(--green)}.wk.this{border-top-color:var(--gold)}.wk.next{border-top-color:#4E2E8E}
+.wk .tag{font-size:10.5px;text-transform:uppercase;letter-spacing:1.2px;font-weight:700;color:var(--ink-3)}
+.wk .rng{font-size:16px;font-weight:800;margin:2px 0 4px}
+.wk .cnt{display:flex;align-items:baseline;gap:8px}
+.wk .cnt .n{font-size:26px;font-weight:800;line-height:1;color:var(--green)}
+.wk.this .cnt .n{color:var(--amber)}.wk.next .cnt .n{color:#4E2E8E}
+.wk .cnt .of{font-size:14px;color:var(--ink-3)}
+.wk .cnt .l{font-size:12px;color:var(--ink-3);font-weight:700}
+.wk .bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin:6px 0 8px}
+.wk .bar i{display:block;height:100%;background:var(--green)}
+.wk.this .bar i{background:var(--gold)}.wk.next .bar i{background:#4E2E8E}
+.wk .head{font-size:12.5px;color:var(--ink-2);margin-bottom:6px}
+.wk .it{display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-top:1px dashed var(--line);font-size:12.5px;line-height:1.35}
+.wk .it .s,.tvw .it .s{color:var(--ink-3);font-weight:700}
+.st{flex:none;width:72px;font-size:9.5px;text-transform:uppercase;letter-spacing:1px;font-weight:700;border-radius:4px;padding:3px 0;text-align:center;margin-top:1px}
+.st-done{background:#E1F5EE;color:#0F6E56}.st-doing{background:#FAEEDA;color:#854F0B}.st-planned{background:#EEF0F3;color:#3d4a44}.st-waiting{background:#F8E6E6;color:#993536}
+@media(max-width:900px){.weeks{grid-template-columns:1fr}}
 .nowcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:14px 16px;border-top:5px solid var(--green)}
 .nowcard.next{border-top-color:var(--gold)}
 .nowcard .tag{font-size:10.5px;text-transform:uppercase;letter-spacing:1.2px;font-weight:700;color:var(--ink-3)}
@@ -108,7 +127,7 @@ body.tv .brand{padding:12px 22px}
 body.tv .brand h1{font-size:24px}
 body.tv .brand .sub{font-size:12px}
 body.tv .btn{display:none}
-.tvgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:12px}
+.tvgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:12px}
 .tvk{background:#17302a;border:1px solid #244840;border-radius:14px;padding:14px 16px}
 .tvk .v{font-size:42px;font-weight:800;line-height:1;color:#fff}
 .tvk .l{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;font-weight:700;color:#8fc4b4;margin-top:6px}
@@ -143,6 +162,23 @@ body.tv .gbar{height:18px;font-size:12px}
 .tvdots{display:flex;gap:6px;justify-content:center;margin:6px 0 0}
 .tvdots i{width:10px;height:10px;border-radius:5px;background:#244840}.tvdots i.on{background:#4fd1a5}
 .tvfoot{font-size:12px;color:#8fc4b4;margin-top:8px}
+.tvweeks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:12px}
+.tvw{background:#fff;color:var(--ink);border-radius:14px;padding:16px 18px 12px;border-top:7px solid var(--line-2)}
+.tvw.last{border-top-color:var(--green)}.tvw.this{border-top-color:var(--gold)}.tvw.next{border-top-color:#4E2E8E}
+.tvw .tag{font-size:13px;text-transform:uppercase;letter-spacing:1.4px;font-weight:700;color:var(--ink-3)}
+.tvw .rng{font-size:28px;font-weight:800;line-height:1.1;margin:2px 0 8px}
+.tvw .cnt{display:flex;align-items:baseline;gap:10px}
+.tvw .cnt .n{font-size:46px;font-weight:800;line-height:1;color:var(--green)}
+.tvw.this .cnt .n{color:var(--amber)}.tvw.next .cnt .n{color:#4E2E8E}
+.tvw .cnt .of{font-size:24px;color:var(--ink-3)}
+.tvw .cnt .l{font-size:15px;color:var(--ink-3);font-weight:700}
+.tvw .bar{height:12px;background:var(--line);border-radius:6px;overflow:hidden;margin:8px 0 10px}
+.tvw .bar i{display:block;height:100%;background:var(--green)}
+.tvw.this .bar i{background:var(--gold)}.tvw.next .bar i{background:#4E2E8E}
+.tvw .head{font-size:16px;color:var(--ink-2);margin-bottom:6px}
+.tvw .it{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-top:1px solid var(--line);font-size:16.5px;line-height:1.3}
+.tvw .st{width:84px;font-size:11px;padding:4px 0;margin-top:2px}
+.tvstale{background:#17302a;border:1px solid #f0b24f;color:#f0b24f;border-radius:10px;padding:8px 12px;font-size:14px;margin-bottom:10px}
 </style>
 </head>
 <body>
@@ -166,6 +202,12 @@ body.tv .gbar{height:18px;font-size:12px}
     <div class="ph" style="background:#F5F1FB;border-left:3px solid #4E2E8E;padding:8px 10px;margin-bottom:8px"><b>Added 12 Oct 2026, when packaging Meg as an MCP server became a project goal:</b> the shared prerequisites A0 to A2 (A1 and A2 built 12 to 13 Oct), the MCP track M1 to M4 (M1 started: the registry is live on this laptop and in Claude Desktop) and the hosting track H1 to H6, which absorbs Sprints 10 to 14. Each carries a coloured tag below. The programme text is workstreams/AGENTIC_MEG_PROGRAMME.md section 3a.</div>
     <div class="ph">One-week sprints from Mon 27 Jul. Solid bars are unblocked. Dashed bars need a team decision first and will slide if the decision slides. Sprints 5 to 9 need nothing from anyone; sprint 10 onward assumes budget sign-off lands by 21 Aug.</div>
     <div class="gantt" id="gantt"></div>
+  </div>
+
+  <div class="panel">
+    <h3>Week by week</h3>
+    <div class="ph">What was done last week, what is being done this week and what is planned for next week, with each item's status. Written with each update from the commit log and the sprint notes; the sprint list below stays the record of the deliverables.</div>
+    <div class="weeks" id="weeks"></div>
   </div>
 
   <div class="now" id="now"></div>
@@ -546,6 +588,69 @@ function pct(s){const c=state[s.n].checks;return c.length?Math.round(100*c.filte
 // alsoOpen: sprints with work in progress alongside, shown as a line of chips.
 const NOW={current:"H2",next:"H3",alsoOpen:["M4","H4","H1"],asOf:"19 Oct 2026"};
 function sprintByN(n){return SPRINTS.find(s=>s.n===n)}
+// Week-by-week record, written with each update from the commit log and the sprint notes. Each
+// entry is a Monday (wk) with a one-line headline and its items {s: sprint, t: text, st: status};
+// st is done | doing | planned | waiting (waiting = on a named person outside the build). The last
+// three entries render as last week, this week and next week. The dates come from wk, so a record
+// that has not been updated shows its own dates and a notice rather than passing as current.
+const WEEKS=[
+ {wk:"2026-10-12",head:"Nine sprints advanced on the laptop while the hosting invites were awaited.",items:[
+  {s:"18",st:"done",t:"Meg Answers: the two-phase question path with typed tools on the read-only role"},
+  {s:"A1",st:"done",t:"Data structures confirmed and reconciled from the database: dictionary, registry, hygiene tests in CI"},
+  {s:"M1",st:"done",t:"Tool registry live over MCP; closed after the golden questions ran through Claude Code"},
+  {s:"7, 9, A2",st:"done",t:"Sprints 7 and 9 closed; the scoring logic made one definition with the review rules in code"},
+  {s:"10",st:"done",t:"Every item done on the laptop; decisions 17 and 18 (London, meg.su-llp.com); the restore rehearsed and timed"},
+  {s:"M2",st:"done",t:"Meg agent on the Tool Runner; model choice measured on the golden set (Sonnet 5.5 answers, Haiku 5.5 routes); injection check passed"},
+  {s:"H1",st:"done",t:"Packaging for Vercel and Supabase built without an account; migrations generated with a drift check in CI"},
+  {s:"M3, M4",st:"done",t:"Tokens, audit log and rate limits on the MCP plug; the site assessment server-side as a tool"},
+  {s:"H4",st:"done",t:"Four DNO headroom sets refetched, the first real capacity-change diff, Watchman alerts on the Monitoring page"},
+  {s:"A7",st:"done",t:"Multi-user load test: 24 workers, no errors; the servers kept up by a logon task"}]},
+ {wk:"2026-10-19",head:"Hosting proof week: the database goes to London.",items:[
+  {s:"H2",st:"done",t:"Day one proofs on the firm's Supabase project: PostgreSQL 17.11, PostGIS with raster, so the database stays on Supabase; meg_ro verified through the pooler"},
+  {s:"9",st:"done",t:"Scotland's nature designations fetched from NatureScot at full resolution (SSSI, SAC, SPA, Ramsar, NNR, ancient woodland)"},
+  {s:"Team",st:"done",t:"The sprint tracker on the office screen: public mirror, dashboard layout, the week-by-week view"},
+  {s:"H2",st:"doing",t:"Fresh dump of the laptop database for the restore (44 GB, running)"},
+  {s:"9",st:"planned",t:"Scored views rebuilt with the Scottish polygons once the dump releases the tables; schema baseline and migrations regenerated"},
+  {s:"H2",st:"planned",t:"Restore into the London project, the post-restore steps, the parity check and the slow-query timings"},
+  {s:"H2",st:"planned",t:"Vercel: the repository import and the environment variables in the firm's team (Jacob)"},
+  {s:"M2",st:"waiting",t:"Mark's recorded review of the 12 core questions (the M2 gate)"}]},
+ {wk:"2026-10-26",head:"Planned: the hosted stack in front of the team.",items:[
+  {s:"H2",st:"planned",t:"API and app deployed to Vercel production in London with CORS locked"},
+  {s:"H2",st:"planned",t:"Full regression on the hosted stack; latency re-measured against the laptop baseline"},
+  {s:"H2",st:"planned",t:"Backups on, the weekly off-platform dump and a timed restore drill"},
+  {s:"H2",st:"waiting",t:"Entra ID sign-in through Supabase Auth SAML (needs the registration from IT)"},
+  {s:"H2",st:"planned",t:"Loaders run from a GitHub Actions runner"},
+  {s:"M3",st:"waiting",t:"The tunnel for named colleagues: Cloudflare Tunnel or Tailscale, a decision and an account"},
+  {s:"M4",st:"planned",t:"GeoPackage export and the recorded Claude Code walk-through of meg_assess_site"},
+  {s:"A0",st:"planned",t:"Mobilise and decide, per the calendar (26 to 30 Oct)"}]}
+];
+const ST_LABEL={done:"Done",doing:"In progress",planned:"Planned",waiting:"Waiting"};
+function ymd(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function monday(d){const x=new Date(d);x.setDate(x.getDate()-((x.getDay()+6)%7));return x}
+function wkRange(wk){const a=new Date(wk),b=new Date(a);b.setDate(b.getDate()+6);return fmt(a)+" to "+fmt(b)}
+function weekCols(){
+  const w=WEEKS.slice(-3);
+  const cols=[{k:"last",tag:"Last week",w:w[0]},{k:"this",tag:"This week",w:w[1]},{k:"next",tag:"Next week",w:w[2]}];
+  const stale=!!(w[1]&&w[1].wk!==ymd(monday(today)));
+  return {cols,stale};
+}
+function wkStats(w){const n=w.items.length,d=w.items.filter(i=>i.st==="done").length,g=w.items.filter(i=>i.st==="doing").length,x=w.items.filter(i=>i.st==="waiting").length;return{n,d,g,x,p:n?Math.round(100*d/n):0}}
+function wkItems(w){return w.items.map(i=>`<div class="it"><span class="st st-${esc(i.st)}">${esc(ST_LABEL[i.st]||i.st)}</span><span><span class="s">${esc(i.s)}</span> · ${esc(i.t)}</span></div>`).join("")}
+function wkCard(c,tv){
+  const cls=tv?"tvw":"wk", w=c.w;
+  if(!w)return `<div class="${cls} ${c.k}"><div class="tag">${c.tag}</div><div class="head">No record written for this week.</div></div>`;
+  const s=wkStats(w);
+  const cnt=c.k==="next"
+    ?`<span class="n">${s.n}</span><span class="l">items planned${s.x?", "+s.x+" waiting on others":""}</span>`
+    :`<span class="n">${s.d}<span class="of">/${s.n}</span></span><span class="l">done${s.g?", "+s.g+" in progress":""}${s.x?", "+s.x+" waiting":""}</span>`;
+  return `<div class="${cls} ${c.k}"><div class="tag">${c.tag}</div><div class="rng">${wkRange(w.wk)}</div><div class="cnt">${cnt}</div><div class="bar"><i style="width:${s.p}%"></i></div><div class="head">${esc(w.head)}</div>${wkItems(w)}</div>`;
+}
+function staleNote(cols){return `The week record was last written for the week of ${fmt(cols[1].w.wk)}; the columns show that record's dates.`}
+function renderWeeks(){
+  const el=document.getElementById("weeks"); if(!el)return;
+  const {cols,stale}=weekCols();
+  el.innerHTML=cols.map(c=>wkCard(c,false)).join("")+(stale?`<div class="ph" style="grid-column:1/-1;margin:0">${staleNote(cols)}</div>`:"");
+}
 function nowCard(s,kind){
   const p=pct(s), st=sprintStatus(s), note=STATUS_NOTE[s.n]||"";
   const items=s.items.map((it,i)=>`<div class="chk ${state[s.n].checks[i]?"done":""}"><span class="box">${state[s.n].checks[i]?"&#10003;":""}</span><label>${esc(it)}</label></div>`).join("");
@@ -619,6 +724,7 @@ function render(){
   r.style.color=rag==="Green"?"#0F6E56":rag==="Amber"?"#854F0B":"#993536";
   renderGantt();
   renderNow();
+  renderWeeks();
   if(document.body.classList.contains("tv"))renderTv({doneN,items,done,rag});
 }
 // The screen dashboard: the numbers render() just computed, the Gantt moved in, two compact
@@ -641,25 +747,33 @@ function renderTv(k){
   const cur=sprintByN(NOW.current), nxt=sprintByN(NOW.next);
   const strip=SPRINTS.map(s=>`<div class="tvs ${s.n===NOW.current?"cur":""}"><div class="n">${s.n}</div><div class="nm" title="${esc(s.name)}">${esc(s.name)}</div><div class="bar"><i style="width:${pct(s)}%"></i></div></div>`).join("");
   const now=new Date();
+  const {cols,stale}=weekCols();
+  const tw=cols[1].w?wkStats(cols[1].w):null, lw=cols[0].w?wkStats(cols[0].w):null;
+  const sub='<span style="font-size:20px;color:#8fc4b4">';
   el.innerHTML=`<div class="tvgrid">
-      <div class="tvk"><div class="v">${k.doneN}<span style="font-size:20px;color:#8fc4b4">/${SPRINTS.length}</span></div><div class="l">Sprints complete</div></div>
-      <div class="tvk"><div class="v">${k.done}<span style="font-size:20px;color:#8fc4b4">/${k.items}</span></div><div class="l">Deliverables shipped</div></div>
+      <div class="tvk"><div class="v">${lw?lw.d:"-"}${lw?sub+"/"+lw.n+"</span>":""}</div><div class="l">Last week done</div></div>
+      <div class="tvk"><div class="v">${tw?tw.d:"-"}${tw?sub+"/"+tw.n+"</span>":""}</div><div class="l">This week done${tw&&tw.g?" · "+tw.g+" in progress":""}</div></div>
+      <div class="tvk"><div class="v">${k.done}${sub}/${k.items}</span></div><div class="l">Deliverables shipped</div></div>
+      <div class="tvk"><div class="v">${k.doneN}${sub}/${SPRINTS.length}</span></div><div class="l">Sprints complete</div></div>
       <div class="tvk rag-${k.rag}"><div class="v">${k.rag}</div><div class="l">Plan RAG</div></div>
-      <div class="tvk"><div class="v">${cur?cur.n:"-"}</div><div class="l">Current sprint</div></div>
-      <div class="tvk"><div class="v" style="font-size:26px;padding-top:8px">${now.toLocaleDateString("en-GB",{day:"numeric",month:"short"})}</div><div class="l">As of ${esc(NOW.asOf)}</div></div>
+      <div class="tvk"><div class="v">${cur?cur.n:"-"}</div><div class="l">Current sprint · ${now.toLocaleDateString("en-GB",{day:"numeric",month:"short"})}</div></div>
     </div>
-    <div class="tvscreen on" id="tvs1">
+    <div class="tvscreen on">
+      ${stale?`<div class="tvstale">${staleNote(cols)}</div>`:""}
+      <div class="tvweeks">${cols.map(c=>wkCard(c,true)).join("")}</div>
+    </div>
+    <div class="tvscreen">
       <div class="tvcols">${cur?tvCard(cur,"current"):""}${nxt?tvCard(nxt,"next"):""}</div>
       <div class="tvstrip">${strip}</div>
     </div>
-    <div class="tvscreen" id="tvs2"><div class="tvpanel"><h3>Forward plan</h3><div id="tv-gantt"></div></div></div>
-    <div class="tvdots"><i class="on"></i><i></i></div>
-    <div class="tvfoot">Project Meg sprint tracker · two screens, 20 seconds each · refreshes every ten minutes</div>`;
+    <div class="tvscreen"><div class="tvpanel"><h3>Forward plan</h3><div id="tv-gantt"></div></div></div>
+    <div class="tvdots"><i class="on"></i><i></i><i></i></div>
+    <div class="tvfoot">Project Meg sprint tracker · three screens, 20 seconds each: the weeks, the sprints, the plan · refreshes every ten minutes</div>`;
   const g=document.getElementById("gantt"); if(g)document.getElementById("tv-gantt").appendChild(g);
   if(!window._tvTimer){
     let i=0;
     window._tvTimer=setInterval(function(){
-      i=(i+1)%2;
+      const n=document.querySelectorAll(".tvscreen").length; i=(i+1)%n;
       document.querySelectorAll(".tvscreen").forEach((e,k)=>e.classList.toggle("on",k===i));
       document.querySelectorAll(".tvdots i").forEach((e,k)=>e.classList.toggle("on",k===i));
     },20000);
