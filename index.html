@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Meg · Sprint Tracker</title>
+<style>
+:root{
+  color-scheme: light;
+  --green:#0F6E56; --green-l:#1D9E75; --gold:#C8891B;
+  --bg:#F5F3EC; --surface:#fff; --ink:#1f2421; --ink-2:#3d4a44; --ink-3:#615f59;
+  --line:#E4E2DA; --line-2:#cfcbbe; --red:#993536; --amber:#854F0B;
+  --shadow:0 1px 2px rgba(0,0,0,.05),0 4px 16px rgba(0,0,0,.05);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);font-size:13px;-webkit-font-smoothing:antialiased}
+.brand{background:linear-gradient(135deg,#0F6E56 0%,#093b2e 100%);color:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,#1D9E75,#C8891B);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;color:#06251c}
+.brand h1{font-size:16px;font-weight:800;letter-spacing:.5px}
+.brand .sub{font-size:10.5px;text-transform:uppercase;letter-spacing:1.2px;color:#8fc4b4;font-weight:600}
+.brand .spacer{flex:1}
+.btn{padding:8px 14px;border-radius:8px;border:1px solid var(--line-2);background:#fff;font-weight:600;font-size:13px;cursor:pointer;font-family:inherit;color:var(--ink)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#231703}
+.btn.gold:hover{background:#a97314}
+.btn.sm{padding:5px 10px;font-size:11.5px}
+.wrap{padding:16px 14px 60px;max-width:1500px;margin:0 auto}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:12px}
+.kpi .v{font-size:22px;font-weight:700}
+.kpi .l{font-size:10.5px;text-transform:uppercase;letter-spacing:1px;font-weight:600;color:var(--ink-3);margin-top:2px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:16px;margin-bottom:14px}
+.panel h3{font-size:14px;font-weight:700;margin-bottom:4px}
+.panel .ph{font-size:11.5px;color:var(--ink-3);margin-bottom:10px;line-height:1.5}
+.risk{border-left:3px solid var(--red);background:#FCEBEB;border-radius:8px;padding:10px 12px;margin-bottom:8px;font-size:12.5px;line-height:1.55;color:#5f2323}
+.risk:last-child{margin-bottom:0}
+.risk b{color:#3f1717}
+.gantt{position:relative;margin-top:8px}
+.grow{display:grid;grid-template-columns:170px 1fr;align-items:center;gap:8px;margin-bottom:6px}
+.glabel{font-size:10.5px;font-weight:600;color:var(--ink-2);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gtrack{position:relative;height:17px;background:#EBE8DF;border-radius:5px}
+.gbar{position:absolute;top:0;height:17px;border-radius:5px;font-size:9.5px;font-weight:700;color:#fff;display:flex;align-items:center;padding:0 6px;overflow:hidden;white-space:nowrap;z-index:2}
+.gbar.gated{opacity:.85;border:1px dashed rgba(255,255,255,.75)}
+.tick{position:absolute;top:-3px;bottom:-3px;width:1px;background:#dcd8cc;z-index:1}
+.today{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--red);z-index:3}
+.today-pill{position:absolute;top:-19px;transform:translateX(-50%);background:var(--red);color:#fff;font-size:9px;font-weight:700;padding:1px 6px;border-radius:999px;z-index:3}
+.sprint{border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
+.shead{display:flex;align-items:center;gap:10px;padding:13px 16px;cursor:pointer}
+.shead:hover{background:#F7FAF8}
+.snum{width:32px;height:32px;border-radius:8px;background:#EFEEE9;color:#8b8981;font-weight:800;font-size:12.5px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.snum.done{background:var(--green);color:#fff}
+.snum.current{background:var(--gold);color:#231703;box-shadow:0 0 0 3px rgba(200,137,27,.18)}
+.snum.gated{background:var(--red);color:#fff}
+.shead .t{flex:1;min-width:0}
+.shead .nm{font-weight:700;font-size:13.5px}
+.shead .dt{font-size:11px;color:var(--ink-3)}
+.pill{font-size:11px;font-weight:600;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.pill.red{background:#FCEBEB;color:#993536}.pill.amber{background:#FAEEDA;color:#854F0B}
+.pill.green{background:#E1F5EE;color:#0F6E56}.pill.grey{background:#EFEEE9;color:var(--ink-3)}
+.pill.track{margin-right:6px}.pill.track.m{background:#E8E3F6;color:#4E2E8E}.pill.track.h{background:#E3EEF8;color:#1E4E8C}.pill.track.a{background:#F1EBDD;color:#6B4E12}
+.bar{height:6px;background:#EBE8DF;border-radius:4px;width:92px;overflow:hidden;flex-shrink:0}
+.bar i{display:block;height:100%;background:var(--green);border-radius:4px}
+.sbody{border-top:1px solid var(--line);padding:14px 16px;display:none;background:#FBFBF8}
+.sbody.open{display:block}
+.gate{background:#F3FAF7;border:1px dashed var(--green-l);border-radius:8px;padding:9px 12px;font-size:12px;color:#0b4437;margin-bottom:10px;line-height:1.5}
+.gate b{color:#062e24}
+.dep{background:#FCEBEB;border:1px dashed #c98f8f;border-radius:8px;padding:9px 12px;font-size:12px;color:#7a2b2b;margin-bottom:10px;line-height:1.5}
+.chk{display:flex;align-items:flex-start;gap:9px;padding:7px 2px;border-bottom:1px solid var(--line);font-size:12.5px;line-height:1.5}
+.chk:last-of-type{border-bottom:none}
+.chk input{margin-top:3px;accent-color:var(--green);flex-shrink:0}
+.chk.done label{text-decoration:line-through;color:var(--ink-3)}
+.chk label{cursor:pointer;flex:1}
+textarea.notes{width:100%;margin-top:10px;border:1px solid var(--line-2);border-radius:8px;padding:8px 10px;font-family:inherit;font-size:12px;min-height:48px;resize:vertical;background:#fff;color:var(--ink)}
+.micro{font-size:10.5px;text-transform:uppercase;letter-spacing:1.2px;font-weight:700;color:var(--ink-3);margin:10px 0 4px}
+.dec{display:flex;align-items:flex-start;gap:9px;padding:8px 2px;border-bottom:1px solid var(--line);font-size:12.5px}
+.dec:last-child{border-bottom:none}
+.dec input{margin-top:2px;accent-color:var(--green)}
+.dec .who{font-size:10.5px;color:var(--ink-3);display:block;margin-top:1px;line-height:1.45}
+.dec .by{font-size:10px;font-weight:700;color:var(--red);display:block;margin-top:2px}
+.done-list{font-size:12.5px;line-height:1.75;color:var(--ink-2)}
+.done-list b{color:var(--ink)}
+.toast{position:fixed;bottom:16px;right:16px;background:#fff;border:1px solid var(--line);border-left:3px solid var(--green);border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.2);padding:11px 15px;font-size:12.5px;font-weight:600;z-index:50}
+.footer{text-align:center;font-size:10.5px;color:var(--ink-3);padding:14px;line-height:1.7}
+@media (max-width:720px){.kpis{grid-template-columns:repeat(2,1fr)}.grow{grid-template-columns:112px 1fr}}
+/* Now and next (TV display, 19 Oct 2026): the current sprint and the one after it, above everything else */
+.now{display:grid;grid-template-columns:3fr 2fr;gap:12px;margin-bottom:14px}
+.nowcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:14px 16px;border-top:5px solid var(--green)}
+.nowcard.next{border-top-color:var(--gold)}
+.nowcard .tag{font-size:10.5px;text-transform:uppercase;letter-spacing:1.2px;font-weight:700;color:var(--ink-3)}
+.nowcard .big{font-size:22px;font-weight:800;margin:4px 0 2px;line-height:1.2}
+.nowcard .meta{font-size:12px;color:var(--ink-3);margin-bottom:8px}
+.nowcard .bar{height:10px;background:var(--line);border-radius:5px;overflow:hidden;margin:6px 0 10px}
+.nowcard .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--green-l))}
+.nowcard .gate,.nowcard .dep{font-size:12px;margin:6px 0}
+.nowcard .chk{display:flex;gap:7px;align-items:flex-start;font-size:12.5px;padding:3px 0}
+.nowcard .chk .box{width:15px;height:15px;border:1.5px solid var(--line-2);border-radius:4px;flex:none;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff}
+.nowcard .chk.done .box{background:var(--green);border-color:var(--green)}
+.nowcard .chk.done label{color:var(--ink-3);text-decoration:line-through}
+.also{font-size:12px;color:var(--ink-2);margin:4px 0 12px}
+.also b{color:var(--ink)}
+@media (max-width:860px){.now{grid-template-columns:1fr}}
+/* TV mode (#tv or ?tv=1): larger type, no editing controls, reload every ten minutes */
+body.tv{font-size:16px}
+body.tv .wrap{max-width:none;padding:16px 28px 60px}
+body.tv .nowcard .big{font-size:30px}
+body.tv .nowcard .gate,body.tv .nowcard .dep,body.tv .nowcard .meta,body.tv .nowcard .chk,body.tv .also,body.tv .ph,body.tv .dep,body.tv .gate{font-size:15px}
+body.tv .kpi .v{font-size:30px}
+body.tv .sprint .nm{font-size:16px}
+body.tv .btn,body.tv .notes,body.tv .micro:last-of-type{display:none}
+body.tv .brand h1{font-size:22px}
+</style>
+</head>
+<body>
+<div class="brand">
+  <div class="logo">M</div>
+  <div><h1>Project Meg</h1><div class="sub">Sprint Tracker · road to a usable platform</div></div>
+  <div class="spacer"></div>
+  <button class="btn gold sm" onclick="copyReport()">Copy status report</button>
+</div>
+<div class="wrap">
+  <div class="kpis">
+    <div class="kpi"><div class="v" id="k-done">-</div><div class="l">Sprints complete</div></div>
+    <div class="kpi"><div class="v" id="k-items">-</div><div class="l">Items complete</div></div>
+    <div class="kpi"><div class="v" id="k-rag">-</div><div class="l">Plan RAG</div></div>
+    <div class="kpi"><div class="v" id="k-ship">16 Oct</div><div class="l">Target usable platform</div></div>
+  </div>
+
+  <div class="panel">
+    <h3>Forward plan</h3>
+    <div class="ph" style="background:#F5F1FB;border-left:3px solid #4E2E8E;padding:8px 10px;margin-bottom:8px"><b>Added 12 Oct 2026, when packaging Meg as an MCP server became a project goal:</b> the shared prerequisites A0 to A2 (A1 and A2 built 12 to 13 Oct), the MCP track M1 to M4 (M1 started: the registry is live on this laptop and in Claude Desktop) and the hosting track H1 to H6, which absorbs Sprints 10 to 14. Each carries a coloured tag below. The programme text is workstreams/AGENTIC_MEG_PROGRAMME.md section 3a.</div>
+    <div class="ph">One-week sprints from Mon 27 Jul. Solid bars are unblocked. Dashed bars need a team decision first and will slide if the decision slides. Sprints 5 to 9 need nothing from anyone; sprint 10 onward assumes budget sign-off lands by 21 Aug.</div>
+    <div class="gantt" id="gantt"></div>
+  </div>
+
+  <div class="now" id="now"></div>
+  <div class="also" id="also"></div>
+
+  <div class="panel">
+    <h3>Top risks</h3>
+    <div class="ph">From an audit of the code and database, verified against the repo rather than the planning docs.</div>
+    <div id="risks"></div>
+  </div>
+
+  <div id="sprints"></div>
+
+  <div class="panel">
+    <h3>Decisions needed, with the date they start costing time</h3>
+    <div class="ph">Commercial and organisational calls, not engineering. Each shows the sprint it gates.</div>
+    <div id="decisions"></div>
+  </div>
+
+  <div class="panel">
+    <h3>Delivered to date</h3>
+    <div class="ph">Context only. Sprints 0 to 4 are closed and are not tracked above.</div>
+    <div class="done-list">
+      <b>Sprints 0 to 1</b> (8 to 10 Jul): baseline, ranking-metric stopgap, five planning layers wired, export headroom across all 6 DNO groups.<br>
+      <b>Sprint 2</b> (MVP, 10 to 24 Jul): weighted scoring engine, AI brief chat, hit-matrix instead of hard excludes, Review Agent, validated against 5 real consented sites.<br>
+      <b>Sprint 4</b> (24 Jul, ahead of Sprint 3): monitoring layer, capacity-change snapshots, freshness surface, watched sites, planning alerts.<br>
+      <b>Demand-led</b> (14 to 27 Jul): gas scoring, smart meter / MCS / EPC layers, 23 designation tables, incentive zones, 50-test regression suite, security and resilience hardening, symbology engine.
+    </div>
+  </div>
+</div>
+<div class="footer">
+  Project Meg · Energy Law Unlimited · Confidential<br>
+  Scope inventoried from the codebase, database and vision, 27 Jul 2026. One-week cadence. Tick state stored in this browser only.
+</div>
+
+<script>
+/* gated:true = cannot start until the named decision lands, so the dates slide with it */
+const SPRINTS=[
+ {n:0,name:"Retroactive baseline",start:"2026-07-08",end:"2026-07-09",ws:"foundation",gated:false,
+  gate:"The prototype as handed over, documented after the fact in workstreams and NEEDS.md.",
+  dep:"Delivered before the tracker existed; listed so the record starts from truth.",
+  items:["Prototype handed over and documented (workstreams/*.md, NEEDS.md)"]},
+ {n:1,name:"Stopgap consistency and planning layers visible",start:"2026-07-09",end:"2026-07-10",ws:"foundation",gated:false,
+  gate:"Closed 10 Jul 2026 (ROADMAP.md Sprint 1).",
+  dep:"",
+  items:["Consistency fixes and the planning layers made visible (closed 10 Jul 2026)"]},
+ {n:2,name:"AI-derived weighted scoring on current data and interface (MVP)",start:"2026-07-10",end:"2026-07-10",ws:"foundation",gated:false,
+  gate:"Built 10 Jul 2026 (ROADMAP.md Sprint 2: scoring and constraint model).",
+  dep:"",
+  items:["Weighted scoring with constraint confidence, built 10 Jul 2026"]},
+ {n:3,name:"Infrastructure and governance decision",start:"2026-07-11",end:"2026-07-25",ws:"foundation",gated:false,
+  gate:"Superseded: its decision became Sprints 10 to 12 and then Track H.",
+  dep:"Never closed as a sprint; carried by Sprints 10 to 12 and the programme's Track H.",
+  items:["Costed infrastructure recommendation (carried into Sprint 10 and Track H)"]},
+ {n:4,name:"Research and monitoring layer, working as a team",start:"2026-07-11",end:"2026-09-25",ws:"foundation",gated:false,
+  gate:"Delivered as the Monitoring view: capacity snapshots, freshness, watched sites and planning alerts.",
+  dep:"",
+  items:["NESO TEC register and connections queue ingested (a0cacc8)", "Capacity snapshots and the change diff", "Dataset catalogue and freshness", "Watched sites and planning alerts"]},
+ {n:5,name:"Projects and the client record",start:"2026-07-27",end:"2026-07-31",ws:"WS5",gated:false,
+  gate:"A project created by one user survives a browser refresh and its saved criteria reproduce the same ranked shortlist without re-entry.",
+  items:["Create project and project_site tables (client, matter, technology, criteria, owner, soft delete; child geometry, stage, notes)",
+   "Add project CRUD endpoints modelled on the existing watched-sites CRUD",
+   "Rewrite the Projects board to read and write the API instead of an in-memory array",
+   "Make '+ New project' create a persisted project rather than discarding its input",
+   "Replace forward-only stage advance with a real stage model: direction, date, owner, reason, history, remove and move-back",
+   "Make '+ New exercise' actually clear prior state instead of leaving an invalid mode",
+   "Escape database and AI-supplied names in the Projects board and shortlist export",
+   "Regression tests for project create, reload, stage change and delete"]},
+
+ {n:6,name:"Search integrity and honest coverage",start:"2026-08-03",end:"2026-08-07",ws:"WS4 + WS3",gated:false,
+  gate:"No scoring key points at an empty table, and the same brief returns the same metric and count whichever path serves it.",
+  items:["Load the seven empty OS Zoomstack tables so six of eight physical plausibility checks stop passing vacuously",
+   "Load the forest inventory table and correct the AI guide claiming it holds 611,229 polygons",
+   "Make the startup guard fail or disclose on tables that exist but are empty",
+   "Retire or rebuild the no-API fallback search, which silently ranks a different metric with a retired formula over three DNOs and caps at 15 results",
+   "Fix the shortlist download labelling export headroom as 'Demand headroom'",
+   "Correct the demand headroom coverage badge from GB to partial",
+   "Make partial planning coverage read as unknown rather than clean where councils have not submitted",
+   "Report unbuilt viewport-tile directories in health and in the UI",
+   "Delete the three unreachable gas branches, the dead tiling function and two unused variables"]},
+
+ {n:7,name:"Layer wiring",start:"2026-08-10",end:"2026-08-14",ws:"WS4",gated:false,
+  gate:"Every control-centre entry either renders live data at the zoom it claims or is honestly badged.",
+  items:["Build a PostGIS parcel-tile endpoint to replace the empty gitignored tile directory, so title boundaries and pick-a-parcel work anywhere",
+   "Load NESO TEC, join connection sites to GSP geometry, add a route, layer key and map layer",
+   "Wire seven orphaned designation tables into views, constraint keys and the map",
+   "Bring 30,116 Welsh listed buildings into the scored views using a buffer or nearest-distance test",
+   "Replace 53,353 unattributed listed-building coordinates with the Historic England feed",
+   "Retile NGED and SSEN distribution substations with names, voltage and capacity",
+   "Add a gas-proximity endpoint so assessment reports the gas signal the search already computes",
+   "Automate the static map exports so they match the tables the ranking scores against"]},
+
+ {n:8,name:"CI and test hardening",start:"2026-08-17",end:"2026-08-21",ws:"WS3",gated:false,
+  gate:"CI fails on an unreachable stack instead of reporting green, and runs the API suite on every push.",
+  items:["Add a dependency manifest with a lockfile, reconciling three disagreeing lists across the docs",
+   "Add a strict mode so an unreachable stack fails instead of skipping (54 skipped and exit 0 currently reads as a pass)",
+   "Stand up CI with a Postgres and PostGIS service, running the API suite on every push",
+   "Build the source-to-target parity script: row counts, geometry validity, SRID, null rates",
+   "Add one query asserting a spatial index on every spatially queried table",
+   "Record a latency baseline and performance budget for the endpoints already hitting the 30s timeout",
+   "Cover the four untested endpoints, unit-test the scoring engine, assert the three-layer SQL defence",
+   "Add regression tests for workflows and both downloadable deliverables",
+   "Add pg_dump backup tooling and a nightly schedule (the database has no copy today)"]},
+
+ {n:9,name:"Constraint and terrain data coverage",start:"2026-08-24",end:"2026-08-28",ws:"WS8",gated:false,
+  gate:"An England or Wales screening run returns peat, habitats, surface water, terrain, access and competing projects rather than silence.",
+  items:["Ingest England Peat Map, close to a hard stop for solar and BESS groundworks",
+   "Ingest the Priority Habitats Inventory",
+   "Extend flood screening to surface water, reservoir inundation and defence assets",
+   "Ingest the Renewable Energy Planning Database for competing and consented schemes",
+   "Ingest OS Terrain 50 and add a slope component; every solar site is currently ranked as if flat",
+   "Ingest OS Open Roads for construction access and abnormal-load screening",
+   "Ingest authorised and historic landfill boundaries, a hard permitting exclusion",
+   "Ingest water resource availability and catchment data for data centre water questions",
+   "Upgrade agricultural land classification to the detailed surveys that split Grade 3 into 3a and 3b",
+   "Re-ingest core designations at full resolution and enforce that simplified geometry is screening-only",
+   "Add catalogue rows for the datasets missing from dataset_catalogue",
+   "Refresh microgeneration data, currently stopping at August 2024"]},
+
+ {n:10,name:"Hosting and database migration",start:"2026-08-31",end:"2026-09-11",ws:"WS1",gated:"budget",
+  gate:"The app and API run on the hosted stack against a fully restored 23 GB PostGIS database, a timed restore has been proven, and switching environment needs no code edit.",
+  dep:"Cannot start until the hosting budget is approved. Two weeks, not one: the data move and rehearsal dominate.",
+  items:["Costed hosting, managed-Postgres and CI/CD recommendation sized against the real workload, including Anthropic spend",
+   "Choose and record the UK/EU region and data residency commitment",
+   "Decide domain, TLS termination and governed object storage for generated packs",
+   "Externalise the database DSN from environment; no localhost literal",
+   "Externalise the API base URL so one build targets localhost, staging and production",
+   "Replace the per-request connection helper with a pooled connection on a lifespan handler",
+   "Replace the development static server with a production static server or CDN origin",
+   "Choose pg_dump/restore versus re-running loaders, then rehearse and time it end to end",
+   "Write an ordered schema and loader runbook so a rebuild does not end in empty placeholder tables",
+   "Fix five loaders hardcoding a departed colleague's path; make a missing data repository an error",
+   "Provide a managed-secret path and written rotation procedure"]},
+
+ {n:11,name:"Access control and governance",start:"2026-09-14",end:"2026-09-18",ws:"WS2",gated:"budget",
+  gate:"A named firm user signs in and sees only their own client's projects and watched sites; every AI call is authenticated, rate limited, capped and logged.",
+  dep:"Follows the migration. The licence review, LICENSE file and repo transfer can be done at any time before this.",
+  items:["Add authentication and role-based access to the API and AI router; lock CORS down from allow-any-origin",
+   "Replace the shared client_id default with a real tenant on every user-owned table",
+   "Give read endpoints a least-privilege database user instead of superuser",
+   "Add rate limiting and a monthly spend cap to the three AI endpoints",
+   "Add structured logging across the API and AI router",
+   "Add error tracking, uptime monitoring and a metrics endpoint",
+   "Decide the position on old plaintext passwords in pushed git history: rewrite or documented accept-and-rotate",
+   "Resolve four unconfirmed dataset licences, starting with PlanIt which drives the live planning alerts",
+   "Add a commercial-use restriction flag to the catalogue and surface it where a result is used",
+   "Record GDPR lawful basis, retention rules and complete a DPIA before user accounts exist",
+   "Add a LICENSE file and copyright position",
+   "Transfer the repo to a firm org and issue collaborator invites"]},
+
+ {n:12,name:"Post-migration assurance",start:"2026-09-21",end:"2026-09-25",ws:"WS3",gated:"budget",
+  gate:"Parity, load, auth, cold-start and a timed restore drill all pass against the hosted database with no manual intervention.",
+  dep:"Requires the migration to be complete. This is the sprint that proves the move did not lose or corrupt anything.",
+  items:["Write the post-migration test plan; none exists in any planning document",
+   "Run the parity script source-to-target and investigate every discrepancy",
+   "Run the full regression suite against the deployed stack",
+   "Add a multi-user load test beyond the current six-worker check, after pooling lands",
+   "Write auth and permission tests proving one tenant cannot read another's saved sites",
+   "Perform a timed backup and restore drill into a clean instance, then parity-check it",
+   "Add a cold-start test for an unreachable or mid-restore database at import time",
+   "Reduce browser tests' reliance on internal globals"]},
+
+ {n:13,name:"Active monitoring, alerting and agents",start:"2026-09-28",end:"2026-10-09",ws:"WS9",gated:"budget",
+  gate:"An unattended refresh detects a real substation becoming unconstrained and reaches a named person outside the app, with source and retrieval date attached.",
+  dep:"The scheduler and outbound notifications need the host; recipients need access control. Two weeks: this is the largest remaining build.",
+  items:["Build the standing scheduler, driven by the refresh cadences already in the catalogue and currently unused",
+   "Unify five loader manifests into one run log so age is known for all 30 datasets, not three",
+   "Prove the capacity-change diff on a real refetch cycle",
+   "Extend snapshotting to NESO TEC, demand headroom, ECR and the planning tables",
+   "Add an unseen-change badge on the Monitoring nav and live counts on Home",
+   "Build an out-of-app notification path (email, Teams or webhook) with a real recipient",
+   "Make watched-site alert parameters per site and per user: threshold, radius, alert type",
+   "Build a target-scoped research endpoint with a stored dossier for a substation, parcel, landowner or energy user",
+   "Build dataset and portal discovery that writes new sources into the catalogue",
+   "Build Ofgem and CMP446 regulatory monitoring; this vision capability has zero code today",
+   "Build the Profile of Demand cross-signal synthesis over the demand, incentive and planning endpoints",
+   "Feed the Review Agent data-currency input and run it on the grid and assessment paths",
+   "Carry conversation history on the app-driving agent, as the brief chat already does",
+   "Capture web search citations with retrieval dates in the response rather than trusting prose",
+   "Wire or retire the orphaned ask endpoint and correct the AI guide where it advertises unpopulated tables",
+   "Formalise the Tier 1 and Tier 2 agents as definitions rather than hats a session wears"]},
+
+ {n:14,name:"Client deliverables, sign-off and interface quality",start:"2026-10-12",end:"2026-10-16",ws:"WS6",gated:"packs",
+  gate:"A fee earner produces a branded site pack with a map, correct metric labels and full attribution, records a named reviewer's sign-off, and does it on a tablet using the keyboard.",
+  dep:"Needs the pack format, branding and sign-off placement decided. Governed storage needs the migration; the deliverable object hangs off Projects.",
+  items:["Build the site pack: appraisal report, comparison matrix, per-site dossier and story map",
+   "Add map export (canvas capture into reports, plus a print or image control)",
+   "Extend attribution beyond HMLR, DNO portals and OpenStreetMap to every source now used",
+   "Build the sign-off gate: deliverable state, reviewer identity, and a record of what Gordon and David approved",
+   "Add responsive breakpoints; the layout is effectively fixed-width and unusable on a tablet",
+   "Make icon-only controls focusable and labelled, add ARIA roles, make toasts a live region",
+   "Rewrite the Help page, which still describes a clickable prototype and omits Monitoring",
+   "Agree and implement the standard client brief intake template"]},
+
+ {n:15,name:"Grid capacity depth",start:"2026-08-24",end:"2026-09-04",ws:"WS7",gated:"portals",
+  gate:"An 11kV export brief returns circuit-level capacity, a voltage and a queue position anywhere in GB, with no DNO group silently absent.",
+  dep:"Runs in parallel with sprints 9 and 10, but only once portal accounts and licences for NGED, ENWL and SSEN are confirmed.",
+  items:["Ingest demand headroom for NGED, SSEN and ENWL; the table holds 1,915 rows across only three DNOs",
+   "Ingest ENWL per-section 11kV and 6.6kV circuit capacity (193,780 sections, free) as the first circuit-level dataset",
+   "Resolve 1,180 NGED rows with null voltage, removing the kV-filter workaround",
+   "Ingest forward-looking scenario headroom from all five publishing DNOs"]},
+
+ {n:16,name:"Data expansion and behind-the-meter",start:"2026-10-19",end:"2026-10-30",ws:"WS8",gated:"ownership",
+  gate:"Site finding runs north of the border, an ownership signal appears on a candidate, and behind-the-meter has a real energy-user dataset underneath it.",
+  dep:"Every item here needs a commercial decision first: paid parcel data, ownership route, occupier research scope.",
+  items:["Ingest the Scotland layers that decide NPF4 outcomes: carbon and peatland, wild land, national scenic areas, HES heritage",
+   "Decide and execute the Scotland and Northern Ireland parcel route so site finding runs north of the border",
+   "Decide and execute the ownership route, replacing the 'Ownership and values' placeholder",
+   "Geocode 994,235 EPC rows via OS Open UPRN so the layer points at a building, not a council",
+   "Stand up an energy-user dataset for behind-the-meter using the identified free proxies",
+   "Expand occupier requirements from 11 operators towards the stated 70+ universe",
+   "Ingest fibre availability once redistribution terms are verified",
+   "Refresh smart meter demand and re-check the three DNOs whose publication status has moved"]},
+ {n:17,name:"Repeatable opportunity assessment exercise",start:"2026-09-28",end:"2026-10-09",ws:"WS10",gated:false,
+  gate:"On a throwaway engagement created by the test suite, an associate copies powered-land-v1, changes the acreage band, window and geography mode and records a dated direction and sees all of it on the Criteria tab; loads three features through the bulk upsert, adds a note, reloads the same layer and the note and a run row citing dataset vintages survive; scores the layer with speed_v1 and the Shortlist ranks it by the chosen basis; registers a deliverable containing a ring-fenced name and a banned term and sign-off is refused until both are cleared; and the whole suite passes without touching engagements 35 or 57.",
+  dep:"Proposed 28 Sep to 9 Oct 2026, the slot the tracker gave Sprint 13, which stays gated on the hosting budget; this sprint runs on the laptop database and needs none of the host, scheduler or access control that Sprints 10 to 13 wait on. It takes the sign-off gate (Sprint 14 item 4) forward, so Sprint 14 keeps pack rendering only. Two facts change the starting point: workflow_record does not exist on the laptop database (only its DDL script does), and engagement 57 was created on 25 Sep with five layer groups that differ from engagement 35's six, so the group mapping and the upsert contract must cover both from day one.",
+  items:["Run db/backup_db.py, then commit grp as a closed group list enforced by a CHECK constraint (with the printed mapping for engagements 35 and 57) and add source_class, stage_key, run_id and superseded_by to engagement_layer in an idempotent migration",
+   "Create the exercise_run table and expose GET/POST /engagements/{pid}/runs recording stage key, actor, method version, parameter snapshot, dataset vintages, register editions, counts and output layer, including gate sign-off rows",
+   "Add an append-only mandate record per engagement (project_mandate), written only through a scanned endpoint that states who directed each criteria change and on what authority, with the old PATCH /projects/{pid} refusing any body that carries criteria.exercise or mandate entries",
+   "Create workflow_record by running db/create_workflow_table.py (the table is absent on the laptop), store exercise templates as source exercise rows validated field by field by db/exercise_schema.py, serve them at /exercise-templates with copy-by-name, and keep them off the Workflows board",
+   "Refetch the TEC, Existing Agreements and embedded registers on day one, seed powered-land-v1 from the engagement 35 script constants citing those editions, attach it via criteria.exercise, and backfill one exercise_run row per live layer from its note",
+   "Build POST /engagements/{pid}/layers and POST /engagements/{pid}/layer/{key}/features as the one bulk upsert that validates the props contract in db/feature_props.py (required keys refused, unknown kind warned and recorded in a lookup row), preserves reviewer notes and status, supersedes the previous layer version and writes the run row",
+   "Split triage into reviewStatus with noteBy and optional reviewReasonCode, leaving any descriptive status prop untouched (no migration: no live feature is triaged today)",
+   "Add screen_v1 and speed_v1 as parameterised profiles in db/scoring.py (speed_v1 carrying all nine point labels the corridor script awards, including legacy connection, power stated on site and plot available now), with reproduction tests in tests/test_engagements.py, and POST /engagements/{pid}/score writing structured parts and the profile version",
+   "Backfill typed rank, powerRag, buildRag, overallRag, firstPowerYear and speedScore props on the ranked portfolio layer from its status strings, then generalise the Shortlist tab to rank any layer carrying the score contract, defaulting to the Portfolio outputs group with a ranking-basis selector",
+   "Extend Promote to carry the contract props for any feature family and refuse a second promotion of the same engagement feature with a unique partial index",
+   "Create the deliverable table and GET/POST /engagements/{pid}/deliverables registering every outward document of engagement 35 (about 20 across four audiences) with kind, audience, author of record, version, generated-from layers, sensitivity class, count reconciliation and named sign-off, and home the counterparty-side documents on their own engagement",
+   "Add the sensitivity scan: hold the client alias, ring-fenced parties, never-client-facing phrases and banned terms on the template and engagement rows in the database, extract text from HTML, PDF, DOCX and KML, and refuse sign-off while flags stand unless waived with a reason",
+   "Write tests/test_engagements.py covering list, record, layer geojson, mandate entries, templates, bulk upsert preservation and refusal, note and status with actor, scoring reproduction, promotion guard, deliverables and the scan, never touching engagements 35 or 57 except read-only",
+   "Document the exercise contract in workstreams/EXERCISE_MODEL.md and add WS10 with Sprint 17 to sprint_tracker.html and ROADMAP.md",
+   "Rename engagement 35 to the neutral alias in one mapping migration: label, client field and the layer key prefix, with the KML and popup string references updated, and the mapping printed"]},
+ {n:18,name:"Ad-hoc questions: Meg answers, not just finds",start:"2026-10-12",end:"2026-10-23",ws:"WS11",gated:false,
+  gate:"On the laptop database: tier 0 of the golden set (12 core plus 8 adversarial) passes with the model stubbed and skips cleanly when the stack is down; tier 1 routes at least 18 of 20 with zero silent misresolutions (every ambiguous entity produced a chip); tier 2 shows 100 percent numeric agreement between narrative and evidence and a coverage caveat on every typed-tool answer, the four not-held questions return no figure, and the partner marks at least 10 of the 12 core answers right in the recorded acceptance review.",
+  dep:"Proposed 12 to 23 Oct 2026, the slot after Sprint 17 (28 Sep to 9 Oct), whose sensitivity scan this sprint reuses; Sprint 14 (gated on the pack decision) moves behind it unless the partner prefers the reverse, since one builder cannot run both. Nothing here needs hosting, authentication or the scheduler: it runs on the laptop database, the meg_ro role and the existing API key. It absorbs the three Sprint 13 AI items (history on the app-driving agent, web citations with retrieval dates, wire or retire /ai/ask). The verifiers found on the live data that the client-side queue lives in neso_embedded and ecr rather than neso_tec, that neso_embedded has no committed loader or snapshot, that ecr carries no dates, and that the GSP layer carries NESO codes not names; items 4, 6 and 15 carry those facts.",
+  items:["Carry conversation history on /ai/agent and the new /ai/answer (resend the whole running history as briefChatSend does, with a new 12-turn cap disclosed to the user) and capture web search and fetch citations into web_facts with url, title and retrieval date, recording every server_tool_use in steps",
+   "Retire POST /ai/ask, factor the twice-copied SQL tool loop into one run_tool_loop shared by /ai/agent and /ai/answer, and correct DB_GUIDE to advertise the tables that exist (repd, neso_embedded, neso_ea_register, the dated neso_tec snapshots, c_planapps_energy, gas_network, smart_meter_lv_feeder and the rest) with absent-on-laptop tables marked",
+   "Load OS Open Names (OGL) as the offline gazetteer, install pg_trgm by admin migration (normalised ILIKE fallback if refused) and build db/ai_resolve.py with GET /resolve: postcodes, outcodes and named places from OS Open Names, then exact and trigram matches over councils, DNO areas, headroom and substation names, GSP codes and names, engagement and feature labels and watched sites, excluding test and probe engagements, returning typed ranked candidates",
+   "Load gsp_regions from grid_transmission_gsp.js (NESO GSP codes, 317 polygons) with a code-to-name table, and build connection_site_alias mapping every distinct Connection Site string of neso_tec and neso_embedded (quotes and non-ASCII stripped, voltage suffixes normalised) to a GSP code, a substation point or an override row, covering at least 70 percent of neso_tec MW",
+   "Build capacity_summary and GET /answer/capacity-summary: export, demand, forecast and asset kinds over a scope with filters, a count and RAG split computed without any gen_mw predicate, MW reported per DNO according to a coverage_lint table (NPG zero is a published zero of available capacity, SPEN rows are 2024 NDP forecast headroom for 2026/27 with the upstream-constrained flag, demand headroom reports un where SPD and SPM publish it and fcap elsewhere), top N, nearest and the scope echo",
+   "Build queue_summary with ladder, aggregate, filter, anomaly and diff modes: ladder over neso_embedded dates with ecr rows listed as accepted with no position date held and neso_tec for transmission rows, tie-ahead and blank-Gate rules encoded; anomaly as passed effective date with connected MW below contracted MW (reactive compensation excluded); BESS as Plant Type Energy Storage System including combined strings and excluding pump storage; diff over the neso_tec snapshots until item 15 lands",
+   "Implement planned_works, planning_context, constraints_at, engagement_lookup, changes_since, freshness, population_near and demand_near as typed tools in db/answer_tools.py on the meg_ro SELECT-only role, returning one envelope (rows, coverage, as_of, sources, geojson, not_held), each with its own radius cap, with constraints_at deriving hard and soft from the CONSTRAINT_MITIGATION confidence thresholds the assessment report already uses",
+   "Build the two-phase POST /ai/answer on the shared run_tool_loop: phase route on claude-haiku-4-5 under ROUTE_SCHEMA with deterministic resolution, the not-held map, clarify chips and a confirm chip before any state change; command turns handled on the cheap model without tools unless the router flags a data need; phase answer on the main model under ANSWER_SCHEMA with the typed tools, the SQL fallback and the web tools",
+   "Add the guardrails in db/ai_answer.py: numeric cross-check marking unverified figures, coverage_lint mandatory caveats by data source, mixed-metric refusal on comparisons, the resolved centre and radius echoed in every answer, the evidence rule (public research evidence flows across engagements labelled with source and date; client information never leaves its engagement) enforced by layer group, and the Sprint 17 sensitivity scan on narrative and table",
+   "Render the answer card in #aiCard: resolved-entity line, headline, evidence table with fixed columns per intent, caveats, not-held, web facts under their own heading, unverified marks, 'show query' per row, clarify, confirm and follow-up chips, kept history, all DB strings through megEsc and no row value in an inline onclick",
+   "Add map actions pan_to, draw_ring, highlight_features and clear_answer_layer on an 'answer' pane above candbound, with row click panning to the feature, hover pulse, a pin control, one-click set-as-AOI and Watch, and unlocated register rows listed under the table",
+   "Create ai_query_log (question hash, kind, intent, model, rounds, tokens by class, usd_estimate, ms, unverified count, chip shown), write it on every model call, report spend today and p50 latency on /ai/status and /ai/usage (no cap, by partner decision), and add MEG_AI_DISABLE honoured by ai_enabled() so tests never spend through the registry-held key",
+   "Write tests/golden_questions.json (12 core plus 8 adversarial with run-time SQL fixtures computed from the resolver's own centre, required caveats, not-held keys and forbidden strings), tests/test_ai_tools.py and tests/test_ai_answer.py in three tiers (stubbed model, router replay, live evaluation behind the live_external marker), and run the live tier on Sonnet 5 and Opus 4.8 (Opus 5.5 if a gap shows) to choose the synthesis model",
+   "Run the partner acceptance review of the 12 core questions live, marking each right, wrong or unclear with the reason, turning every wrong answer into a golden entry or tracked item, and document the query model in workstreams/QUERY_MODEL.md (intents, resolvers, radius table, envelope, schema, tiers, cost, review table) with CLAUDE.md, sprint_tracker.html and ROADMAP.md updated for WS11 and Sprint 18",
+   "Commit db/fetch_neso_embedded.py with a dated snapshot step (neso_embedded_YYYYMMDD) so the client-side queue ladder and the register diff rest on a reproducible, versioned table rather than a scratchpad load"]},
+ {n:"A0",name:"Mobilise and decide (shared prerequisite)",start:"2026-10-26",end:"2026-10-30",ws:"programme",gated:false,
+  gate:"Checkout level with origin/main; P1 to P8 recorded; accounts requested; the database policy in hand; Sprints 10 to 14 marked absorbed; success measures agreed.",
+  dep:"Shared by Track M and Track H.",
+  items:["Bring the laptop checkout level with origin/main and run the full suite", "Record the partner's decisions P1 to P8 in the roadmap", "Request the accounts with lead time (Supabase, Vercel, Entra application, Anthropic workspace)", "Obtain the company-wide database policy and list every rule it imposes", "Mark Sprints 10 to 14 as absorbed with the sprint that carries each item", "Agree the measurement of the vision's success criteria"]},
+ {n:"A1",name:"Confirm and reconcile the data structures (shared prerequisite)",start:"2026-11-02",end:"2026-11-13",ws:"programme",gated:false,
+  gate:"One generated record of what the database holds, read by every document, loader, endpoint and agent.",
+  dep:"Needs A0 and the database policy document.",
+  items:["Measure the database: size per table, rows, SRID, invalid geometries", "Resolve the five documented disagreements by query", "Classify all tables and views (core, constraints, demand, engagement, monitoring, AI)", "Key, GIST index, SRID, loader, cadence, licence and commercial flag on every table", "Fix or exclude the 20,429 invalid smart-meter geometries", "Regenerate and reconcile db/schema_baseline.sql", "Generate workstreams/DATA_DICTIONARY.md by script; CLAUDE.md points at it", "Reconcile the legacy static files", "Loader credentials off personal keys where terms allow"]},
+ {n:"A2",name:"Review and improve the logic (shared prerequisite)",start:"2026-11-16",end:"2026-11-27",ws:"programme",gated:false,
+  gate:"Every number traceable to a written, tested rule; known soft spots fixed or disclosed.",
+  dep:"Needs A1; reviewer time (Gordon Watson, David Bowman).",
+  items:["Scoring review against the five real validation sites", "One definition of nearest qualifying substation, export headroom and RAG per DNO across all paths", "Stale TECH_PROFILES statements corrected", "Technology coverage: onshore wind, hydrogen, heat networks", "Plausibility filters reviewed on a real engagement sample", "Ten slowest queries explained and fixed where an index fixes them", "Endpoints over 4.5 MB listed with measured maxima", "The Review Agent defined in code with data-currency input", "Unescaped Leaflet popups fixed"]},
+ {n:"M1",name:"Tool registry and local MCP (A3)",start:"2026-11-30",end:"2026-12-11",ws:"Track M",gated:false,
+  gate:"tests/test_tools.py passes; Claude Code or Desktop lists the Meg tools and answers at least 18 of 20 golden questions at Sprint 18's route accuracy; in-app and MCP definitions byte-identical.",
+  dep:"Track M runs on the laptop; no host needed. Started 12 Oct 2026 ahead of schedule.",
+  items:["db/tools.py: one registry of typed tools (13 read tools)", "Mount the MCP server at /mcp and serve it over stdio for Claude Desktop", "The in-app answer phase reads its tools from the registry (identical by construction)", "Schema test per tool and the registry-equals-MCP test", "Register in Claude Code and run the golden questions through it; record the evaluation", "Strict in-app wiring of the find_* and engagement tools"]},
+ {n:"M2",name:"Meg agent over the registry (A4)",start:"2026-12-14",end:"2027-01-08",ws:"Track M",gated:false,
+  gate:"The Sprint 18 golden set passes through the new agent; every answer carries usage and cost; a state-changing question produces a chip; a recorded partner review marks at least 10 of 12 right.",
+  dep:"Needs M1 and Anthropic account credit (not hosting).",
+  items:["Replace the hand-rolled loops with the Tool Runner over the registry", "Conversation history and citations with retrieval dates (carried from Sprint 18)", "Confirm chips before any state change from a question", "Model trial: Sonnet 5 against Opus 4.8 on the golden set, recorded in QUERY_MODEL.md", "Cost and audit on every call; key on auto-reload with a spend notification", "Four agent definitions in the repo: Meg agent, Review agent, Watchman, Researcher"]},
+ {n:"M3",name:"The plug without the host (A7 socket items)",start:"2027-01-11",end:"2027-01-22",ws:"Track M",gated:false,
+  gate:"An unauthenticated MCP call is refused; a write tool called from Claude Desktop pauses for a recorded confirmation; every tool call is in the audit log; named colleagues can connect through the tunnel.",
+  dep:"Needs M2. The laptop remains the server: a stopgap for named users, never the destination.",
+  items:["OAuth 2.1 on /mcp with per-tool scopes (read, write, sql)", "Write tools refuse without a human confirmation recorded against the caller", "Audit log of every tool call, queryable by an administrator", "Rate limiting on the AI and MCP routes", "Optional secure tunnel from the laptop (Cloudflare Tunnel or Tailscale) for named colleagues"]},
+ {n:"M4",name:"Local clients and assessment as a tool (A9 item 3, A2)",start:"2027-01-25",end:"2027-02-05",ws:"Track M",gated:false,
+  gate:"Claude Code and the QGIS MCP plugin drive Meg on the laptop; meg_assess_site returns the assessment report's verdict for a parcel.",
+  dep:"Needs M3 and the server-side assessment from A2.",
+  items:["Claude Code registration (claude mcp add) and a recorded walk-through", "The QGIS MCP plugin pointed at the laptop; a shortlist pulled into QGIS", "Assessment moved server-side and exposed as meg_assess_site", "GeoJSON and GeoPackage export of every result with attribution"]},
+ {n:"H1",name:"Packaging for the firm's stack (A5)",start:"2027-01-11",end:"2027-01-22",ws:"Track H",gated:false,
+  gate:"The repository deploys to Vercel and Supabase from a push: no localhost literal, no secret in code, no response the platform cannot return.",
+  dep:"Track H needs the hosting budget (absorbs Sprint 10 in part).",
+  items:["Externalise the DSN and API base URL; pooled connections on a lifespan handler", "Vercel layout: entrypoint, pyproject, vercel.json (lhr1), static app on the CDN, the MCP route", "Supabase layout: versioned migrations under supabase/ from A1's baseline", "Responses over 4.5 MB moved to Supabase Storage or paged", "In-process caches become materialised views or CDN-cached responses", "Secrets list and rotation procedure", "Branch protection, LICENSE, data files out of git", "Local developer path still works"]},
+ {n:"H2",name:"Hosting (A6)",start:"2027-01-25",end:"2027-02-05",ws:"Track H",gated:false,
+  gate:"Meg runs for the whole team on Supabase and Vercel in London with firm logins and a proven restore; the laptop is no longer the system of record.",
+  dep:"Needs H1 and the hosting budget (absorbs Sprint 10).",
+  items:["Choose the Supabase tier from measured size and the slow queries", "Restore the laptop database into the London project; parity check", "Deploy API and app to Vercel production (lhr1) with CORS locked", "Entra ID sign-in through Supabase Auth SAML", "Backups on, plus a weekly off-platform dump and a timed restore drill", "Full regression on the hosted stack; latency re-measured", "Loaders run from a GitHub Actions runner", "One-week switch-over, then the laptop demoted to a development copy"]},
+ {n:"H3",name:"Access control, tenancy and assurance (A7)",start:"2027-02-08",end:"2027-02-19",ws:"Track H",gated:"budget",
+  gate:"Tenant A cannot read tenant B, proven in CI; the DPIA and licence register filed; the load test passes.",
+  dep:"Needs H2 (absorbs Sprints 11 and 12). The socket items are in M3.",
+  items:["Role-based access; a real tenant on every user-owned table by migration", "Least-privilege database users per path", "Structured logging, error tracking, uptime monitoring, metrics", "Licences resolved, commercial-use flag, GDPR basis and DPIA", "Post-migration test plan, multi-user load test, auth tests"]},
+ {n:"H4",name:"Monitoring and the scheduled agents (A8)",start:"2027-02-22",end:"2027-03-05",ws:"Track H",gated:"budget",
+  gate:"The nightly job detects a real unconstrained substation and a new application near a watched site and tells a named person in Teams; the weekly researcher proposes sources with retrieval dates.",
+  dep:"Needs H3 and M2 (absorbs Sprint 13).",
+  items:["Nightly GitHub Actions workflow: fetch, snapshot, diff, one run log", "Capacity-change diff proven on a real refetch; snapshots extended to TEC, demand headroom, ECR, planning", "Per-site, per-user alert parameters; unseen-change badge", "Morning check: last-run age shown; a missing run is an alert", "The weekly researcher as a hosted scheduled agent", "Weekly overdue-freshness line in Teams"]},
+ {n:"H5",name:"Interfaces: Teams, SharePoint, Living Atlas (A9)",start:"2027-03-08",end:"2027-03-19",ws:"Track H",gated:"budget",
+  gate:"A colleague asks Meg in a Teams chat and gets an answer with caveats; a brief in SharePoint becomes a shortlist link in a channel.",
+  dep:"Needs H3 (QGIS and Claude Code are in M4).",
+  items:["Copilot Studio agent calling Meg's MCP tools in Teams; Meg as a Teams tab", "SharePoint: briefs read in, site packs written to the matter library after sign-off", "OGC API Features front for other GIS, evaluated", "Global Wind Atlas and land cover loaded with attribution; terrain and Sentinel-2 through a server-held token"]},
+ {n:"H6",name:"Client readiness and go-live (A10)",start:"2027-03-22",end:"2027-04-02",ws:"Track H",gated:"packs",
+  gate:"A fee earner produces a client-ready pack, a named reviewer signs it, the success criteria are measured, the team is trained, the partner declares Meg in use.",
+  dep:"Needs H5 and the pack-format decision (absorbs Sprint 14).",
+  items:["The site pack: appraisal report, comparison matrix, dossier, story map with attribution", "Sign-off by the authenticated user; reviewer queue", "Interface quality: responsive, accessible, rewritten Help, brief intake template", "Pilot engagement run end to end on the hosted Meg by someone other than the builder", "Success criteria measured and recorded", "Runbooks and training", "Go or no-go recorded by the partner"]},
+];
+
+const RISKS=[
+ "<b>Nothing a user creates survives a refresh.</b> The Projects board is one in-memory array and no project table exists. Sprint 5 is first for exactly this reason: the site pack and sign-off gate have nothing to attach to until it lands.",
+ "<b>The 23 GB database has no backup, no rehearsed move and no parity check.</b> Parcels alone is 14 GB and 23.7M rows on one synced laptop. Backup tooling is pulled forward into sprint 8, before the migration, because this risk is live now.",
+ "<b>Silent wrongness that reads as normal output.</b> Eight constraint tables are empty so six of eight plausibility checks pass vacuously, the no-API fallback ranks a different metric, and the client shortlist labels export headroom as 'Demand headroom'. Sprint 6 exists to clear this before anything goes in front of a client."
+];
+
+const DECISIONS=[
+ {id:"budget",t:"Infrastructure budget and hosting",d:"Approve a costed range so the migration can execute. Gates sprints 10, 11, 12 and 13.",by:"Needed by 21 Aug to hold the plan"},
+ {id:"packs",t:"Client pack format and sign-off",d:"What a pack contains, its branding, and where Gordon and David's sign-off sits. Gates sprint 14.",by:"Needed by 2 Oct"},
+ {id:"portals",t:"DNO portal accounts and licences",d:"Accounts and licence confirmation for NGED, ENWL and SSEN feeds. Gates sprint 15.",by:"Needed by 14 Aug"},
+ {id:"ownership",t:"Ownership, Scotland and occupier data",d:"Land Registry ownership route, Scotland parcels, the 70+ occupier universe, energy-user data. Gates sprint 16.",by:"Needed by 9 Oct"},
+ {id:"github",t:"GitHub org and access",d:"Transfer from a personal namespace; confirm invites for Mark, Marco and David. Folded into sprint 11.",by:"Any time before 14 Sep"},
+ {id:"apikey",t:"Anthropic key policy and spend cap",d:"Team key with a monthly cap, or per-person keys. AI spend is uncapped today. Folded into sprint 11.",by:"Any time before 14 Sep"}
+];
+
+const S={get(k,d){try{const v=localStorage.getItem("megst_"+k);return v?JSON.parse(v):d}catch(e){return d}},
+         set(k,v){try{localStorage.setItem("megst_"+k,JSON.stringify(v))}catch(e){}}};
+let state=S.get("state",null);
+if(!state){state={};SPRINTS.forEach(s=>{state[s.n]={checks:s.items.map(()=>false),notes:""}});S.set("state",state);}
+SPRINTS.forEach(s=>{if(!state[s.n]||state[s.n].checks.length!==s.items.length)state[s.n]={checks:s.items.map(()=>false),notes:(state[s.n]||{}).notes||""}});
+let decState=S.get("dec",{});
+// Seeded item states, evidenced in git history (refreshed 25 Sep 2026). Applied once per SEED_VERSION
+// on top of whatever this browser already holds, so a user's own ticks are never removed.
+const SEED_VERSION=20;
+const SEED={0:[0],1:[0],2:[0],3:[0],4:[0,1,2,3],5:[0,1,2,3,4,5,6,7],6:[0,1,2,3,4,5,6,7,8],7:[0,1,2,3,4,5,6,7],8:[0,1,2,3,4,5,6,7,8],9:[0,1,2,3,4,5,6,7,8,9,10,11],10:[0,1,2,3,4,5,6,7,8,9,10],11:[11],16:[1],18:[0,1,2,3,4,5,6,7,8,9,10,11,12,14],M1:[0,1,2,3,4,5],M2:[0,1,2,3,4,5],M3:[0,1,2,3],M4:[2],H1:[0,1,2,4,5],H4:[1],A1:[0,1,2,3,4,5,6,7,8],A2:[1,2,3,5,6,7,8]};
+const SEED_DEC={github:true};
+const STATUS_NOTE={
+ 9:"Closed 13 Oct 2026. Ten items shipped in August; the last two built 13 Oct: OS Terrain 50 as elevation, slope and aspect rasters with a slope factor for solar in the ranked search and a Terrain row in every assessment (item 5), and the full-resolution designation re-ingest with the simplified browser geometry held to screening by a hygiene test (item 10); the flood-defence asset table the August batch never created is loaded. Not done, recorded: Scotland's nature designations stay simplified until a NatureScot fetch.",
+ A2:"Built 13 Oct 2026 ahead of the calendar: SCORING_RULES.md, the one headroom definition (db/headroom_defs.py), live headroom in every profile, onshore wind, the review rules in code, the latency baseline re-measured, the large-response list, the popups escaped, invalid geometries repaired. Open: the two reviewer sign-offs, the validation-site re-run (coordinates) and the real-engagement plausibility run (dump).",
+ A1:"Started and built 12 Oct 2026, pulled ahead of A0: the measured database (78.1 GB, 140 tables, 19 views), table_registry, the generated data dictionary, the extended hygiene tests in CI, the corrected records, the legacy-file reconciliation, the credentials register and the rebuild runbook tested on a scratch database. Left: the one-hour domain read of the classification and a second person's check of the dictionary.",
+ H2:"Started 19 Oct 2026, the day Jacob gained access to the firm's Supabase and Vercel. Day one of the proof week, from the laptop through the session pooler (db/hosted_proofs.py, record workstreams/HOSTED_PROOFS_2026-10-19.md): the project is in London on PostgreSQL 17.11 with PostGIS 3.3.7; the raster proof passed (a raster value round-trips), so decision 4 is settled and the database stays on Supabase; PostGIS was placed in public so the laptop dump restores as rehearsed; meg_ro exists with a password held in the registry and verified through the pooler. Next: the restore of the 14 Oct dump (44 GB, coming back from OneDrive where the backup job had marked it cloud-only), the changes since then re-applied, the parity check and the slow-query timings on Large. Vercel: the repository import and environment variables are Jacob's next dashboard task.",
+ H4:"Started on the laptop 15 Oct 2026 while the hosting invites are awaited (Jacob with Claude Code). Four DNO export headroom sets refetched from their portals (SPEN, UKPN, NPG unchanged; ENWL re-sourced from the portal heat maps), which produced the first real capacity-change diff and exposed a key defect: ENWL's portal writes the voltage as 11.0 where the old workbook wrote 11, so every ENWL row changed key and 211 unchanged substations read as appeared and disappeared. The key now normalises the voltage and the stored keys were renormalised; the diff reads 160 real ENWL changes and nothing elsewhere. Watchman is built and wired: after a refetch it reads the changes within 10 km of every watched site, new planning applications since the site was last reviewed and planned works within 5 km, writes nothing for a quiet site, and for the rest writes an alert whose facts are code and whose note is phrased by the router-tier model and cross-checked figure by figure (about $0.0002 a note). Alerts show on the Monitoring page with an Acknowledge button. The nightly workflow, per-user parameters, the morning check, the weekly researcher and the Teams line wait for the host.",
+ M4:"Started 15 Oct 2026 (Jacob with Claude Code). The site assessment now runs server-side (db/assessment.py): one call composes the Assess panel's whole report from the database and applies the report's own verdict rule, with the thresholds, mitigation confidences and labels pinned to the app's JavaScript by a test so the browser and the tool cannot drift. Exposed as POST /assess and as the registry tool meg_assess_site (through the M3 guard). Open: the QGIS plugin (QGIS is not on the laptop), the recorded Claude Code walk-through (waits for the desktop app to restart its stdio server), GeoPackage export.",
+ M3:"Built 15 Oct 2026 bar the tunnel (Jacob with Claude Code), while the hosting invites are awaited. The HTTP plug at /mcp now refuses any call without a bearer token the firm issued (tokens with read, write and sql scopes in MEG_MCP_TOKENS; full OAuth with discovery waits on the authorization server H3 brings); every tool call on every transport goes through one guard that checks the scope, applies a per-client rate limit, cuts instruction-like text from the result and writes a row to the audit log (GET /mcp-audit lists it); the first write tool, meg_watch_site, writes nothing until a confirmation token bound to the caller and the exact arguments comes back within ten minutes, and the audit row records who confirmed; the AI routes carry a per-address limit too. Open: the secure tunnel for named colleagues (needs a Cloudflare Tunnel or Tailscale account and a decision on which).",
+ H1:"Started 15 Oct 2026, the day after Mark's go-ahead for the hosting track was relayed (Jacob with Claude Code). Built without an account: the Vercel layout (index.py entrypoint, pyproject.toml runtime manifest, vercel.json with London, a 300 s cap and the bundle exclusions, scripts/build_public.py writing the CDN directory with the API's own allowlist: 50 files, 224 MB, 14 over the 4.5 MB function cap and CDN-served); the Supabase migrations generated from the A1 baseline by db/make_migrations.py with a drift check in CI; the database-side caches (materialised views for the smart-meter choropleth, a PlanIt cache table) so a serverless function needs no memory; the secrets homes and the git-history position in SECRETS_AND_ROTATION.md; LICENSE; tests/test_hosting_layout.py. Not yet: the Storage move of the oversized files (needs the bucket) and branch protection (needs the GitHub Team plan). The accounts (Supabase Pro in London, Vercel Pro, GitHub Team), the DNS and Entra requests to IT, and the proof week are listed in workstreams/HOSTING_PROOF_WEEK.md; the builder never creates accounts.",
+ M2:"Built 14 Oct 2026 ahead of the calendar (Jacob with Claude Code), under the rule that usage cost must be sustainable: the lowest cost at which the agent functions optimally and answers accurately, measured rather than assumed. Model decision (QUERY_MODEL.md section 11): answers on Sonnet 5.5, routing on Haiku 5.5, about 2.5 cents a question; Haiku 5.5 was rejected for the answer phase because it placed the 600 MW Gate 2 line at the wrong Neilston site. Adversarial check day done 15 Oct (prompt injection through planning text and place names: the cross-check had counted figures inside injected text as known; db/untrusted.py now cuts instruction-like spans from every tool result before the model sees them and the answer discloses the cut; both live vectors refused). Gate still open on one thing: Mark's recorded review of the 12 core questions (workstreams/review_packs/MEG_ANSWERS_partner_review_2026-10-14.docx). Hosting track: Mark's go-ahead relayed 14 Oct; H1 starts 15 Oct. Built: the one loop runs on the Anthropic SDK's Tool Runner over the registry (db/ai.py run_tool_loop keeps the per-round cost, steps, citations with retrieval dates, the rolling cache mark and the pause_turn restart); conversation history (12 turns, disclosed) and web citations carried; confirm chips before any state change (Sprint 18, re-verified); cost and audit on every call with a spend notification (MEG_AI_SPEND_ALERT_USD) and cost per answered question on /ai/usage; four agent definitions in db/agent_defs.py (Meg agent, Review agent, Watchman, Researcher) that the live code reads its models from; a web-query guard so a client or engagement label never enters a web search unflagged; the review phrasing call made optional (review:false on /find-sites and the find tool). The review and brief calls moved to Haiku 5.5 on a like-for-like live check (a sixth and an eighth of the cost, same extraction). Model trial on all 20 golden questions through the new loop, five configurations: Opus 4.8 $0.075 per answered question at 15.9 s p50, Sonnet 5.5 $0.032 at 8.9 s, Haiku 5.5 $0.005 at 6.9 s with the old router; three defects the trial exposed (a plan that ran one of two named sites, a negative figure, a Gate token and a voltage misread by the cross-check, a refusal counted as a forbidden word) fixed; the deciding re-run with the Haiku 5.5 router: Sonnet 5.5 $0.025 at 8.5 s with every figure right, Haiku 5.5 $0.0015 at 6.9 s with one misattributed site.",
+ M1:"Closed 14 Oct 2026, ahead of the calendar: db/tools.py (13 read tools), mounted at /mcp and over stdio, registered in Claude Desktop and Claude Code, in-app definitions generated from the registry, a schema and an output-contract test per tool, strict find tools, and the Claude Code evaluation record: the client answered the twenty golden questions with the right route every time and, after three defects the run exposed were fixed the same day, every answer supported (workstreams/MCP_EVAL_2026-10-14_claude-code.md).",
+ M2:"Blocked on Anthropic account credit, not on hosting.",
+ 18:"Track M begins here (M1 registry and local MCP started 12 Oct). Built 12 Oct 2026 by Jacob with Claude Code: items 1 to 13 and 15 shipped and verified on the live laptop database (tier 0 and the Playwright card flow pass with the model stubbed). Item 14 is blocked: the Anthropic account has no credit, so the live router accuracy run, the latency gate, the Sonnet 5 trial and the partner review wait on credit being added. Reference: workstreams/QUERY_MODEL.md; design: workstreams/ADHOC_QUERY_SPRINT_18_DESIGN.md.",
+ 17:"Defined 25 Sep 2026 by an agent-team design, adversarially verified; decisions taken by the partner on 28 Sep 2026; assigned to Jacob for 28 Sep to 9 Oct. Items carry acceptance tests in workstreams/EXERCISE_SPRINT_17_DESIGN.md.",
+ 5:"Closed 31 Jul 2026. Built by Mark (435022b); gate closed on the live database by Jacob (965ca1a).",
+ 6:"Closed 3 Aug 2026 (684402a).",
+ 7:"Closed 13 Oct 2026. NESO TEC layer and the seven designation tables were delivered in July (a0cacc8); the six open items were built 12 to 13 Oct on the DB path: /parcel-tile with the app fallback, Welsh and Scottish listed buildings in v_listed through 25 m buffers, attributed listed points (c_listed_pts, 381,768, with a viewport endpoint), the full NGED and SSEN substation sets by viewport, /gas-at in the assessment report, and db/verify_static_layers.py keeping the static exports in step (ROADMAP.md Sprint 7).",
+ 8:"Closed 11 Aug 2026, a week early, all nine items (7cab915).",
+ 9:"Claimed 11 Aug 2026; ten of twelve items delivered by 17 Aug (REPD, OS Open Roads, NaFRA2 flood extensions, peat, detailed ALC, landfill, water resources, PHI, catalogue rows, MCS). No commit found for OS Terrain 50 and slope or the full-resolution designation re-ingest. Not formally closed.",
+ 10:"Track H (H1/H2 in workstreams/AGENTIC_MEG_PROGRAMME.md section 3a). Started 13 Oct 2026 on the items that need no host: the costed recommendation (item 1, the stack review and the decision paper workstreams/SPRINT10_DECISIONS.md), no host literal in code or app (items 4 and 5), the pooled connection on the API lifespan (item 6), the ordered runbook (item 9, from A1), a missing data repository is an error with MEG_DATA_REPO as the override (item 10), the secrets and rotation procedure (item 11), and the development file server replaced by the API serving the app at /app with a cache policy (item 7); a timed policy dump ran the same day for item 8. Item 2 decided by Mark on 13 Oct 2026: London for both services, with the residency commitment recorded in ROADMAP.md's decision register (the DPA signatory still to be named). Item 3 decided by Mark on 13 Oct 2026: meg.su-llp.com, Vercel-issued TLS, packs in a private Supabase Storage bucket behind signed URLs and the deliverable register (ROADMAP.md decision 18). Item 8 done 13 Oct 2026: dump and restore chosen, the policy dump measured (43.99 GB in 112 minutes) and the restore rehearsed into a scratch database (36 minutes for 48 GB, zero errors, parity identical bar the deliberate parcels exclusion; workstreams/RESTORE_REHEARSAL_2026-10-13.md). All eleven items are done on the laptop; the gate itself needs the hosted accounts. Gated on the hosting budget decision; the stack review Mark asked for was written 13 Oct 2026 (workstreams/HOSTING_STACK_REVIEW.md): Supabase, GitHub and Vercel are suitable at about $160 to $300 a month, conditional on proving the raster extension on a free Supabase project and running the slow queries on Large and XL, with Azure Flexible Server the named fallback. Two disk-full incidents on the laptop database in August are the standing case for it. Six fetch scripts were repointed to the consolidated data repository on 18 Sep (656348d), half of item 9.",
+ 11:"Track H (H3). Not started; depends on Sprint 10. Repo transferred to the SustainabilityUnlimited org on 18 Sep (3a95c17); collaborator invites not verified.",
+ 12:"Track H (H3). Not started; depends on Sprint 10.",
+ 13:"Track H (H4). Cannot start without the host Sprint 10 provides; its three AI items were delivered by Sprint 18 and Track M carries the agent (M2).",
+ 14:"Track H (H5/H6). Not started; gated on the pack-format decision.",
+ 15:"Not started; gated on NGED, ENWL and SSEN portal accounts. SSEN token still awaited.",
+ 16:"Partly pulled forward: Scotland title parcels (all 33 RoS counties) loaded and on the map, Hutton agricultural land, HES heritage and SEPA flood loaded 19 to 24 Aug. NPF4 peatland, wild land and national scenic areas not loaded; ownership route undecided."
+};
+if(S.get("seedv",0)<SEED_VERSION){
+  Object.keys(SEED).forEach(n=>{if(state[n])SEED[n].forEach(i=>{if(i<state[n].checks.length)state[n].checks[i]=true})});
+  Object.assign(decState,SEED_DEC);
+  S.set("state",state);S.set("dec",decState);S.set("seedv",SEED_VERSION);
+}
+
+function esc(x){return String(x==null?"":x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function toast(m){const t=document.createElement("div");t.className="toast";t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2800)}
+function fmt(d){return new Date(d).toLocaleDateString("en-GB",{day:"numeric",month:"short"})}
+// Sprints added on 12 Oct 2026 when packaging Meg as an MCP server became a project goal: the
+// shared prerequisites (A0 to A2), Track M (the MCP track, runs on the laptop) and Track H (needs
+// the hosting budget). Shown as a tag so the original numbered sprints read apart from them.
+function trackTag(s){
+  if(s.ws==='Track M') return '<span class="pill track m" title="Added 12 Oct 2026 for the MCP goal: runs on the laptop, no host needed">MCP track</span>';
+  if(s.ws==='Track H') return '<span class="pill track h" title="Added 12 Oct 2026 for the MCP goal: needs the hosting budget">Hosting track</span>';
+  if(s.ws==='programme') return '<span class="pill track a" title="Added 12 Oct 2026 for the MCP goal: shared prerequisite of both tracks">MCP prerequisite</span>';
+  return '';
+}
+function pct(s){const c=state[s.n].checks;return c.length?Math.round(100*c.filter(Boolean).length/c.length):0}
+// The sprint being worked now and the one after it, set by hand with each update (the calendar
+// dates slid when sprints ran ahead of it, so "current" is a statement, not a date test).
+// alsoOpen: sprints with work in progress alongside, shown as a line of chips.
+const NOW={current:"H2",next:"H3",alsoOpen:["M4","H4","H1"],asOf:"19 Oct 2026"};
+function sprintByN(n){return SPRINTS.find(s=>s.n===n)}
+function nowCard(s,kind){
+  const p=pct(s), st=sprintStatus(s), note=STATUS_NOTE[s.n]||"";
+  const items=s.items.map((it,i)=>`<div class="chk ${state[s.n].checks[i]?"done":""}"><span class="box">${state[s.n].checks[i]?"&#10003;":""}</span><label>${esc(it)}</label></div>`).join("");
+  return `<div class="nowcard ${kind}">
+    <div class="tag">${kind==="next"?"Next sprint":"Current sprint"} · as of ${esc(NOW.asOf)}</div>
+    <div class="big">${s.n} · ${esc(s.name)}</div>
+    <div class="meta">${esc(s.ws)} · ${s.items.length} deliverables · ${p}% done · <span class="pill ${st.cls}">${st.label}</span></div>
+    ${kind==="next"?"":`<div class="bar"><i style="width:${p}%"></i></div>`}
+    ${kind==="next"&&s.dep?`<div class="dep"><b>Starts when.</b> ${esc(s.dep)}</div>`:""}
+    <div class="gate"><b>Gate.</b> ${esc(s.gate)}</div>
+    ${kind!=="next"&&note?`<div class="dep"><b>Where it stands.</b> ${esc(note.length>420?note.slice(0,420).replace(/\s\S*$/,"")+" ...":note)}</div>`:""}
+    <div class="micro">Deliverables</div>${items}
+  </div>`;
+}
+function renderNow(){
+  const cur=sprintByN(NOW.current), nxt=sprintByN(NOW.next);
+  const el=document.getElementById("now"); if(!el||!cur||!nxt)return;
+  el.innerHTML=nowCard(cur,"current")+nowCard(nxt,"next");
+  const also=(NOW.alsoOpen||[]).map(sprintByN).filter(Boolean).map(s=>`<span class="pill ${sprintStatus(s).cls}" style="margin-right:6px">${s.n} ${esc(s.name)} · ${pct(s)}%</span>`).join("");
+  document.getElementById("also").innerHTML=also?`<b>Also in progress:</b> ${also}`:"";
+}
+const today=new Date(new Date().toDateString());
+function sprintStatus(s){
+  const p=pct(s), st=new Date(s.start), en=new Date(s.end);
+  if(p===100)return{label:"Complete",cls:"green",num:"done"};
+  if(typeof NOW!=="undefined"&&s.n===NOW.current)return{label:"In progress · "+p+"%",cls:"amber",num:"current"};   // the stated current sprint, whatever the calendar says
+  if(s.gated&&!decState[s.gated])return{label:"Decision needed",cls:"red",num:"gated"};
+  if(today<st)return{label:"Not started",cls:"grey",num:""};
+  if(today>en)return{label:"Overdue",cls:"red",num:"current"};
+  return{label:(p?"In progress · "+p+"%":"This sprint"),cls:"amber",num:"current"};
+}
+function render(){
+  let doneN=0,items=0,done=0,worst="green";
+  const rank={green:0,grey:0,amber:1,red:2};
+  document.getElementById("sprints").innerHTML=SPRINTS.map(s=>{
+    const st=sprintStatus(s),p=pct(s);
+    if(p===100)doneN++;
+    items+=s.items.length;done+=state[s.n].checks.filter(Boolean).length;
+    if(rank[st.cls]>rank[worst])worst=st.cls;
+    const open=S.get("open",{})[s.n];
+    return `<div class="sprint" id="sp-${s.n}">
+      <div class="shead" onclick="togg('${s.n}')">
+        <div class="snum ${st.num}">${s.n}</div>
+        <div class="t"><div class="nm">Sprint ${s.n} · ${esc(s.name)}</div>
+        <div class="dt">${fmt(s.start)} to ${fmt(s.end)} · ${esc(s.ws)} · ${s.items.length} items</div></div>
+        <div class="bar"><i style="width:${p}%"></i></div>
+        ${trackTag(s)}
+        <span class="pill ${st.cls}">${st.label}</span>
+      </div>
+      <div class="sbody ${open?"open":""}" id="sb-${s.n}">
+        ${s.dep?`<div class="dep"><b>Sequencing.</b> ${esc(s.dep)}</div>`:""}
+        <div class="gate"><b>Gate.</b> ${esc(s.gate)}</div>
+        ${STATUS_NOTE[s.n]?`<div class="dep"><b>Status.</b> ${esc(STATUS_NOTE[s.n])}</div>`:""}
+        <div class="micro">Deliverables</div>
+        ${s.items.map((it,i)=>`<div class="chk ${state[s.n].checks[i]?"done":""}">
+          <input type="checkbox" id="c-${s.n}-${i}" ${state[s.n].checks[i]?"checked":""} onchange="chk('${s.n}',${i})">
+          <label for="c-${s.n}-${i}">${esc(it)}</label></div>`).join("")}
+        <div class="micro">Notes</div>
+        <textarea class="notes" placeholder="Owner, blockers, links..." onchange="note('${s.n}',this.value)">${esc(state[s.n].notes)}</textarea>
+      </div></div>`;
+  }).join("");
+  document.getElementById("risks").innerHTML=RISKS.map(r=>`<div class="risk">${r}</div>`).join("");
+  document.getElementById("decisions").innerHTML=DECISIONS.map(d=>`
+    <div class="dec"><input type="checkbox" id="d-${d.id}" ${decState[d.id]?"checked":""} onchange="decChk('${d.id}')">
+    <label for="d-${d.id}"><b>${esc(d.t)}</b><span class="who">${esc(d.d)}</span>${decState[d.id]?"":`<span class="by">${esc(d.by)}</span>`}</label></div>`).join("");
+  const openBlk=DECISIONS.filter(d=>!decState[d.id]).length;
+  document.getElementById("k-done").textContent=doneN+"/"+SPRINTS.length;
+  document.getElementById("k-items").textContent=done+"/"+items;
+  const rag=openBlk>=4?"Red":openBlk>0?"Amber":(worst==="red"?"Red":worst==="amber"?"Amber":"Green");
+  const r=document.getElementById("k-rag");r.textContent=rag;
+  r.style.color=rag==="Green"?"#0F6E56":rag==="Amber"?"#854F0B":"#993536";
+  renderGantt();
+  renderNow();
+}
+// TV mode: open with #tv (or ?tv=1). Larger type, editing controls hidden, the current sprint
+// expanded, and the page reloads itself every ten minutes so the screen follows each republish.
+(function(){
+  const tv=/(^|[#?&])tv(=1)?($|&)/.test(location.hash)||/[?&]tv(=1)?($|&)/.test(location.search);
+  if(!tv)return;
+  document.body.classList.add("tv");
+  const o=S.get("open",{}); o[NOW.current]=true; S.set("open",o);
+  setTimeout(function(){location.reload();},10*60*1000);
+})();
+const DAY=86400000,T0=new Date("2026-07-06"),T1=new Date("2027-04-03");
+function renderGantt(){
+  const total=T1-T0;
+  const colors=["#0F6E56","#1D9E75","#185FA5","#4B7F52","#6E4FA8","#993536","#B0603A","#8A6D1F","#2F6F7A","#C8891B","#7A3E6B","#3F6B4A"];
+  const ticks=[];const td=new Date(T0);
+  for(;td<=T1;td.setDate(td.getDate()+28))ticks.push({pct:100*(td-T0)/total,label:td.toLocaleDateString("en-GB",{day:"numeric",month:"short"})});
+  const tickLines=ticks.map(t=>`<div class="tick" style="left:${t.pct}%"></div>`).join("");
+  let html=`<div class="grow"><div class="glabel"></div><div style="position:relative;height:14px">`+
+    ticks.map(t=>`<div style="position:absolute;left:${t.pct}%;transform:translateX(-50%);font-size:9.5px;font-weight:700;color:var(--ink-3);white-space:nowrap">${t.label}</div>`).join("")+`</div></div>`;
+  SPRINTS.forEach((s,i)=>{
+    const l=100*(new Date(s.start)-T0)/total,w=Math.max(3,100*(new Date(s.end)-new Date(s.start)+DAY)/total);
+    const blocked=s.gated&&!decState[s.gated];
+    const tg = s.ws==='Track M'?' [MCP]':(s.ws==='Track H'?' [hosting]':(s.ws==='programme'?' [prereq]':''));
+    html+=`<div class="grow"><div class="glabel">S${s.n} · ${esc(s.name)}${tg}</div>
+      <div class="gtrack">${tickLines}<div class="gbar ${blocked?"gated":""}" style="left:${l}%;width:${w}%;background:${colors[i%colors.length]}" title="${esc(s.name)}">${pct(s)?pct(s)+"%":(blocked?"gated":"")}</div></div></div>`;
+  });
+  document.getElementById("gantt").innerHTML=html;
+  const tp=100*(today-T0)/total;
+  if(tp>=0&&tp<=100){
+    document.querySelectorAll(".gtrack").forEach(g=>{const d=document.createElement("div");d.className="today";d.style.left=tp+"%";g.appendChild(d);});
+    const f=document.querySelector(".gtrack");
+    if(f){const p=document.createElement("div");p.className="today-pill";p.style.left=tp+"%";p.textContent="Today";f.appendChild(p);}
+  }
+}
+function togg(n){const o=S.get("open",{});o[n]=!o[n];S.set("open",o);const el=document.getElementById("sb-"+n);if(el)el.classList.toggle("open");}
+function chk(n,i){state[n].checks[i]=!state[n].checks[i];S.set("state",state);render();}
+function note(n,v){state[n].notes=v;S.set("state",state);toast("Note saved");}
+function decChk(id){decState[id]=!decState[id];S.set("dec",decState);render();}
+function copyReport(){
+  const t=new Date().toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+  let md="**Project Meg build - status "+t+"**\n\n";
+  let items=0,done=0;
+  SPRINTS.forEach(s=>{items+=s.items.length;done+=state[s.n].checks.filter(Boolean).length;
+    md+="Sprint "+s.n+" ("+s.name+", "+fmt(s.start)+" to "+fmt(s.end)+"): "+sprintStatus(s).label+", "+pct(s)+"%."+(state[s.n].notes?" Note: "+state[s.n].notes:"")+"\n";});
+  md+="\nOverall: "+done+" of "+items+" items across "+SPRINTS.length+" sprints. Target usable platform 16 Oct 2026 (core), data expansion to 30 Oct.\n";
+  const ob=DECISIONS.filter(d=>!decState[d.id]);
+  md+="Decisions outstanding: "+(ob.length?ob.map(d=>d.t+" ("+d.by+")").join("; "):"none")+".\n";
+  navigator.clipboard.writeText(md).then(()=>toast("Status report copied")).catch(()=>toast("Copy blocked by the browser"));
+}
+render();
+</script>
+</body>
+</html>
