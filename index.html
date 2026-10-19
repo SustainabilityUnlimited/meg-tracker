@@ -40,6 +40,7 @@ body{font-family:'Inter',system-ui,-apple-system,"Segoe UI",sans-serif;backgroun
 .gtrack{position:relative;height:17px;background:#EBE8DF;border-radius:5px}
 .gbar{position:absolute;top:0;height:17px;border-radius:5px;font-size:9.5px;font-weight:700;color:#fff;display:flex;align-items:center;padding:0 6px;overflow:hidden;white-space:nowrap;z-index:2}
 .gbar.gated{opacity:.85;border:1px dashed rgba(255,255,255,.75)}
+.gbar.open{border:2px dashed rgba(255,255,255,.8);background-image:linear-gradient(90deg,rgba(255,255,255,0) 70%,rgba(255,255,255,.35))}
 .tick{position:absolute;top:-3px;bottom:-3px;width:1px;background:#dcd8cc;z-index:1}
 .today{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--red);z-index:3}
 .today-pill{position:absolute;top:-19px;transform:translateX(-50%);background:var(--red);color:#fff;font-size:9px;font-weight:700;padding:1px 6px;border-radius:999px;z-index:3}
@@ -56,7 +57,7 @@ body{font-family:'Inter',system-ui,-apple-system,"Segoe UI",sans-serif;backgroun
 .pill{font-size:11px;font-weight:600;padding:3px 8px;border-radius:999px;white-space:nowrap}
 .pill.red{background:#FCEBEB;color:#993536}.pill.amber{background:#FAEEDA;color:#854F0B}
 .pill.green{background:#E1F5EE;color:#0F6E56}.pill.grey{background:#EFEEE9;color:var(--ink-3)}
-.pill.track{margin-right:6px}.pill.track.m{background:#E8E3F6;color:#4E2E8E}.pill.track.h{background:#E3EEF8;color:#1E4E8C}.pill.track.a{background:#F1EBDD;color:#6B4E12}
+.pill.track{margin-right:6px}.pill.track.s{background:#DDEFF1;color:#1F5A63}.pill.track.m{background:#E8E3F6;color:#4E2E8E}.pill.track.h{background:#E3EEF8;color:#1E4E8C}.pill.track.a{background:#F1EBDD;color:#6B4E12}
 .bar{height:6px;background:#EBE8DF;border-radius:4px;width:92px;overflow:hidden;flex-shrink:0}
 .bar i{display:block;height:100%;background:var(--green);border-radius:4px}
 .sbody{border-top:1px solid var(--line);padding:14px 16px;display:none;background:#FBFBF8}
@@ -158,9 +159,9 @@ body.tv .brand,body.tv .footer,body.tv .btn{display:none}
 .tvs .bar{height:8px;background:#244840;border-radius:4px;overflow:hidden;margin-top:8px}
 .tvs .bar i{display:block;height:100%;background:#4fd1a5}
 .tvs.cur{outline:2px solid #f0b24f}
-body.tv .glabel{font-size:13px;color:var(--ink)}
-body.tv .grow{grid-template-columns:250px 1fr;margin-bottom:4px}
-body.tv .gbar{height:18px;font-size:12px}
+body.tv .glabel{font-size:12px;color:var(--ink)}
+body.tv .grow{grid-template-columns:250px 1fr;margin-bottom:2px}
+body.tv .gbar,body.tv .gtrack{height:14px;font-size:11px}
 .tvscreen{display:none}.tvscreen.on{display:block}
 .tvdots{display:flex;gap:6px;justify-content:center;margin:6px 0 0}
 .tvdots i{width:10px;height:10px;border-radius:5px;background:#244840}.tvdots i.on{background:#4fd1a5}
@@ -179,46 +180,50 @@ body.tv .gbar{height:18px;font-size:12px}
 .tvw .bar i{display:block;height:100%;background:var(--green)}
 .tvw.this .bar i{background:var(--gold)}.tvw.next .bar i{background:#4E2E8E}
 .tvw .head{font-size:19px;color:var(--ink-2);margin-bottom:8px}
-.tvw .it{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--line);font-size:21px;line-height:1.3}
+.tvw .it{display:flex;gap:12px;align-items:flex-start;padding:6px 0;border-top:1px solid var(--line);font-size:20px;line-height:1.3}
 .tvw .st{width:104px;font-size:13px;padding:6px 0;margin-top:3px;border-radius:6px}
 .tvstale{background:#17302a;border:1px solid #f0b24f;color:#f0b24f;border-radius:10px;padding:8px 12px;font-size:14px;margin-bottom:10px}
 /* Screen 0: the business overview (the Empiricis one-page brief) with completion rings on the platforms. */
 #tvdash.ov0 .tvgrid{display:none}
-/* Screen 0, the business overview, in the same idiom as the other screens: dark tiles, white cards
-   with a coloured top bar, the tag and type sizes of the week cards, lists folded into chip strips. */
+/* Screen 0, the business overview: the three platforms and their live progress first, the brief as
+   three short cards and one strip, in the idiom of the other screens. */
 .ov{display:grid;gap:14px;grid-template-columns:repeat(3,1fr)}
 .ovhero{grid-column:1/-1;display:grid;grid-template-columns:2.2fr repeat(4,1fr);gap:14px}
 .ovhero .lead{background:#17302a;border:1px solid #244840;border-radius:16px;padding:14px 20px}
 .ovhero .lead .k{font-size:13px;text-transform:uppercase;letter-spacing:1.4px;font-weight:700;color:#8fc4b4}
 .ovhero .lead .t{font-size:30px;font-weight:800;color:#fff;line-height:1.1;margin-top:4px}
 .ovhero .lead .u{font-size:15px;color:#c9ddd5;margin-top:6px}
-.ovc{background:#fff;color:var(--ink);border-radius:14px;padding:14px 18px 10px;border-top:7px solid var(--green)}
+.ovc{background:#fff;color:var(--ink);border-radius:14px;padding:16px 20px 12px;border-top:7px solid var(--green)}
 .ovc.b{border-top-color:#185FA5}.ovc.p{border-top-color:#6E4FA8}.ovc.g{border-top-color:var(--gold)}.ovc.r{border-top-color:var(--red)}
 .ovc .tag{font-size:13px;text-transform:uppercase;letter-spacing:1.4px;font-weight:700;color:var(--ink-3)}
-.ovc .big{font-size:26px;font-weight:800;line-height:1.1;margin:2px 0 8px}
-.ovc .it{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-top:1px solid var(--line);font-size:16px;line-height:1.3}
+.ovc .big{font-size:28px;font-weight:800;line-height:1.1;margin:2px 0 8px}
+.ovc .it{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-top:1px solid var(--line);font-size:18px;line-height:1.3}
 .ovc .it b{color:var(--ink)}
 .ovc .it .tick{color:var(--green);font-weight:800;flex:none}
-.ovc .call{margin-top:8px;font-size:15px;font-weight:700;color:var(--red)}
-.ovpl{display:grid;grid-template-columns:1fr 112px;gap:14px;align-items:center}
-.ovpl .d{font-size:15px;color:var(--ink-2);margin:4px 0 6px;line-height:1.3}
-.ovpl .m{font-size:13px;color:var(--ink-3)}
-.ovpl .bar{height:12px;background:var(--line);border-radius:6px;overflow:hidden;margin-top:8px}
-.ovpl .bar i{display:block;height:100%;background:var(--green)}
-.ovc.b .ovpl .bar i{background:#185FA5}.ovc.p .ovpl .bar i{background:#6E4FA8}
-.ring{width:112px;height:112px;position:relative;color:var(--green)}
+.ovc .call{margin-top:10px;font-size:17px;font-weight:700;color:var(--red)}
+.ovc .steps{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin-top:4px}
+.ovc .steps div{font-size:17px;padding:5px 0;border-top:1px solid var(--line)}
+.ovc .steps div b{color:var(--gold);margin-right:6px}
+.ovpl{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center}
+.ovpl .d{font-size:16px;color:var(--ink-2);margin:2px 0 8px;line-height:1.3}
+.ovpl .f{display:flex;gap:8px;align-items:baseline;padding:5px 0;border-top:1px solid var(--line);font-size:17px}
+.ovpl .f b{font-size:22px;font-weight:800;color:var(--ink)}
+.ovpl .f span{color:var(--ink-2)}
+.ovpl .now{font-size:15px;color:var(--ink-3);padding-top:6px;border-top:1px solid var(--line)}
+.ovpl .now b{color:var(--ink-2)}
+.ring{width:150px;height:150px;position:relative;color:var(--green)}
 .ovc.b .ring{color:#185FA5}.ovc.p .ring{color:#6E4FA8}
-.ring svg{width:112px;height:112px;transform:rotate(-90deg)}
-.ring .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:30px;line-height:1;color:var(--ink)}
-.ring .c small{font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:700;color:var(--ink-3);margin-top:3px}
-.ring.na .c{font-size:12px;text-align:center;color:var(--ink-3);padding:0 10px;line-height:1.2}
-.ovstrip{grid-column:1/-1;display:grid;grid-template-columns:170px 1fr;gap:12px;align-items:center;background:#17302a;border:1px solid #244840;border-radius:14px;padding:9px 16px}
+.ring svg{width:150px;height:150px;transform:rotate(-90deg)}
+.ring .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:40px;line-height:1;color:var(--ink)}
+.ring .c small{font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:700;color:var(--ink-3);margin-top:4px}
+.ring.na .c{font-size:14px;text-align:center;color:var(--ink-3);padding:0 14px;line-height:1.2}
+.ovstrip{grid-column:1/-1;display:grid;grid-template-columns:170px 1fr;gap:12px;align-items:center;background:#17302a;border:1px solid #244840;border-radius:14px;padding:10px 16px}
 .ovstrip .l{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;font-weight:700;color:#8fc4b4}
 .ovstrip .chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.ovstrip .chip{background:#0f1f1a;border:1px solid #244840;border-radius:8px;padding:5px 12px;font-size:14px;color:#eef3f0;white-space:nowrap}
+.ovstrip .chip{background:#0f1f1a;border:1px solid #244840;border-radius:8px;padding:6px 14px;font-size:15px;color:#eef3f0;white-space:nowrap}
 .ovstrip .chip b{color:#4fd1a5;margin-right:6px}
-.ovstrip .arrow{color:#4fd1a5;font-size:20px;line-height:1}
-.ovstrip .eq{margin-left:auto;border:1px solid #4fd1a5;border-radius:8px;padding:5px 12px;font-size:12px;letter-spacing:1.4px;text-transform:uppercase;font-weight:700;color:#4fd1a5;white-space:nowrap}
+.ovstrip .arrow{color:#4fd1a5;font-size:22px;line-height:1}
+.ovstrip .eq{margin-left:auto;border:1px solid #4fd1a5;border-radius:8px;padding:6px 14px;font-size:12px;letter-spacing:1.4px;text-transform:uppercase;font-weight:700;color:#4fd1a5;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -235,6 +240,7 @@ body.tv .gbar{height:18px;font-size:12px}
     <div class="kpi"><div class="v" id="k-items">-</div><div class="l">Items complete</div></div>
     <div class="kpi"><div class="v" id="k-rag">-</div><div class="l">Plan RAG</div></div>
     <div class="kpi"><div class="v" id="k-ship">16 Oct</div><div class="l">Target usable platform</div></div>
+    <div class="kpi"><div class="v" id="k-sy">-</div><div class="l" id="k-sy-l">Synapsis items</div></div>
   </div>
 
   <div class="panel">
@@ -549,13 +555,46 @@ const SPRINTS=[
   gate:"A fee earner produces a client-ready pack, a named reviewer signs it, the success criteria are measured, the team is trained, the partner declares Meg in use.",
   dep:"Needs H5 and the pack-format decision (absorbs Sprint 14).",
   items:["The site pack: appraisal report, comparison matrix, dossier, story map with attribution", "Sign-off by the authenticated user; reviewer queue", "Interface quality: responsive, accessible, rewritten Help, brief intake template", "Pilot engagement run end to end on the hosted Meg by someone other than the builder", "Success criteria measured and recorded", "Runbooks and training", "Go or no-go recorded by the partner"]},
+ // Synapsis track (David, 19 Oct 2026): eight SY cards in the Meg card shape, kept apart from Meg's
+ // counters and Gantt band. Dates are the ones in the status lines: closed cards carry a close date
+ // only (start null), open cards a start and no end (end null, `until` says what they run to).
+ {n:"SY1",name:"Sprint F: the stack joins",start:null,end:"2026-10-08",ws:"Synapsis",gated:false,
+  gate:"A site known to Meg can be read by Synapsis through the contract, and a matter shows its stack state on its own tab.",
+  items:["db/158 stack joins (sites, answers, assessments, outbox)","api/stack.ts contract route: per-caller hashed tokens, scopes, an audit row per call","docs/stack/openapi.yaml (contract 1.0)","Stack screens: the overview, Meg, Odin and the client platform page, with a Stack tab on every matter","CRM pipeline labels, target and estimated fees","CLAUDE.md with the seven rules","Decision index D-001 to D-047","Repository privacy gate (no address, real client name or matter reference in any tracked file)","Endpoint manifest and contract test"]},
+ {n:"SY2",name:"Sprint G: a matter from a site, and the client window",start:null,end:"2026-10-09",ws:"Synapsis",gated:false,
+  gate:"A matter opened from a Meg site in one click carries the site identifier, and the client window shows only what a colleague has ticked.",
+  items:["G1 D-028 restated in the decision index","G2 Open a matter on a site row, the New Matter wizard pre-filled (db/159)","G3 outbox noise: the headline-figure sync no longer emits an internal event per answer","G4 /stack/clients screen for a managing partner: the three callers, scopes, revoke and reactivate, replacement token shown once and never stored","G5 Monday pipeline import on production (D-048, 185 opportunities, fees 158,500; never run twice)","D-049 client window: client_visible on deadlines and documents (db/161), contract 1.1, tick boxes on the matter Stack tab"]},
+ {n:"SY3",name:"Sprint H: the 200-file clean-up",start:null,end:"2026-10-09",ws:"Synapsis",gated:false,
+  gate:"No real client name, matter reference or address remains in any tracked file, and the gates recognise the synthetic prefix so the rule cannot regress.",
+  items:["Vocabulary map held outside the repository","Scripted replacement across the allow-listed files","Probe runner reads real targets from a local untracked file","Development mock data fictionalised, narratives included","Allow-list rewritten so that it only shrinks"]},
+ {n:"SY4",name:"Sprint I: retention, legal hold, deletion and subject access",start:"2026-10-12",end:null,until:"the retention figures (C9)",ws:"Synapsis",gated:false,
+  gate:"A legal hold stops deletion, retention runs by the decided periods, and a subject-access export is complete for a named person.",
+  items:["db/163 retention, legal hold and deletion","api/retention.ts and the screens","Subject-access export","D-054 SBOM and licence log with the security contact","Retention periods: decision 9 of the launch decision still to confirm the figures (C9)"]},
+ {n:"SY5",name:"The stack connections: Modo Energy and Microsoft 365 Copilot",start:"2026-10-12",end:null,until:"the Copilot re-publish",ws:"Synapsis",gated:false,
+  gate:"Modo answers a first tool call under the product owner's connection, and the Copilot agent answers identity, deadlines and interface flags for a signed-in colleague.",
+  items:["Modo MCP connection (db/162, the Connect screen)","api/copilot.ts and the agent manifest","Vercel variables for the Copilot door","Package imported in the developer portal and SSO registration bound","Agent published to the product owner alone, pre-installed","First live walk: who am I to Synapsis, deadlines for the fortnight, open interface flags","SSO registration narrowed to the published app (the sideloaded binding broke the agent on 16 October and was reverted; stays Any Teams app in the firm's tenant until the published identifier is read and the rebind tested)","Copilot package rebuilt and re-published with the EMPIRICIS wording (manifests re-spelt 19 October; the published agent keeps the old words until re-published)"]},
+ {n:"SY6",name:"The 12 October owner sitting",start:"2026-10-12",end:"2026-10-12",ws:"Synapsis",gated:false,
+  gate:"Every item of the sitting script proved from a server clock, none estimated.",
+  items:["db/160 to db/163 on production (08:21:06)","D-055, D-056, D-057 taken","Three stack tokens re-issued (08:46:57, 08:53:07, 08:57:59)","Walks: CRM, sales board, the Stack screens and tab ticks, legal hold, the client window, retention, subject access","Copilot steps 6a to 6f (manifest 09:25:54, Vercel variables 10:09:16, package imported 10:15:52, SSO bound 10:17:41)","Walk fixes shipped (Copilot confirmation card, demo navigator behind the showcase switch, Lost and Parked rows merged)"]},
+ {n:"SY7",name:"Horizon to pilot: the launch conditions and the thirteen decisions",start:"2026-10-12",end:null,until:"the pilot start (set the day the cohort is named)",ws:"Synapsis",gated:false,
+  gate:"(D-058) The pilot starts when C4 and C7 are closed and the cohort is named; go on conditions, no partner paper.",
+  items:["Launch decision addendum with the condition lines","C2 outside half: GitHub Actions uptime check (source in docs/harness, pinning test UP-01 to UP-07)","C2 outside half installed by the product owner 19 October 11:12:34 UTC (44e9362; the push credential has no workflow scope by design)","C2: first run from outside Vercel read back (19 October 11:22 UTC: sign-in page 200, status route 200, verdict ok, database ok; schedule at 7 and 37 past each hour)","C4 Vercel: the second administrator accepted (read 12 October 16:19:02 UTC)","C4 GitHub acceptance read at the next sitting (behind GitHub's confirm-access page, the product owner's own session)","C9 reads: tenant data geography UK; Supabase data processing addendum incorporated in the terms","C9 to confirm: ShareFile region (not connected on production), Modo location, retention periods","Day-one AI statement (D-062) and the LEAP read-only rule (D-065) in the four guides and the Settings AI card","LEAP delta haul plan (D-066), pilot matters first","Loader changes before the first delta, built 19 October (8e6b209): run register, every row stamped with its run, known documents gain versions, a compare action that writes nothing, a rehearsal card; 26 new checks","db/164 applied to synapsis-test 19 October 11:04:29 UTC and walked rolled back at 11:06:05","db/164 on production with the product owner's Run click (Run_together_db164_db165_19Oct2026.sql)","The plan's three owner items: the pilot matter list, the LEAP read-only date, the time decision","First delta for the pilot matters (the rehearsal first)","Retained engineer brief (D-063)","Engineer search under way","External security review scope (D-064)","Two quotes","Processor register: P19 Modo, Copilot under P3, P20 Bedrock drafted NOT LIVE with five questions for the data protection adviser (D-061, no spend)","D-067 SU matters from Teams, built 19 October (2241e63): proposal route reads every coded team and writes nothing; the owner's ticks one audit row; the import creates a matter per ticked team once; the /su-teams panel; db/165 written and held; 20 new checks","D-067: Team.ReadBasic.All added to the Synapsis registration and admin consent granted 19 October; db/165 applied to synapsis-test 11:05:32 and walked rolled back","D-067 clicks left: reconnect the Microsoft connection in Settings, db/165 on production, then the proposal ticked and the import run once","D-067 second half: Xero invoice matching for the SU matters (not yet built)","D-068 monthly ceiling figure","D-069 GitHub Team plan once the second administrator has accepted","D-070 second alert recipient: WATCHDOG_ALERT_TO carries the product owner and the second administrator from 19 October 11:13:09 UTC","D-070 rollback rehearsal at the next sitting","D-065 cohort named (the small pilot team) and the measures stated (the 30 per cent floor through the Efficiency Cockpit)","C8 session settings (half)"]},
+ {n:"SY8",name:"The North Star, the brand and the stack rules",start:"2026-10-16",end:null,until:"the pilot start (set the day the cohort is named)",ws:"Synapsis",gated:false,
+  gate:"Every living record uses EMPIRICIS, the decision index carries D-071 to D-073, the lifecycle map lists every console the stack runs on, and each product's consoles have their own people.",
+  items:["North Star carries the vision: problem, six causes, approach, eight steps Power first, three platforms, shared data layer, one app, human judgement, the three-part scoping test","Consoles separate per product (D-071): Meg on its own team and organisation, nobody from Meg in the Synapsis consoles","D-071, D-072 and D-073 committed to the decision index with the console inventory in the lifecycle map (882373a)","EMPIRICIS sweep of the living files and code (cc2c5bd); the Stack route is /stack/empiricis with the old route redirected; dated records untouched by rule","The stack client key: stays 'impiricis' as the database value, marked and pinned by a test, until the numbered migration flips it at a sitting","Journey document: left as a dated record by the D-072 rule","Meg's consoles peopled: the Meg developer as Vercel Member and Supabase Administrator (accepted), the second administrator as Supabase Owner and Vercel Owner (invitation pending 19 October)","Stack readiness copies refreshed from the repository (lifecycle map, decision index, OpenAPI, CLAUDE.md rules)","Reconciliation scoped: which data crosses the shared layer, which platform is the record for each piece, how a change on one side reaches the other"]},
 ];
 
 const RISKS=[
  "<b>Nothing a user creates survives a refresh.</b> The Projects board is one in-memory array and no project table exists. Sprint 5 is first for exactly this reason: the site pack and sign-off gate have nothing to attach to until it lands.",
  "<b>The 23 GB database has no backup, no rehearsed move and no parity check.</b> Parcels alone is 14 GB and 23.7M rows on one synced laptop. Backup tooling is pulled forward into sprint 8, before the migration, because this risk is live now.",
- "<b>Silent wrongness that reads as normal output.</b> Eight constraint tables are empty so six of eight plausibility checks pass vacuously, the no-API fallback ranks a different metric, and the client shortlist labels export headroom as 'Demand headroom'. Sprint 6 exists to clear this before anything goes in front of a client."
+ "<b>Silent wrongness that reads as normal output.</b> Eight constraint tables are empty so six of eight plausibility checks pass vacuously, the no-API fallback ranks a different metric, and the client shortlist labels export headroom as 'Demand headroom'. Sprint 6 exists to clear this before anything goes in front of a client.",
+ "<b>Synapsis: the pilot cohort is not yet named.</b> The pilot date, and the end of SY7 and SY8, is set the day it is (D-065).",
+ "<b>Synapsis: two migrations held.</b> db/164 and db/165 are applied and walked on synapsis-test and wait for the product owner's Run click on production.",
+ "<b>Synapsis: the Microsoft connection not yet re-made.</b> After the Teams consent the connection in Settings must be reconnected so the token carries the new permission, before the SU matters import can run."
 ];
+// Decisions outstanding on the Synapsis side (David, 19 Oct 2026). Listed, not gated: none has a
+// needed-by date until the pilot date exists, and none holds a Meg sprint.
+const SY_DECISIONS=["D-068 monthly ceiling figure","D-069 GitHub plan (Pro on the personal account, or an organisation with Team)","D-065 the pilot cohort and the measures","C9 retention periods","the sitting for the client-key migration"];
 
 const DECISIONS=[
  {id:"budget",t:"Infrastructure budget and hosting",d:"Approve a costed range so the migration can execute. Gates sprints 10, 11, 12 and 13.",by:"Needed by 21 Aug to hold the plan"},
@@ -574,10 +613,18 @@ SPRINTS.forEach(s=>{if(!state[s.n]||state[s.n].checks.length!==s.items.length)st
 let decState=S.get("dec",{});
 // Seeded item states, evidenced in git history (refreshed 25 Sep 2026). Applied once per SEED_VERSION
 // on top of whatever this browser already holds, so a user's own ticks are never removed.
-const SEED_VERSION=20;
-const SEED={0:[0],1:[0],2:[0],3:[0],4:[0,1,2,3],5:[0,1,2,3,4,5,6,7],6:[0,1,2,3,4,5,6,7,8],7:[0,1,2,3,4,5,6,7],8:[0,1,2,3,4,5,6,7,8],9:[0,1,2,3,4,5,6,7,8,9,10,11],10:[0,1,2,3,4,5,6,7,8,9,10],11:[11],16:[1],18:[0,1,2,3,4,5,6,7,8,9,10,11,12,14],M1:[0,1,2,3,4,5],M2:[0,1,2,3,4,5],M3:[0,1,2,3],M4:[2],H1:[0,1,2,4,5],H4:[1],A1:[0,1,2,3,4,5,6,7,8],A2:[1,2,3,5,6,7,8]};
+const SEED_VERSION=21;
+const SEED={0:[0],1:[0],2:[0],3:[0],4:[0,1,2,3],5:[0,1,2,3,4,5,6,7],6:[0,1,2,3,4,5,6,7,8],7:[0,1,2,3,4,5,6,7],8:[0,1,2,3,4,5,6,7,8],9:[0,1,2,3,4,5,6,7,8,9,10,11],10:[0,1,2,3,4,5,6,7,8,9,10],11:[11],16:[1],18:[0,1,2,3,4,5,6,7,8,9,10,11,12,14],M1:[0,1,2,3,4,5],M2:[0,1,2,3,4,5],M3:[0,1,2,3],M4:[2],H1:[0,1,2,4,5],H4:[1],A1:[0,1,2,3,4,5,6,7,8],A2:[1,2,3,5,6,7,8],SY1:[0,1,2,3,4,5,6,7,8],SY2:[0,1,2,3,4,5],SY3:[0,1,2,3,4],SY4:[0,1,2,3],SY5:[0,1,2,3,4,5],SY6:[0,1,2,3,4,5],SY7:[0,1,2,3,4,6,8,9,10,11,15,17,19,20,21,26],SY8:[0,1,2,3,5,6]};
 const SEED_DEC={github:true};
 const STATUS_NOTE={
+ SY1:"Closed 8 October 2026 (e3ac159 READY on Vercel); the production migration db/158 applied with the product owner's Run click. Owner: the product owner. Links: docs/stack/Synapsis_Stack_Lifecycle_Map.md; docs/stack/openapi.yaml.",
+ SY2:"Closed 9 October 2026 on the test environment; the production migrations db/160 to db/163 applied at the 12 October sitting (08:21:06 UTC). The three stack tokens (Meg, Odin, the client platform) were re-issued at that sitting and are held by the product owner.",
+ SY3:"Closed 9 October 2026 (merged in 43f819f with the Modo and Copilot branches); D-050. Residue moved out of the repository for the product owner's decision (detector lists, binary job descriptions, journey screenshots).",
+ SY4:"Built and closed at the 12 October 2026 sitting: db/163 on production 08:21:06 UTC; legal hold walked 09:11:13 and 09:11:25; the product owner's own subject-access pack produced 09:13:27 UTC. D-053 and D-054. The open item is a decision (the retention figures, C9), not a build.",
+ SY5:"Modo connected 12 October 09:02:47 UTC, first tool call 09:04:59 (D-051). Copilot agent published through the admin centre 12 October 11:23:40 UTC (D-052, D-057); first live walk 16 October 13:04 to 13:13 UTC, all three operations answered. Harvey EU is installed for the product owner alone; the Harvey-side switch is his. Open: the SSO registration narrowed to the published app, and the Copilot re-publish with the EMPIRICIS wording.",
+ SY6:"Closed 12 October 2026 10:52 UTC; 43ed442 READY 10:39:48 (walk fixes), dd9f49c (the record) pushed 10:51:49. The product owner present. Pattern for every production change: the product owner copies, the assistant pastes in his Chrome, he presses Run.",
+ SY7:"Thirteen decisions taken by the product owner 12 October 2026 15:15 to 15:30 UTC (D-058 to D-070); position in the launch decision addendum (979583c). 19 October: the two builds the pilot month needed, the LEAP delta loader (8e6b209) and the SU matters from Teams panel (2241e63), merged on main in c75b59c (9,003 checks passed, build and both privacy gates PASS), Vercel READY 10:58:37 UTC. Conditions: C1, C3, C5, C6 met; C7 met as a decision; C2 met on both halves (the outside uptime check installed and proved 19 October); C4 all but met; C8 half; C9 part; C10 and C11 decided. The 16 October blocker (no push credential the cloud sandbox could use) is cleared. What remains is the product owner's clicks and decisions (the 19 October click sheet), the engineer search and quotes, and two builds: the Xero matching and the first delta itself. Ends at the pilot start, set the day the cohort is named (D-065).",
+ SY8:"North Star re-based on the vision infographic 16 October 2026 12:47 UTC and the end state (one application) added; EMPIRICIS confirmed canonical by the product owner 16 October; D-071 to D-073 and the console inventory committed in 882373a; the EMPIRICIS sweep (cc2c5bd) merged on main in c75b59c on 19 October. Meg's own consoles: the Sustainability Unlimited Vercel team and Supabase organisation created 16 October 12:22 UTC; the Meg developer holds both since 19 October. Open: the client-key migration (the one build item), the stack readiness copies, and the reconciliation scoping paper, which is the one joint piece of work with Meg.",
  9:"Closed 13 Oct 2026. Ten items shipped in August; the last two built 13 Oct: OS Terrain 50 as elevation, slope and aspect rasters with a slope factor for solar in the ranked search and a Terrain row in every assessment (item 5), and the full-resolution designation re-ingest with the simplified browser geometry held to screening by a hygiene test (item 10); the flood-defence asset table the August batch never created is loaded. Not done, recorded: Scotland's nature designations stay simplified until a NatureScot fetch.",
  A2:"Built 13 Oct 2026 ahead of the calendar: SCORING_RULES.md, the one headroom definition (db/headroom_defs.py), live headroom in every profile, onshore wind, the review rules in code, the latency baseline re-measured, the large-response list, the popups escaped, invalid geometries repaired. Open: the two reviewer sign-offs, the validation-site re-run (coordinates) and the real-engagement plausibility run (dump).",
  A1:"Started and built 12 Oct 2026, pulled ahead of A0: the measured database (78.1 GB, 140 tables, 19 views), table_registry, the generated data dictionary, the extended hygiene tests in CI, the corrected records, the legacy-file reconciliation, the credentials register and the rebuild runbook tested on a scratch database. Left: the one-hour domain read of the classification and a second person's check of the dictionary.",
@@ -613,6 +660,12 @@ if(S.get("seedv",0)<SEED_VERSION){
 function esc(x){return String(x==null?"":x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function toast(m){const t=document.createElement("div");t.className="toast";t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2800)}
 function fmt(d){return new Date(d).toLocaleDateString("en-GB",{day:"numeric",month:"short"})}
+function dateLine(s){
+  if(s.start&&s.end)return fmt(s.start)+" to "+fmt(s.end);
+  if(!s.start&&s.end)return "closed "+fmt(s.end);
+  if(s.start&&!s.end)return "from "+fmt(s.start)+(s.until?" to "+s.until:", open");
+  return "dates not set";
+}
 // Sprints added on 12 Oct 2026 when packaging Meg as an MCP server became a project goal: the
 // shared prerequisites (A0 to A2), Track M (the MCP track, runs on the laptop) and Track H (needs
 // the hosting budget). Shown as a tag so the original numbered sprints read apart from them.
@@ -620,6 +673,7 @@ function trackTag(s){
   if(s.ws==='Track M') return '<span class="pill track m" title="Added 12 Oct 2026 for the MCP goal: runs on the laptop, no host needed">MCP track</span>';
   if(s.ws==='Track H') return '<span class="pill track h" title="Added 12 Oct 2026 for the MCP goal: needs the hosting budget">Hosting track</span>';
   if(s.ws==='programme') return '<span class="pill track a" title="Added 12 Oct 2026 for the MCP goal: shared prerequisite of both tracks">MCP prerequisite</span>';
+  if(s.ws==='Synapsis') return '<span class="pill track s" title="The Synapsis track (David, 19 Oct 2026): its own counters and Gantt band; nothing here waits on a Meg sprint">Synapsis track</span>';
   return '';
 }
 function pct(s){const c=state[s.n].checks;return c.length?Math.round(100*c.filter(Boolean).length/c.length):0}
@@ -641,7 +695,8 @@ const WEEKS=[
   {s:"10",st:"done",t:"Hosting items done on the laptop; London and the domain decided"},
   {s:"H1",st:"done",t:"Packaging for Vercel and Supabase; migrations checked in CI"},
   {s:"M3, M4, H4",st:"done",t:"MCP tokens and audit; assessment as a tool; Watchman alerts"},
-  {s:"7, 9, A7",st:"done",t:"Sprints 7 and 9 closed; load test passed at 24 workers"}]},
+  {s:"7, 9, A7",st:"done",t:"Sprints 7 and 9 closed; load test passed at 24 workers"},
+  {s:"SY4 to SY6",st:"done",t:"Synapsis: the 12 October owner sitting; Modo and Copilot connected"}]},
  {wk:"2026-10-19",head:"Hosting proof week: the database goes to London.",items:[
   {s:"H2",st:"done",t:"Supabase proofs passed: PostGIS and raster in London"},
   {s:"9",st:"done",t:"Scotland's nature designations at full resolution"},
@@ -649,7 +704,8 @@ const WEEKS=[
   {s:"H2",st:"done",t:"Fresh 44 GB dump of the laptop database"},
   {s:"H2",st:"doing",t:"Restore to London: first attempt crashed the server; compute size to settle"},
   {s:"H2",st:"planned",t:"Vercel import and environment variables"},
-  {s:"M2",st:"waiting",t:"Mark's review of the 12 core questions"}]},
+  {s:"M2",st:"waiting",t:"Mark's review of the 12 core questions"},
+  {s:"SY7",st:"done",t:"Synapsis: LEAP delta loader and SU matters from Teams live"}]},
  {wk:"2026-10-26",head:"Planned: the hosted stack in front of the team.",items:[
   {s:"H2",st:"planned",t:"API and app live on Vercel production"},
   {s:"H2",st:"planned",t:"Full regression and latency on the hosted stack"},
@@ -657,7 +713,8 @@ const WEEKS=[
   {s:"H2",st:"waiting",t:"Entra sign-in through Supabase Auth (IT registration)"},
   {s:"H2",st:"planned",t:"Loaders on a GitHub Actions runner"},
   {s:"M3",st:"waiting",t:"Tunnel for named colleagues: decision and account"},
-  {s:"A0",st:"planned",t:"Mobilise and decide, per the calendar"}]}
+  {s:"A0",st:"planned",t:"Mobilise and decide, per the calendar"},
+  {s:"SY7",st:"waiting",t:"Synapsis: pilot cohort named; db/164 and 165 on production"}]}
 ];
 const ST_LABEL={done:"Done",doing:"In progress",planned:"Planned",waiting:"Waiting"};
 function ymd(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
@@ -713,24 +770,25 @@ function sprintStatus(s){
   if(p===100)return{label:"Complete",cls:"green",num:"done"};
   if(typeof NOW!=="undefined"&&s.n===NOW.current)return{label:"In progress · "+p+"%",cls:"amber",num:"current"};   // the stated current sprint, whatever the calendar says
   if(s.gated&&!decState[s.gated])return{label:"Decision needed",cls:"red",num:"gated"};
+  if(!s.start||!s.end)return{label:"In progress · "+p+"%",cls:"amber",num:"current"};   // a card dated by its status line only (Synapsis)
   if(today<st)return{label:"Not started",cls:"grey",num:""};
   if(today>en)return{label:"Overdue",cls:"red",num:"current"};
   return{label:(p?"In progress · "+p+"%":"This sprint"),cls:"amber",num:"current"};
 }
 function render(){
   let doneN=0,items=0,done=0,worst="green";
+  const sy={n:0,doneN:0,items:0,done:0};   // the Synapsis track counts apart from Meg
   const rank={green:0,grey:0,amber:1,red:2};
   document.getElementById("sprints").innerHTML=SPRINTS.map(s=>{
-    const st=sprintStatus(s),p=pct(s);
-    if(p===100)doneN++;
-    items+=s.items.length;done+=state[s.n].checks.filter(Boolean).length;
-    if(rank[st.cls]>rank[worst])worst=st.cls;
+    const st=sprintStatus(s),p=pct(s),ticked=state[s.n].checks.filter(Boolean).length;
+    if(s.ws==='Synapsis'){sy.n++;if(p===100)sy.doneN++;sy.items+=s.items.length;sy.done+=ticked;}
+    else{if(p===100)doneN++;items+=s.items.length;done+=ticked;if(rank[st.cls]>rank[worst])worst=st.cls;}
     const open=S.get("open",{})[s.n];
     return `<div class="sprint" id="sp-${s.n}">
       <div class="shead" onclick="togg('${s.n}')">
         <div class="snum ${st.num}">${s.n}</div>
         <div class="t"><div class="nm">Sprint ${s.n} · ${esc(s.name)}</div>
-        <div class="dt">${fmt(s.start)} to ${fmt(s.end)} · ${esc(s.ws)} · ${s.items.length} items</div></div>
+        <div class="dt">${dateLine(s)} · ${esc(s.ws)} · ${s.items.length} items</div></div>
         <div class="bar"><i style="width:${p}%"></i></div>
         ${trackTag(s)}
         <span class="pill ${st.cls}">${st.label}</span>
@@ -751,16 +809,19 @@ function render(){
   document.getElementById("decisions").innerHTML=DECISIONS.map(d=>`
     <div class="dec"><input type="checkbox" id="d-${d.id}" ${decState[d.id]?"checked":""} onchange="decChk('${d.id}')">
     <label for="d-${d.id}"><b>${esc(d.t)}</b><span class="who">${esc(d.d)}</span>${decState[d.id]?"":`<span class="by">${esc(d.by)}</span>`}</label></div>`).join("");
+  document.getElementById("decisions").innerHTML+=`<div class="ph" style="margin:8px 0 0"><b>Outstanding on the Synapsis side</b> (listed, not gated; no needed-by dates until the pilot date exists): ${SY_DECISIONS.map(esc).join("; ")}.</div>`;
   const openBlk=DECISIONS.filter(d=>!decState[d.id]).length;
-  document.getElementById("k-done").textContent=doneN+"/"+SPRINTS.length;
+  document.getElementById("k-done").textContent=doneN+"/"+(SPRINTS.length-sy.n);
   document.getElementById("k-items").textContent=done+"/"+items;
+  document.getElementById("k-sy").textContent=sy.done+"/"+sy.items;
+  document.getElementById("k-sy-l").textContent="Synapsis items · "+sy.doneN+" of "+sy.n+" sprints complete";
   const rag=openBlk>=4?"Red":openBlk>0?"Amber":(worst==="red"?"Red":worst==="amber"?"Amber":"Green");
   const r=document.getElementById("k-rag");r.textContent=rag;
   r.style.color=rag==="Green"?"#0F6E56":rag==="Amber"?"#854F0B":"#993536";
   renderGantt();
   renderNow();
   renderWeeks();
-  if(document.body.classList.contains("tv"))renderTv({doneN,items,done,rag});
+  if(document.body.classList.contains("tv"))renderTv({doneN,items,done,rag,sy});
 }
 // The screen dashboard: the numbers render() just computed, the Gantt moved in, two compact
 // sprint cards and a strip of every sprint. Text is cut to one sentence; the page stays the record.
@@ -778,14 +839,12 @@ function tvCard(s,kind){
   </div>`;
 }
 // Screen 0 of the TV carousel: the Empiricis one-page brief with a completion ring on each platform.
-// Meg's figure is the tracker's own (deliverables shipped over deliverables planned, computed live).
-// The other platforms are not tracked in this file: pct null renders "not yet tracked" until a
-// figure is given here, with its source in `note`, rather than a number nobody measured.
+// Meg's and Synapsis's figures are the tracker's own (deliverables shipped over deliverables planned,
+// computed live from the Meg sprints and the SY cards). ODIN and the client platform are not tracked
+// here: pct null renders "not yet tracked" until a figure is given with its source in `note`.
 const PROGRAMMES={
-  meg:{pct:null,note:"from this tracker"},
   odin:{pct:null,note:"within Meg; not yet tracked"},
-  synapsis:{pct:null,note:"not yet tracked"},
-  empiricis:{pct:null,note:"not yet tracked"}
+  empiricis:{pct:null,note:"not yet tracked; figures to be supplied with their source"}
 };
 function ring(p,label){
   const R=50,C=2*Math.PI*R;
@@ -793,12 +852,15 @@ function ring(p,label){
   return `<div class="ring"><svg viewBox="0 0 118 118"><circle cx="59" cy="59" r="${R}" fill="none" stroke="#E4E2DA" stroke-width="10"/><circle cx="59" cy="59" r="${R}" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-dasharray="${C*p/100} ${C}"/></svg><div class="c">${p}%<small>${esc(label)}</small></div></div>`;
 }
 function tvOverview(k){
-  const megPct=k.items?Math.round(100*k.done/k.items):null;
+  const sy=k.sy||{n:0,doneN:0,items:0,done:0};
+  const megPct=k.items?Math.round(100*k.done/k.items):null, syPct=sy.items?Math.round(100*sy.done/sy.items):null;
+  const cur=sprintByN(NOW.current);
+  const syOpen=SPRINTS.filter(x=>x.ws==='Synapsis'&&pct(x)<100).map(x=>x.n+" "+pct(x)+"%").join(", ");
   const it=(b,t)=>`<div class="it"><span><b>${esc(b)}</b> ${esc(t)}</span></div>`;
   const tick=t=>`<div class="it"><span class="tick">&#10003;</span><span>${esc(t)}</span></div>`;
   const chip=(b,t)=>`<span class="chip">${b?"<b>"+esc(b)+"</b>":""}${esc(t)}</span>`;
-  const plat=(cls,name,tag,desc,pct,meta)=>`<div class="ovc ${cls}"><div class="ovpl"><div><div class="tag">${esc(tag)}</div><div class="big">${esc(name)}</div><div class="d">${esc(desc)}</div><div class="m">${esc(meta)}</div>${pct==null?"":`<div class="bar"><i style="width:${pct}%"></i></div>`}</div>${ring(pct,pct==null?"not yet tracked":"complete")}</div></div>`;
-  const na=p=>p.pct==null?p.note:p.pct+"% complete, "+p.note;
+  const fig=(n,t)=>`<div class="f"><b>${esc(n)}</b><span>${esc(t)}</span></div>`;
+  const plat=(cls,tag,name,desc,pct,figs,now)=>`<div class="ovc ${cls}"><div class="ovpl">${ring(pct,pct==null?"not yet tracked":"complete")}<div><div class="tag">${esc(tag)}</div><div class="big">${esc(name)}</div><div class="d">${esc(desc)}</div>${figs}<div class="now">${now}</div></div></div></div>`;
   return `<div class="ov">
     <div class="ovhero">
       <div class="lead"><div class="k">Empiricis · Less uncertainty. Lower cost. Higher success.</div><div class="t">From vision to viable projects</div><div class="u">Connecting people, data, expertise and capital. Professional services technology for the energy, property and infrastructure economy, proven in practice and refined for scale.</div></div>
@@ -807,35 +869,29 @@ function tvOverview(k){
       <div class="tvk"><div class="v">£bn</div><div class="l">Value supported</div></div>
       <div class="tvk"><div class="v">3</div><div class="l">Connected platforms</div></div>
     </div>
-    <div class="ovc r"><div class="tag">The problem</div><div class="big">Important projects fail or stall</div>
-      ${it("2 to 5 years of delay","is typical for major energy and infrastructure projects.")}
-      ${it("Billions lost","through delay, abortive work, poor advice and inefficient processes.")}
-      ${it("High attrition:","many viable projects never reach build for risk, cost or complexity.")}
-      ${it("Fragmented advice:","developers, investors and landowners navigate a siloed market.")}
+    ${plat("","Platform 1 · Opportunity intelligence","Meg (including ODIN)","Find and assess the best opportunities in energy, property and infrastructure.",megPct,
+      fig(k.done+" of "+k.items,"deliverables shipped")+fig(k.doneN+" of "+(SPRINTS.length-sy.n),"sprints complete"),
+      (cur?`<b>Now:</b> ${esc(cur.n+" "+cur.name)}, ${pct(cur)}%. `:"")+`<b>ODIN:</b> ${esc(PROGRAMMES.odin.note)}.`)}
+    ${plat("b","Platform 2 · Professional practice management","Synapsis","Turn opportunities into deliverable projects with integrated professional services.",syPct,
+      fig(sy.done+" of "+sy.items,"deliverables shipped")+fig(sy.doneN+" of "+sy.n,"sprints complete"),
+      syOpen?`<b>Open:</b> ${esc(syOpen)}.`:"Every card complete.")}
+    ${plat("p","Platform 3 · Client platform for funds and developers","Empiricis","A secure client platform to track opportunities, projects and outcomes.",PROGRAMMES.empiricis.pct,
+      "",`<b>Progress:</b> ${esc(PROGRAMMES.empiricis.note)}.`)}
+    <div class="ovc r"><div class="tag">The problem</div><div class="big">Good projects fail or stall</div>
+      ${it("2 to 5 years","of delay is typical for major energy and infrastructure projects.")}
+      ${it("Billions lost","to delay, abortive work, poor advice and inefficient processes.")}
+      ${it("High attrition:","viable projects never reach build for risk, cost or complexity.")}
+      ${it("Fragmented advice:","each adviser sees part of the picture.")}
       <div class="call">Too often, good projects never get built.</div></div>
-    <div class="ovc g"><div class="tag">Why it happens</div><div class="big">Silos, assumptions, uncertainty</div>
-      ${it("Disconnected data:","planning, grid, land, environment, legal and market data held apart.")}
-      ${it("Fragmented professionals:","each adviser sees part of the picture.")}
-      ${it("Unchallenged assumptions:","critical risks and opportunities missed.")}
-      ${it("Time-based incentives","reward activity, not outcomes.")}
-      ${it("Behavioural bias:","loss aversion, anchoring and optimism distort decisions.")}
-      ${it("No joined-up accountability:","clients bear the residual loss.")}</div>
-    <div class="ovc"><div class="tag">The solution</div><div class="big">An integrated approach</div>
-      ${tick("Join up data, people and processes")}
+    <div class="ovc"><div class="tag">The approach</div><div class="big">Join up data, people and process</div>
       ${tick("Test and challenge assumptions early")}
       ${tick("Use AI to remove 80% of the grind")}
-      ${tick("Apply multidisciplinary expertise where it adds real value")}
-      ${tick("Compare alternatives, visualise risks, quantify outcomes")}
-      ${tick("Improve decisions, reduce cost, raise the likelihood of build")}</div>
-    ${plat("","Meg (including ODIN)","Platform 1 · Opportunity intelligence","Find and assess the best opportunities in energy, property and infrastructure.",megPct,(megPct==null?"":k.done+" of "+k.items+" deliverables shipped, "+k.doneN+" of "+SPRINTS.length+" sprints complete. ")+"ODIN: "+na(PROGRAMMES.odin)+".")}
-    ${plat("b","Synapsis","Platform 2 · Professional practice management","Turn opportunities into deliverable projects with integrated professional services.",PROGRAMMES.synapsis.pct,PROGRAMMES.synapsis.note)}
-    ${plat("p","Empiricis","Platform 3 · Client platform for funds and developers","A secure client platform to track opportunities, projects and outcomes.",PROGRAMMES.empiricis.pct,PROGRAMMES.empiricis.note)}
-    <div class="ovstrip"><div class="l">Philosophy · reason before action</div><div class="chips">
-      ${chip("Power","grid potential")}${chip("Purpose","the real objective")}${chip("Planning","consent pathway")}${chip("Property","rights and ownership")}${chip("Structure","delivery models")}${chip("Finance","capital stacks")}${chip("Execute","integrated delivery")}${chip("Optimise","refinance, expand, exit")}</div></div>
-    <div class="ovstrip"><div class="l">Data · GIS and 3D models</div><div class="chips">
-      ${["Planning designations","Property boundaries","Grid capacity","Water, gas, fibre","Ground and terrain","Cable routes","3D models","Environment and biodiversity","Scenario testing"].map(t=>chip("",t)).join("")}</div></div>
-    <div class="ovstrip"><div class="l">People · judgement where it matters</div><div class="chips">
-      ${chip("Lawyers","contracts, regulation, risk allocation")}${chip("Planners","consent, policy, design strategy")}${chip("Engineers","grid, design, construction, O&M")}${chip("Financial experts","funding, models, investment")}${chip("Commercial advisers","strategy, negotiation, market insight")}</div></div>
+      ${tick("Expertise where it adds real value")}
+      ${tick("Compare alternatives, quantify outcomes")}
+      ${tick("Better decisions, lower cost, more projects built")}</div>
+    <div class="ovc g"><div class="tag">Eight steps · reason before action</div><div class="big">Power first</div>
+      <div class="steps"><div><b>1</b>Power</div><div><b>5</b>Structure</div><div><b>2</b>Purpose</div><div><b>6</b>Finance</div><div><b>3</b>Planning</div><div><b>7</b>Execute</div><div><b>4</b>Property</div><div><b>8</b>Optimise</div></div>
+      <div class="call" style="color:var(--amber)">Impact before ambition.</div></div>
     <div class="ovstrip"><div class="l">The journey</div><div class="chips">
       ${chip("Opportunities","find the right projects")}<span class="arrow">&#8250;</span>${chip("Decisions","make better choices")}<span class="arrow">&#8250;</span>${chip("Delivery","build more projects")}<span class="arrow">&#8250;</span>${chip("Impact","a cleaner, stronger economy")}<span class="eq">People + Data + Judgement = Real world outcomes</span></div></div>
   </div>`;
@@ -853,7 +909,7 @@ function renderTv(k){
       <div class="tvk"><div class="v">${lw?lw.d:"-"}${lw?sub+"/"+lw.n+"</span>":""}</div><div class="l">Last week done</div></div>
       <div class="tvk"><div class="v">${tw?tw.d:"-"}${tw?sub+"/"+tw.n+"</span>":""}</div><div class="l">This week done${tw&&tw.g?" · "+tw.g+" in progress":""}</div></div>
       <div class="tvk"><div class="v">${k.done}${sub}/${k.items}</span></div><div class="l">Deliverables shipped</div></div>
-      <div class="tvk"><div class="v">${k.doneN}${sub}/${SPRINTS.length}</span></div><div class="l">Sprints complete</div></div>
+      <div class="tvk"><div class="v">${k.doneN}${sub}/${SPRINTS.length-(k.sy?k.sy.n:0)}</span></div><div class="l">Meg sprints complete</div></div>
       <div class="tvk rag-${k.rag}"><div class="v">${k.rag}</div><div class="l">Plan RAG</div></div>
       <div class="tvk"><div class="v">${cur?cur.n:"-"}</div><div class="l">Current sprint · ${now.toLocaleDateString("en-GB",{day:"numeric",month:"short"})}</div></div>
     </div>
@@ -919,12 +975,20 @@ function renderGantt(){
   const tickLines=ticks.map(t=>`<div class="tick" style="left:${t.pct}%"></div>`).join("");
   let html=`<div class="grow"><div class="glabel"></div><div style="position:relative;height:14px">`+
     ticks.map(t=>`<div style="position:absolute;left:${t.pct}%;transform:translateX(-50%);font-size:9.5px;font-weight:700;color:var(--ink-3);white-space:nowrap">${t.label}</div>`).join("")+`</div></div>`;
+  let bandDone=false;
   SPRINTS.forEach((s,i)=>{
-    const l=100*(new Date(s.start)-T0)/total,w=Math.max(3,100*(new Date(s.end)-new Date(s.start)+DAY)/total);
+    const isSy=s.ws==='Synapsis';
+    if(isSy&&!bandDone){bandDone=true;html+=`<div class="grow"><div class="glabel" style="font-weight:800;color:#1F5A63">Synapsis track</div><div class="gtrack" style="background:transparent">${tickLines}</div></div>`;}
+    const prefix=typeof s.n==="number"?"S":"";
+    if(!s.start&&!s.end){html+=`<div class="grow"><div class="glabel">${prefix}${s.n} · ${esc(s.name)}</div><div class="gtrack">${tickLines}<span style="position:absolute;left:4px;font-size:9.5px;color:var(--ink-3);line-height:17px">dates not set</span></div></div>`;return;}
+    let st=s.start?new Date(s.start):null, en=s.end?new Date(s.end):null, open=false, label=pct(s)?pct(s)+"%":"";
+    if(!st){st=new Date(en);st.setDate(st.getDate()-2);}            // closed on one date: a short marker ending that day
+    if(!en){en=new Date(today);open=true;label=(label?label+" · ":"")+(s.until?"to "+s.until:"open");}   // runs to a date not yet set
+    const l=100*(st-T0)/total,w=Math.max(3,100*(en-st+DAY)/total);
     const blocked=s.gated&&!decState[s.gated];
     const tg = s.ws==='Track M'?' [MCP]':(s.ws==='Track H'?' [hosting]':(s.ws==='programme'?' [prereq]':''));
-    html+=`<div class="grow"><div class="glabel">S${s.n} · ${esc(s.name)}${tg}</div>
-      <div class="gtrack">${tickLines}<div class="gbar ${blocked?"gated":""}" style="left:${l}%;width:${w}%;background:${colors[i%colors.length]}" title="${esc(s.name)}">${pct(s)?pct(s)+"%":(blocked?"gated":"")}</div></div></div>`;
+    html+=`<div class="grow"><div class="glabel">${prefix}${s.n} · ${esc(s.name)}${tg}</div>
+      <div class="gtrack">${tickLines}<div class="gbar ${blocked?"gated":""} ${open?"open":""}" style="left:${l}%;width:${w}%;background:${isSy?"#2F6F7A":colors[i%colors.length]}" title="${esc(s.name)}">${label||(blocked?"gated":"")}</div></div></div>`;
   });
   document.getElementById("gantt").innerHTML=html;
   const tp=100*(today-T0)/total;
@@ -943,7 +1007,7 @@ function copyReport(){
   let md="**Project Meg build - status "+t+"**\n\n";
   let items=0,done=0;
   SPRINTS.forEach(s=>{items+=s.items.length;done+=state[s.n].checks.filter(Boolean).length;
-    md+="Sprint "+s.n+" ("+s.name+", "+fmt(s.start)+" to "+fmt(s.end)+"): "+sprintStatus(s).label+", "+pct(s)+"%."+(state[s.n].notes?" Note: "+state[s.n].notes:"")+"\n";});
+    md+="Sprint "+s.n+" ("+s.name+", "+dateLine(s)+"): "+sprintStatus(s).label+", "+pct(s)+"%."+(state[s.n].notes?" Note: "+state[s.n].notes:"")+"\n";});
   md+="\nOverall: "+done+" of "+items+" items across "+SPRINTS.length+" sprints. Target usable platform 16 Oct 2026 (core), data expansion to 30 Oct.\n";
   const ob=DECISIONS.filter(d=>!decState[d.id]);
   md+="Decisions outstanding: "+(ob.length?ob.map(d=>d.t+" ("+d.by+")").join("; "):"none")+".\n";
