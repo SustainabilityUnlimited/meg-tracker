@@ -613,8 +613,8 @@ SPRINTS.forEach(s=>{if(!state[s.n]||state[s.n].checks.length!==s.items.length)st
 let decState=S.get("dec",{});
 // Seeded item states, evidenced in git history (refreshed 25 Sep 2026). Applied once per SEED_VERSION
 // on top of whatever this browser already holds, so a user's own ticks are never removed.
-const SEED_VERSION=24;
-const SEED={0:[0],1:[0],2:[0],3:[0],4:[0,1,2,3],5:[0,1,2,3,4,5,6,7],6:[0,1,2,3,4,5,6,7,8],7:[0,1,2,3,4,5,6,7],8:[0,1,2,3,4,5,6,7,8],9:[0,1,2,3,4,5,6,7,8,9,10,11],10:[0,1,2,3,4,5,6,7,8,9,10],11:[11],16:[1],18:[0,1,2,3,4,5,6,7,8,9,10,11,12,14],M1:[0,1,2,3,4,5],M2:[0,1,2,3,4,5],M3:[0,1,2,3],M4:[0,2,3],H1:[0,1,2,3,4,5,7],H2:[1,2],H4:[1],A1:[0,1,2,3,4,5,6,7,8],A2:[1,2,3,5,6,7,8],SY1:[0,1,2,3,4,5,6,7,8],SY2:[0,1,2,3,4,5],SY3:[0,1,2,3,4],SY4:[0,1,2,3],SY5:[0,1,2,3,4,5],SY6:[0,1,2,3,4,5],SY7:[0,1,2,3,4,6,8,9,10,11,15,17,19,20,21,26],SY8:[0,1,2,3,5,6]};
+const SEED_VERSION=25;
+const SEED={0:[0],1:[0],2:[0],3:[0],4:[0,1,2,3],5:[0,1,2,3,4,5,6,7],6:[0,1,2,3,4,5,6,7,8],7:[0,1,2,3,4,5,6,7],8:[0,1,2,3,4,5,6,7,8],9:[0,1,2,3,4,5,6,7,8,9,10,11],10:[0,1,2,3,4,5,6,7,8,9,10],11:[11],16:[1],18:[0,1,2,3,4,5,6,7,8,9,10,11,12,14],M1:[0,1,2,3,4,5],M2:[0,1,2,3,4,5],M3:[0,1,2,3],M4:[0,2,3],H1:[0,1,2,3,4,5,7],H2:[1,2,5],H4:[1],A1:[0,1,2,3,4,5,6,7,8],A2:[1,2,3,5,6,7,8],SY1:[0,1,2,3,4,5,6,7,8],SY2:[0,1,2,3,4,5],SY3:[0,1,2,3,4],SY4:[0,1,2,3],SY5:[0,1,2,3,4,5],SY6:[0,1,2,3,4,5],SY7:[0,1,2,3,4,6,8,9,10,11,15,17,19,20,21,26],SY8:[0,1,2,3,5,6]};
 const SEED_DEC={github:true};
 const STATUS_NOTE={
  H3:"Started early on one item, 20 Oct 2026: an uptime check from outside Vercel (.github/workflows/uptime-check.yml, every 30 minutes and on demand) asks the hosted Meg for health from the database, the app page and one data route, fails the run on any miss and records the timings in the step summary; first run green. The rest of H3 (roles and tenancy, least-privilege users, logging and error tracking, licences and the DPIA, the test plan and load test on the hosted stack) waits for H2's restore and the Entra registration.",
@@ -705,7 +705,9 @@ const WEEKS=[
   {s:"H2",st:"done",t:"Fresh 44 GB dump of the laptop database"},
   {s:"H2",st:"done",t:"Meg live on Vercel in London; layer files on Supabase Storage"},
   {s:"H2",st:"done",t:"Restore to London complete: 142 tables, indexes, the flood twin; hosted searches answer"},
-  {s:"H2",st:"doing",t:"Post-restore steps, parity check and slow-query timings on Small"},
+  {s:"H2",st:"done",t:"Post-restore steps, parity (row for row) and timings on Small: no change of tier yet"},
+  {s:"H2",st:"done",t:"Regression suite against the hosted address: 245 passed"},
+  {s:"H2",st:"doing",t:"Loaders workflow and the off-platform dump built; first dump running; secrets awaited"},
   {s:"M4",st:"done",t:"Claude Code walk-through recorded; GeoJSON and GeoPackage export with attribution"},
   {s:"H3",st:"done",t:"Uptime check on the hosted Meg from GitHub Actions, every 30 minutes"},
   {s:"H2",st:"planned",t:"Vercel import and environment variables"},
