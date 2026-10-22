@@ -102,6 +102,9 @@ textarea.notes{width:100%;margin-top:10px;border:1px solid var(--line-2);border-
 .wk .it .s,.tvw .it .s{color:var(--ink-3);font-weight:700}
 .st{flex:none;width:72px;font-size:9.5px;text-transform:uppercase;letter-spacing:1px;font-weight:700;border-radius:4px;padding:3px 0;text-align:center;margin-top:1px}
 .st-done{background:#E1F5EE;color:#0F6E56}.st-doing{background:#FAEEDA;color:#854F0B}.st-planned{background:#EEF0F3;color:#3d4a44}.st-waiting{background:#F8E6E6;color:#993536}
+.own{flex:none;min-width:26px;text-align:center;font-size:10px;font-weight:800;letter-spacing:.5px;border-radius:999px;padding:3px 6px;background:#E8E3F6;color:#4E2E8E;margin-top:1px}
+.own.none{background:#F8E6E6;color:#993536}
+.tvw .own{font-size:13px;padding:5px 9px;min-width:36px;margin-top:3px}
 @media(max-width:900px){.weeks{grid-template-columns:1fr}}
 .nowcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:14px 16px;border-top:5px solid var(--green)}
 .nowcard.next{border-top-color:var(--gold)}
@@ -690,42 +693,44 @@ function sprintByN(n){return SPRINTS.find(s=>s.n===n)}
 // that has not been updated shows its own dates and a notice rather than passing as current.
 const WEEKS=[
  {wk:"2026-10-12",head:"Nine sprints advanced on the laptop while the hosting invites were awaited.",items:[
-  {s:"18",st:"done",t:"Meg Answers: typed tools on the read-only role"},
-  {s:"A1, A2",st:"done",t:"Data structures reconciled; scoring logic made one definition"},
-  {s:"M1, M2",st:"done",t:"Tool registry over MCP; Meg agent with the model decision"},
-  {s:"10",st:"done",t:"Hosting items done on the laptop; London and the domain decided"},
-  {s:"H1",st:"done",t:"Packaging for Vercel and Supabase; migrations checked in CI"},
-  {s:"M3, M4, H4",st:"done",t:"MCP tokens and audit; assessment as a tool; Watchman alerts"},
-  {s:"7, 9, A7",st:"done",t:"Sprints 7 and 9 closed; load test passed at 24 workers"},
-  {s:"SY4 to SY6",st:"done",t:"Synapsis: the 12 October owner sitting; Modo and Copilot connected"}]},
+  {s:"18",o:"JV",st:"done",t:"Meg Answers: typed tools on the read-only role"},
+  {s:"A1, A2",o:"JV",st:"done",t:"Data structures reconciled; scoring logic made one definition"},
+  {s:"M1, M2",o:"JV",st:"done",t:"Tool registry over MCP; Meg agent with the model decision"},
+  {s:"10",o:"JV",st:"done",t:"Hosting items done on the laptop; London and the domain decided"},
+  {s:"H1",o:"JV",st:"done",t:"Packaging for Vercel and Supabase; migrations checked in CI"},
+  {s:"M3, M4, H4",o:"JV",st:"done",t:"MCP tokens and audit; assessment as a tool; Watchman alerts"},
+  {s:"7, 9, A7",o:"JV",st:"done",t:"Sprints 7 and 9 closed; load test passed at 24 workers"},
+  {s:"SY4 to SY6",o:"D",st:"done",t:"Synapsis: the 12 October owner sitting; Modo and Copilot connected"}]},
  {wk:"2026-10-19",head:"Hosting proof week: the database goes to London.",items:[
-  {s:"H2",st:"done",t:"Supabase proofs passed: PostGIS and raster in London"},
-  {s:"9",st:"done",t:"Scotland's nature designations at full resolution"},
-  {s:"Team",st:"done",t:"Sprint tracker on the office screen"},
-  {s:"H2",st:"done",t:"Fresh 44 GB dump of the laptop database"},
-  {s:"H2",st:"done",t:"Meg live on Vercel in London; layer files on Supabase Storage"},
-  {s:"H2",st:"done",t:"Restore to London complete: 142 tables, indexes, the flood twin; hosted searches answer"},
-  {s:"H2",st:"done",t:"Post-restore steps, parity (row for row) and timings on Small: no change of tier yet"},
-  {s:"H2",st:"done",t:"Regression suite against the hosted address: 245 passed"},
-  {s:"H2",st:"done",t:"Off-platform dump of the hosted database (22 GB) and the timed restore drill passed; weekly task installer written"},
-  {s:"H2",st:"done",t:"Loaders on the GitHub Actions runner: secrets set, first headroom refetch of four DNOs and Watchman passed against the hosted database"},
-  {s:"Team",st:"done",t:"Code inventory workbook: every tool, computation, route, function and constant, generated from the code"},
-  {s:"M4",st:"done",t:"Claude Code walk-through recorded; GeoJSON and GeoPackage export with attribution"},
-  {s:"H3",st:"done",t:"Uptime check on the hosted Meg from GitHub Actions, every 30 minutes"},
-  {s:"H2",st:"done",t:"Vercel import and environment variables"},
-  {s:"Team",st:"done",t:"Team working agreement for three people on one codebase; session prompt"},
-  {s:"Polish",st:"done",t:"Polish plan: three sprints from prototype feel to product feel, measured on the live app"},
-  {s:"M2",st:"waiting",t:"Mark's review of the 12 core questions"},
-  {s:"M3",st:"done",t:"MCP plug proved on the hosted address; tunnel superseded; audit log gated off the laptop"},
-  {s:"M4",st:"done",t:"QGIS installed; a hosted Meg shortlist pulled into QGIS over MCP; Track M complete bar Mark's review"},
-  {s:"SY7",st:"done",t:"Synapsis: LEAP delta loader and SU matters from Teams live"}]},
+  {s:"H2",o:"JV",st:"done",t:"Supabase proofs passed: PostGIS and raster in London"},
+  {s:"9",o:"JV",st:"done",t:"Scotland's nature designations at full resolution"},
+  {s:"Team",o:"JV",st:"done",t:"Sprint tracker on the office screen"},
+  {s:"H2",o:"JV",st:"done",t:"Fresh 44 GB dump of the laptop database"},
+  {s:"H2",o:"JV",st:"done",t:"Meg live on Vercel in London; layer files on Supabase Storage"},
+  {s:"H2",o:"JV",st:"done",t:"Restore to London complete: 142 tables, indexes, the flood twin; hosted searches answer"},
+  {s:"H2",o:"JV",st:"done",t:"Post-restore steps, parity (row for row) and timings on Small: no change of tier yet"},
+  {s:"H2",o:"JV",st:"done",t:"Regression suite against the hosted address: 245 passed"},
+  {s:"H2",o:"JV",st:"done",t:"Off-platform dump of the hosted database (22 GB) and the timed restore drill passed; weekly task installer written"},
+  {s:"H2",o:"JV",st:"done",t:"Loaders on the GitHub Actions runner: secrets set, first headroom refetch of four DNOs and Watchman passed against the hosted database"},
+  {s:"Team",o:"JV",st:"done",t:"Code inventory workbook: every tool, computation, route, function and constant, generated from the code"},
+  {s:"M4",o:"JV",st:"done",t:"Claude Code walk-through recorded; GeoJSON and GeoPackage export with attribution"},
+  {s:"H3",o:"JV",st:"done",t:"Uptime check on the hosted Meg from GitHub Actions, every 30 minutes"},
+  {s:"H2",o:"JV",st:"done",t:"Vercel import and environment variables"},
+  {s:"Team",o:"JV",st:"done",t:"Team working agreement for three people on one codebase; session prompt"},
+  {s:"Polish",o:"JV",st:"done",t:"Polish plan: three sprints from prototype feel to product feel, measured on the live app"},
+  {s:"M2",o:"MW",st:"waiting",t:"Mark's review of the 12 core questions"},
+  {s:"M3",o:"JV",st:"done",t:"MCP plug proved on the hosted address; tunnel superseded; audit log gated off the laptop"},
+  {s:"M4",o:"JV",st:"done",t:"QGIS installed; a hosted Meg shortlist pulled into QGIS over MCP; Track M complete bar Mark's review"},
+  {s:"SY7",o:"D",st:"done",t:"Synapsis: LEAP delta loader and SU matters from Teams live"}]},
  {wk:"2026-10-26",head:"Planned: the hosted stack in front of the team.",items:[
-  {s:"H2",st:"planned",t:"The firm's address meg.su-llp.com on the host (IT's CNAME), then the one-week switch-over and the laptop demoted to a development copy"},
-  {s:"H2",st:"planned",t:"Sunday's first scheduled dump and drill, Monday's first scheduled headroom refetch on the runner, both read back"},
-  {s:"H2",st:"waiting",t:"Entra sign-in through Supabase Auth (IT registration)"},
-  {s:"A0",st:"planned",t:"Mobilise and decide, per the calendar"},
-  {s:"Polish",st:"planned",t:"P1: the visual system, the base map and the developer text out; Mark's first sign-off"},
-  {s:"SY7",st:"waiting",t:"Synapsis: pilot cohort named; db/164 and 165 on production"}]}
+  {s:"H2",o:"JV",st:"planned",t:"The firm's address meg.su-llp.com on the host (IT's CNAME), then the one-week switch-over and the laptop demoted to a development copy"},
+  {s:"H2",o:"JV",st:"planned",t:"Sunday's first scheduled dump and drill, Monday's first scheduled headroom refetch on the runner, both read back"},
+  {s:"H2",o:"IT",st:"waiting",t:"Entra sign-in through Supabase Auth (IT registration)"},
+  {s:"A0",o:"JV",st:"planned",t:"Mobilise and decide, per the calendar"},
+  {s:"Polish",o:"JL",st:"planned",t:"P1: a heuristic review of the hosted app with screenshots first, then the visual system, the base map and the developer text out; Mark's first sign-off"},
+  {s:"H3",o:"MM",st:"planned",t:"Structured logging and error tracking on the hosted API"},
+  {s:"H3",o:"MM",st:"planned",t:"The multi-user load test against the hosted address (scripts/load_test.py), which decides the compute tier"},
+  {s:"SY7",o:"D",st:"waiting",t:"Synapsis: pilot cohort named; db/164 and 165 on production"}]}
 ];
 const ST_LABEL={done:"Done",doing:"In progress",planned:"Planned",waiting:"Waiting"};
 function ymd(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
@@ -738,7 +743,11 @@ function weekCols(){
   return {cols,stale};
 }
 function wkStats(w){const n=w.items.length,d=w.items.filter(i=>i.st==="done").length,g=w.items.filter(i=>i.st==="doing").length,x=w.items.filter(i=>i.st==="waiting").length;return{n,d,g,x,p:n?Math.round(100*d/n):0}}
-function wkItems(w){return w.items.map(i=>`<div class="it"><span class="st st-${esc(i.st)}">${esc(ST_LABEL[i.st]||i.st)}</span><span><span class="s">${esc(i.s)}</span> · ${esc(i.t)}</span></div>`).join("")}
+// One owner per item (22 Oct 2026): the initials on the line are the claim; no claim line, no branch.
+const OWNERS={JV:"Jacob Vanderpuye",JL:"Jack Loudon",MM:"Maya McGinlay",D:"David (Synapsis)",MW:"Mark Worton",IT:"the firm's IT"};
+function ownChip(o){return o?`<span class="own" title="${esc(OWNERS[o]||o)}">${esc(o)}</span>`:`<span class="own none" title="no owner claimed yet">?</span>`}
+function wkItems(w){return w.items.map(i=>`<div class="it"><span class="st st-${esc(i.st)}">${esc(ST_LABEL[i.st]||i.st)}</span>${ownChip(i.o)}<span><span class="s">${esc(i.s)}</span> · ${esc(i.t)}</span></div>`).join("")}
+function ownerRule(){return `<b>One owner per item.</b> The initials on a line are the claim: no claim line, no branch; no branch, no edits; one person per area of the app and the API at a time. Legend: ${Object.entries(OWNERS).map(([k,v])=>`<b>${esc(k)}</b> ${esc(v)}`).join(" · ")}.`}
 function wkCard(c,tv){
   const cls=tv?"tvw":"wk", w=c.w;
   if(!w)return `<div class="${cls} ${c.k}"><div class="tag">${c.tag}</div><div class="head">No record written for this week.</div></div>`;
@@ -752,7 +761,7 @@ function staleNote(cols){return `The week record was last written for the week o
 function renderWeeks(){
   const el=document.getElementById("weeks"); if(!el)return;
   const {cols,stale}=weekCols();
-  el.innerHTML=cols.map(c=>wkCard(c,false)).join("")+(stale?`<div class="ph" style="grid-column:1/-1;margin:0">${staleNote(cols)}</div>`:"");
+  el.innerHTML=`<div class="ph" style="grid-column:1/-1;margin:0 0 4px">${ownerRule()}</div>`+cols.map(c=>wkCard(c,false)).join("")+(stale?`<div class="ph" style="grid-column:1/-1;margin:0">${staleNote(cols)}</div>`:"");
 }
 function nowCard(s,kind){
   const p=pct(s), st=sprintStatus(s), note=STATUS_NOTE[s.n]||"";
