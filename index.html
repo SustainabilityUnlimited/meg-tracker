@@ -684,7 +684,7 @@ function pct(s){const c=state[s.n].checks;return c.length?Math.round(100*c.filte
 // The sprint being worked now and the one after it, set by hand with each update (the calendar
 // dates slid when sprints ran ahead of it, so "current" is a statement, not a date test).
 // alsoOpen: sprints with work in progress alongside, shown as a line of chips.
-const NOW={current:"H2",next:"H3",alsoOpen:["H4","H1"],asOf:"22 Oct 2026"};
+const NOW={current:"H2",next:"H3",alsoOpen:["H4","H1"],asOf:"28 Oct 2026"};
 function sprintByN(n){return SPRINTS.find(s=>s.n===n)}
 // Week-by-week record, written with each update from the commit log and the sprint notes. Each
 // entry is a Monday (wk) with a one-line headline and its items {s: sprint, t: text, st: status};
@@ -727,10 +727,18 @@ const WEEKS=[
   {s:"H2",o:"JV",st:"planned",t:"Sunday's first scheduled dump and drill, Monday's first scheduled headroom refetch on the runner, both read back"},
   {s:"H2",o:"IT",st:"waiting",t:"Entra sign-in through Supabase Auth (IT registration)"},
   {s:"A0",o:"JV",st:"planned",t:"Mobilise and decide, per the calendar"},
-  {s:"Polish",o:"JL",st:"planned",t:"P1: a heuristic review of the hosted app with screenshots first, then the visual system, the base map and the developer text out; Mark's first sign-off"},
-  {s:"H3",o:"MM",st:"planned",t:"Structured logging and error tracking on the hosted API"},
+  {s:"Polish",o:"JL",st:"done",t:"P1: heuristic review done (12 findings, screenshots); the developer ribbon and build text removed from the UI and live on the hosted app"},
+  {s:"Polish",o:"JL",st:"done",t:"P1: emoji out and one tabler icon family (A4), one control set with an icon-button class (A2), the build text out of the sidebar (A5), accessible names for the icon buttons and form fields (C3), and search validation so an empty area or bad capacity cannot run (E3); all merged and CI-green, confirmed on the hosted app"},
+  {s:"Polish",o:"JL",st:"waiting",t:"P1: inline styles out (A3) is gated on Mark's sign-off of the type scale and status tokens (decision doc A1_TYPESCALE_AND_STATUS_TOKENS.md); the map and licensed base map (B) wait on Jacob's tile key"},
+  {s:"H3",o:"JL",st:"done",t:"Structured request logging, error tracking and a slow-request warning on the hosted API (pending Maya's review)"},
+  {s:"H3",o:"JL",st:"done",t:"CI fix: the test suite had silently not been running (invalid workflow YAML since H1, plus a missing dependency); fixed, the full suite is green again"},
+  {s:"H3",o:"JL",st:"done",t:"Governance: a licences and commercial-use register and an access-control and tenancy design note, each with a drift test"},
+  {s:"Team",o:"JL",st:"done",t:"A single-file app integrity guard in CI (no duplicate element ids)"},
   {s:"H3",o:"MM",st:"planned",t:"The multi-user load test against the hosted address (scripts/load_test.py), which decides the compute tier"},
-  {s:"SY7",o:"D",st:"waiting",t:"Synapsis: pilot cohort named; db/164 and 165 on production"}]}
+  {s:"SY7",o:"D",st:"waiting",t:"Synapsis: pilot cohort named; db/164 and 165 on production"}]},
+ {wk:"2026-11-02",head:"Planned: Mark's polish sign-off and the base-map key unblock the rest.",items:[
+  {s:"Polish",o:"MW",st:"waiting",t:"Mark to sign off the P1 type scale and status tokens, which unblocks A3 (inline styles out)"},
+  {s:"Polish",o:"JV",st:"waiting",t:"Jacob to set the hosted base-map tile key, which unblocks the map workstream (B) and a live re-test"}]}
 ];
 const ST_LABEL={done:"Done",doing:"In progress",planned:"Planned",waiting:"Waiting"};
 function ymd(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
