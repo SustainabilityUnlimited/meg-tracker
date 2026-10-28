@@ -654,7 +654,7 @@ const STATUS_NOTE={
  13:"Track H (H4). Cannot start without the host Sprint 10 provides; its three AI items were delivered by Sprint 18 and Track M carries the agent (M2).",
  14:"Track H (H5/H6). Not started; gated on the pack-format decision.",
  15:"Not started; gated on NGED, ENWL and SSEN portal accounts. SSEN token still awaited.",
- 16:"Partly pulled forward: Scotland title parcels (all 33 RoS counties) loaded and on the map, Hutton agricultural land, HES heritage and SEPA flood loaded 19 to 24 Aug. NPF4 peatland, wild land and national scenic areas not loaded; ownership route undecided."
+ 16:"Partly pulled forward: Scotland title parcels (all 33 RoS counties) loaded and on the map, Hutton agricultural land, HES heritage and SEPA flood loaded 19 to 24 Aug; National Scenic Areas, National Parks and Wild Land Areas loaded 28 Oct. NPF4 peatland out on licence (Mark's call); ownership route undecided."
 };
 if(S.get("seedv",0)<SEED_VERSION){
   Object.keys(SEED).forEach(n=>{if(state[n])SEED[n].forEach(i=>{if(i<state[n].checks.length)state[n].checks[i]=true})});
@@ -737,6 +737,8 @@ const WEEKS=[
   {s:"H4",o:"JV",st:"done",t:"Per-site alert radii (capacity, planning, works) edited on the watched-site card and read by the Watchman; the unseen-change badge on the Monitoring nav; per-user parameters wait for H3"},
   {s:"H4",o:"JV",st:"done",t:"One run log for the scheduled jobs: the runner's refetch records its run beside the Watchman's, and the morning check reads each job's own record"},
   {s:"H4",o:"JV",st:"waiting",t:"The weekly line in Teams built in shadow mode (db/weekly_line.py, run by the loaders workflow after the Watchman; prints until the webhook secret exists): Jacob to create the Workflows webhook on a private channel"},
+  {s:"16",o:"JV",st:"done",t:"Scotland's landscape designations at full resolution (28 Oct): the two National Parks join the natparks key and the 40 National Scenic Areas the aonb key, the 42 Wild Land Areas loaded and not scored (a reviewer decision under the scoring rules); on the laptop, the hosted copy waits on Jacob's say-so"},
+  {s:"16",o:"MW",st:"waiting",t:"The Carbon and Peatland map is published under the Non-Commercial Government Licence, so it stays out until Mark decides whether to seek a commercial licence from NatureScot"},
   {s:"Polish",o:"JL",st:"done",t:"P1: heuristic review done (12 findings, screenshots); the developer ribbon and build text removed from the UI and live on the hosted app"},
   {s:"Polish",o:"JL",st:"done",t:"P1: emoji out and one tabler icon family (A4), one control set with an icon-button class (A2), the build text out of the sidebar (A5), accessible names for the icon buttons and form fields (C3), and search validation so an empty area or bad capacity cannot run (E3); all merged and CI-green, confirmed on the hosted app"},
   {s:"Polish",o:"JL",st:"waiting",t:"P1: inline styles out (A3) is gated on Mark's sign-off of the type scale and status tokens (decision doc A1_TYPESCALE_AND_STATUS_TOKENS.md); the map and licensed base map (B) wait on Jacob's tile key"},
