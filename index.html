@@ -685,7 +685,7 @@ function pct(s){const c=state[s.n].checks;return c.length?Math.round(100*c.filte
 // The sprint being worked now and the one after it, set by hand with each update (the calendar
 // dates slid when sprints ran ahead of it, so "current" is a statement, not a date test).
 // alsoOpen: sprints with work in progress alongside, shown as a line of chips.
-const NOW={current:"H2",next:"H3",alsoOpen:["H4","H1"],asOf:"28 Oct 2026"};
+const NOW={current:"H2",next:"H3",alsoOpen:["H4","H5"],asOf:"2 Nov 2026"};
 function sprintByN(n){return SPRINTS.find(s=>s.n===n)}
 // Week-by-week record, written with each update from the commit log and the sprint notes. Each
 // entry is a Monday (wk) with a one-line headline and its items {s: sprint, t: text, st: status};
@@ -725,7 +725,7 @@ const WEEKS=[
   {s:"SY7",o:"D",st:"done",t:"Synapsis: LEAP delta loader and SU matters from Teams live"}]},
  {wk:"2026-10-26",head:"Planned: the hosted stack in front of the team.",items:[
   {s:"H2",o:"IT",st:"done",t:"The firm's address meg.su-llp.com on the host: IT's CNAME landed 28 Oct and the name answers with Vercel's certificate"},
-  {s:"H2",o:"JV",st:"doing",t:"Switch-over Day 0 (28 Oct): the name live, the suite's test rows cleared from the hosted database, Password Protection chosen for the week, the Vercel values and the uptime check moved to the name"},
+  {s:"H2",o:"JV",st:"done",t:"Switch-over Day 0 (28 Oct): the name live, the suite's test rows cleared from the hosted database, the Vercel values and the uptime check moved to the name; Password Protection's scope shelved by Jacob on 30 Oct"},
   {s:"H2",o:"JV",st:"done",t:"Switch-over plan written (workstreams/SWITCHOVER_PLAN.md): preconditions with evidence, Day 0, the parallel week, the exit test, rollback, the Vercel values; one decision for Mark: protection before the firm's name, since the app is open today"},
   {s:"H2",o:"JV",st:"planned",t:"The parallel week from Day 0, then the exit test and the laptop demoted to a development copy"},
   {s:"H2",o:"JV",st:"done",t:"Supabase Security Advisor clean: public out of the exposed schemas, the trigger function's search path pinned; 0 errors, 0 warnings"},
@@ -761,16 +761,26 @@ const WEEKS=[
   {s:"Team",o:"JL",st:"done",t:"A single-file app integrity guard in CI (no duplicate element ids)"},
   {s:"H3",o:"MM",st:"planned",t:"The multi-user load test against the hosted address (scripts/load_test.py), which decides the compute tier"},
   {s:"SY7",o:"D",st:"waiting",t:"Synapsis: pilot cohort named; db/164 and 165 on production"}]},
- {wk:"2026-11-02",head:"Planned: Mark's polish sign-off and the base-map key unblock the rest.",items:[
+ {wk:"2026-11-02",head:"Demo day, the first runner-recorded week on the host, and Wednesday's exit test.",items:[
+  {s:"Team",o:"JV",st:"doing",t:"Leadership demo on Monday 2 Nov: every screen on the run sheet rehearsed on the host (search, assess, layers, Ask Meg, Monitoring, the engagement, the Teams card, Ask Meg in the channel); ArcGIS Pro is the demo GIS, the GeoPackage opens in it and its attribution table is now registered so Pro lists it"},
+  {s:"Team",o:"JV",st:"done",t:"Colleagues on the hosted database (2 Nov): scripts/use_hosted_db.ps1 stores the pooler values and the meg_app and meg_ro passwords once and -Off reverts; ONBOARDING sets out the three kinds of access (using Meg with an MCP token, backend work as meg_app, admin stays with Jacob); Jacob sends the values, Jack also needs a token"},
   {s:"Polish",o:"MW",st:"waiting",t:"Mark to sign off the P1 type scale and status tokens, which unblocks A3 (inline styles out)"},
   {s:"Polish",o:"JV",st:"done",t:"The Esri key issued and stored (30 Oct): it is an ArcGIS Online organisation key, which the imagery service accepts and the labels service refuses, so the page now defaults to imagery with a key, probes one labels tile and offers Satellite + labels only when the key is accepted, saying why otherwise; imagery verified on the laptop, the host follows the Vercel variable"},
-  {s:"H4",o:"JV",st:"planned",t:"Monday 2 Nov, 03:17 UTC: the first weekly line written by the runner from the host reaches the private channel after the refetch and the Watchman; Jacob confirms it and the morning check reads it"},
+  {s:"H4",o:"JV",st:"done",t:"Monday 2 Nov: the runner's first recorded weekly run on the host: the four portal refetches, the run record and the Watchman all read fresh on the morning check, nothing missing or due"},
   {s:"H2",o:"JV",st:"planned",t:"Wednesday 4 Nov: the switch-over exit test from SWITCHOVER_PLAN.md, then the laptop is demoted to a development copy (item 7)"},
-  {s:"H4",o:"JV",st:"planned",t:"The Researcher's first sweep lands Monday morning (Mark's yes of 30 Oct, variable on): Jacob reviews the candidates on the Monitoring page and accepts or rejects one with a reason, which closes the gate; the cost is read from the run record"},
+  {s:"H4",o:"JV",st:"doing",t:"The Researcher's first sweep landed on 2 Nov: five candidates (coal mining hazard, predictive ALC, subnational consumption, recorded flood outlines) from 61 web facts for 27 pence, none dropped by the facts rule; Jacob accepts or rejects one with a reason on the Monitoring page, which closes the gate"},
   {s:"H3",o:"MM",st:"waiting",t:"Maya's multi-user load test against the hosted address once Jacob gives the say-so (read-only routes, the vercel.app alias, a short window)"},
   {s:"H2",o:"JV",st:"done",t:"Planning applications caught up before the week began (30 Oct): PlanIt's stall was a short quota, all four terms complete, 13,954 applications on the laptop and the host; the loaders workflow carries a planning option for the runner"},
-  {s:"H5",o:"MW",st:"waiting",t:"A Copilot Studio agent over the MCP plug (item 0) waits on the licence decision; until then the channel bridge answers @Meg questions in standard channels"},
-  {s:"H5",o:"JV",st:"doing",t:"Item 3 begun (30 Oct): the Global Wind Atlas 4.0 mean wind speed at 100 m loaded as a raster on the laptop (CC BY 4.0, attribution recorded), POST /wind-at with screening bands, and the onshore wind report shows the resource; information only, no scoring change; pushed to the host the same day with Jacob's say-so; ESA WorldCover 2021 land cover loaded the same evening at the product's 40 m overview (sixteen tiles, CC BY 4.0) with a Land cover row on every assessment report, pushed to the host on 2 Nov in batches (the pooler's two-minute statement limit taught push_table a raster phase); the assessment panel's missing onshore wind option fixed on the way"}]}
+  {s:"H5",o:"MW",st:"waiting",t:"A Copilot Studio agent over the MCP plug (item 0) waits on the licence decision; until then the channel bridge answers @Meg questions in standard channels; the Sentinel-2 half of item 3 (a server-held token) is not started"},
+  {s:"H5",o:"JV",st:"done",t:"Item 3's two datasets (30 Oct to 2 Nov): the Global Wind Atlas 4.0 mean wind speed at 100 m loaded as a raster on the laptop (CC BY 4.0, attribution recorded), POST /wind-at with screening bands, and the onshore wind report shows the resource; information only, no scoring change; pushed to the host the same day with Jacob's say-so; ESA WorldCover 2021 land cover loaded the same evening at the product's 40 m overview (sixteen tiles, CC BY 4.0) with a Land cover row on every assessment report, pushed to the host on 2 Nov in batches (the pooler's two-minute statement limit taught push_table a raster phase); the assessment panel's missing onshore wind option fixed on the way"}]},
+ {wk:"2026-11-09",head:"Planned: after the demo, the laptop steps back and Ask Meg learns gas.",items:[
+  {s:"H2",o:"JV",st:"planned",t:"The laptop demoted to a development copy (item 7) once Wednesday 4 Nov's exit test passes; the switch-over record closed in SWITCHOVER_PLAN.md"},
+  {s:"H3",o:"JL",st:"planned",t:"Jack's backend work runs against the hosted database as meg_app (scripts/use_hosted_db.ps1) once Jacob has sent the pooler values and the two passwords; his MCP token issued"},
+  {s:"H3",o:"MM",st:"waiting",t:"Maya's multi-user load test against the hosted address once Jacob gives the say-so (read-only routes, the vercel.app alias, a short window)"},
+  {s:"18",o:"JV",st:"planned",t:"A gas proximity tool for Ask Meg (gas_near over gas_network, in the one tool registry) so a distance-to-main question is answered rather than refused; held until after the demo"},
+  {s:"H4",o:"JV",st:"planned",t:"The Researcher's second sweep on Monday 9 Nov; the first five candidates decided with reasons by then"},
+  {s:"H5",o:"MW",st:"waiting",t:"Decisions carried: the Copilot Studio licence (H5 item 0), branch protection (a paid GitHub plan), the Carbon and Peatland licence from NatureScot"},
+  {s:"Polish",o:"MW",st:"waiting",t:"Mark's sign-off of the P1 type scale and status tokens, which unblocks A3 (inline styles out)"}]}
 ];
 const ST_LABEL={done:"Done",doing:"In progress",planned:"Planned",waiting:"Waiting"};
 function ymd(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
