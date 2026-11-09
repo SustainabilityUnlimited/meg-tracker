@@ -459,7 +459,7 @@ const SPRINTS=[
    "Resolve 1,180 NGED rows with null voltage, removing the kV-filter workaround",
    "Ingest forward-looking scenario headroom from all five publishing DNOs"]},
 
- {n:16,name:"Data expansion and behind-the-meter",start:"2026-10-19",end:"2026-10-30",ws:"WS8",gated:"ownership",own:"MM",
+ {n:16,name:"Data expansion and behind-the-meter",start:"2026-10-19",end:"2026-10-30",ws:"WS8",gated:"ownership",own:"MM",io:{1:"MW",2:"MW"},
   gate:"Site finding runs north of the border, an ownership signal appears on a candidate, and behind-the-meter has a real energy-user dataset underneath it.",
   dep:"Every item here needs a commercial decision first: paid parcel data, ownership route, occupier research scope.",
   items:["Ingest the Scotland layers that decide NPF4 outcomes: carbon and peatland, wild land, national scenic areas, HES heritage",
@@ -538,7 +538,7 @@ const SPRINTS=[
   gate:"The repository deploys to Vercel and Supabase from a push: no localhost literal, no secret in code, no response the platform cannot return.",
   dep:"Track H needs the hosting budget (absorbs Sprint 10 in part).",
   items:["Externalise the DSN and API base URL; pooled connections on a lifespan handler", "Vercel layout: entrypoint, pyproject, vercel.json (lhr1), static app on the CDN, the MCP route", "Supabase layout: versioned migrations under supabase/ from A1's baseline", "Responses over 4.5 MB moved to Supabase Storage or paged", "In-process caches become materialised views or CDN-cached responses", "Secrets list and rotation procedure", "Branch protection, LICENSE, data files out of git", "Local developer path still works"]},
- {n:"H2",name:"Hosting (A6)",start:"2027-01-25",end:"2027-02-05",ws:"Track H",gated:false,own:"JV",
+ {n:"H2",name:"Hosting (A6)",start:"2027-01-25",end:"2027-02-05",ws:"Track H",gated:false,own:"JV",io:{3:"IT"},
   gate:"Meg runs for the whole team on Supabase and Vercel in London with firm logins and a proven restore; the laptop is no longer the system of record.",
   dep:"Needs H1 and the hosting budget (absorbs Sprint 10).",
   items:["Choose the Supabase tier from measured size and the slow queries", "Restore the laptop database into the London project; parity check", "Deploy API and app to Vercel production (lhr1) with CORS locked", "Entra ID sign-in through Supabase Auth SAML", "Backups on, plus a weekly off-platform dump and a timed restore drill", "Full regression on the hosted stack; latency re-measured", "Loaders run from a GitHub Actions runner", "One-week switch-over, then the laptop demoted to a development copy"]},
@@ -554,7 +554,7 @@ const SPRINTS=[
   gate:"A colleague asks Meg in a Teams chat and gets an answer with caveats; a brief in SharePoint becomes a shortlist link in a channel.",
   dep:"Needs H3 (QGIS and Claude Code are in M4).",
   items:["Copilot Studio agent calling Meg's MCP tools in Teams; Meg as a Teams tab", "SharePoint: briefs read in, site packs written to the matter library after sign-off", "OGC API Features front for other GIS, evaluated", "Global Wind Atlas and land cover loaded with attribution; terrain and Sentinel-2 through a server-held token"]},
- {n:"H6",name:"Client readiness and go-live (A10)",start:"2027-03-22",end:"2027-04-02",ws:"Track H",gated:"packs",own:"JL",
+ {n:"H6",name:"Client readiness and go-live (A10)",start:"2027-03-22",end:"2027-04-02",ws:"Track H",gated:"packs",own:"JL",io:{4:"MW",6:"MW"},
   gate:"A fee earner produces a client-ready pack, a named reviewer signs it, the success criteria are measured, the team is trained, the partner declares Meg in use.",
   dep:"Needs H5 and the pack-format decision (absorbs Sprint 14).",
   items:["The site pack: appraisal report, comparison matrix, dossier, story map with attribution", "Sign-off by the authenticated user; reviewer queue", "Interface quality: responsive, accessible, rewritten Help, brief intake template", "Pilot engagement run end to end on the hosted Meg by someone other than the builder", "Success criteria measured and recorded", "Runbooks and training", "Go or no-go recorded by the partner"]},
@@ -903,9 +903,9 @@ function render(){
         <div class="gate"><b>Gate.</b> ${esc(s.gate)}</div>
         ${STATUS_NOTE[s.n]?`<div class="dep"><b>Status.</b> ${esc(STATUS_NOTE[s.n])}</div>`:""}
         <div class="micro">Deliverables</div>
-        ${s.items.map((it,i)=>`<div class="chk ${state[s.n].checks[i]?"done":""}">
+        ${s.items.map((it,i)=>{const ow=(s.io&&s.io[i])||s.own;return `<div class="chk ${state[s.n].checks[i]?"done":""}">
           <input type="checkbox" id="c-${s.n}-${i}" ${state[s.n].checks[i]?"checked":""} onchange="chk('${s.n}',${i})">
-          <label for="c-${s.n}-${i}">${esc(it)}</label></div>`).join("")}
+          <label for="c-${s.n}-${i}">${esc(it)}${ow?` <span class="pill" style="font-size:10px;padding:1px 6px;vertical-align:middle" title="Task owner: ${esc(OWNERS[ow]||ow)}">${esc(ow)}</span>`:""}</label></div>`}).join("")}
         <div class="micro">Notes</div>
         <textarea class="notes" placeholder="Owner, blockers, links..." onchange="note('${s.n}',this.value)">${esc(state[s.n].notes)}</textarea>
       </div></div>`;
