@@ -616,7 +616,7 @@ SPRINTS.forEach(s=>{if(!state[s.n]||state[s.n].checks.length!==s.items.length)st
 let decState=S.get("dec",{});
 // Seeded item states, evidenced in git history (refreshed 25 Sep 2026). Applied once per SEED_VERSION
 // on top of whatever this browser already holds, so a user's own ticks are never removed.
-const SEED_VERSION=38;
+const SEED_VERSION=39;
 const SEED={0:[0],1:[0],2:[0],3:[0],4:[0,1,2,3],5:[0,1,2,3,4,5,6,7],6:[0,1,2,3,4,5,6,7,8],7:[0,1,2,3,4,5,6,7],8:[0,1,2,3,4,5,6,7,8],9:[0,1,2,3,4,5,6,7,8,9,10,11],10:[0,1,2,3,4,5,6,7,8,9,10],11:[11],16:[0,1],18:[0,1,2,3,4,5,6,7,8,9,10,11,12,14],M1:[0,1,2,3,4,5],M2:[0,1,2,3,4,5],M3:[0,1,2,3,4],M4:[0,1,2,3],H1:[0,1,2,3,4,5,7],H2:[0,1,2,4,5,6],A0:[0,2,4],H3:[1,2],H4:[0,1,2,3,4,5],H5:[2,3],H6:[0],A1:[0,1,2,3,4,5,6,7,8],A2:[1,2,3,5,6,7,8],SY1:[0,1,2,3,4,5,6,7,8],SY2:[0,1,2,3,4,5],SY3:[0,1,2,3,4],SY4:[0,1,2,3],SY5:[0,1,2,3,4,5],SY6:[0,1,2,3,4,5],SY7:[0,1,2,3,4,6,8,9,10,11,15,17,19,20,21,26],SY8:[0,1,2,3,5,6]};
 const SEED_DEC={github:true};
 const STATUS_NOTE={
@@ -821,7 +821,7 @@ const WEEKS=[
   {s:"H3",o:"JV",st:"planned",t:"After the demo: Password Protection on all deployments or Entra sign-in, Mark's choice; the laptop demoted to a development copy (H2 item 7) with the switch-over record closed"},
   {s:"H5",o:"MW",st:"waiting",t:"Decisions after the demo: the Copilot Studio licence, the pack's format for clients (pages behind links or PDFs into the channel's Files), an ArcGIS Online named user for Jack, how clients see their maps"},
   {s:"H4",o:"JV",st:"planned",t:"The Researcher's weekly sweep reviewed with decisions and reasons; the Watchman's Monday run read on the Monitoring page"},
-  {s:"Dashboard",o:"JV",st:"done",t:"Heat networks (12 Nov), the third technology on the dashboard, from Jacob's zip and DESNZ's Heat Networks Planning Database: 1,505 projects with stage, network type, heat source and connections, Scotland's 6,976 data zones with deprivation and no-central-heating rates, the councils' live pipeline per 1,000 people, nine maps, twelve rank cards, the zip's reports listed as references; on the laptop, the host push waiting on Jacob's say-so"},
+  {s:"Dashboard",o:"JV",st:"done",t:"Heat networks (12 Nov), the third technology on the dashboard, from Jacob's zip and DESNZ's Heat Networks Planning Database: 1,505 projects with stage, network type, heat source and connections, Scotland's 6,976 data zones with deprivation and no-central-heating rates, the councils' live pipeline per 1,000 people, nine maps, twelve rank cards, the zip's reports listed as references; on the host the same day with Jacob's say-so, every figure equal to the laptop's"},
   {s:"Dashboard",o:"JV",st:"planned",t:"The domestic EPC new-dwelling certificates once an EPC_API_KEY exists (the housing register itself reached the host on 11 Nov); the renewable energy register (developers, investors, sites) as the fourth technology once its list is supplied"},
   {s:"H5",o:"JV",st:"planned",t:"Maya's Pro project finished (the OGC connection to the host once the direct connection is fixed, the Imagery basemap, the project in the channel's Files) and the client group in ArcGIS Online with the web map shared to it"}]}
 ];
