@@ -239,7 +239,7 @@ body.tv .gbar,body.tv .gtrack{height:14px;font-size:11px}
 <div class="wrap">
   <div id="tvdash"></div>
   <div class="kpis">
-    <div class="kpi"><div class="v" id="k-done">-</div><div class="l">Sprints complete</div></div>
+    <div class="kpi"><div class="v" id="k-done">-</div><div class="l" title="Meg sprints with every item ticked. Sprints 11 to 14 are absorbed by the hosting track and not counted; the Synapsis track counts apart.">Sprints complete</div></div>
     <div class="kpi"><div class="v" id="k-items">-</div><div class="l">Items complete</div></div>
     <div class="kpi"><div class="v" id="k-rag">-</div><div class="l">Plan RAG</div></div>
     <div class="kpi"><div class="v" id="k-ship">16 Oct</div><div class="l">Target usable platform</div></div>
@@ -391,7 +391,7 @@ const SPRINTS=[
    "Fix five loaders hardcoding a departed colleague's path; make a missing data repository an error",
    "Provide a managed-secret path and written rotation procedure"]},
 
- {n:11,name:"Access control and governance",start:"2026-09-14",end:"2026-09-18",ws:"WS2",gated:"budget",
+ {n:11,absorbed:"H3",name:"Access control and governance",start:"2026-09-14",end:"2026-09-18",ws:"WS2",gated:"budget",
   gate:"A named firm user signs in and sees only their own client's projects and watched sites; every AI call is authenticated, rate limited, capped and logged.",
   dep:"Follows the migration. The licence review, LICENSE file and repo transfer can be done at any time before this.",
   items:["Add authentication and role-based access to the API and AI router; lock CORS down from allow-any-origin",
@@ -407,7 +407,7 @@ const SPRINTS=[
    "Add a LICENSE file and copyright position",
    "Transfer the repo to a firm org and issue collaborator invites"]},
 
- {n:12,name:"Post-migration assurance",start:"2026-09-21",end:"2026-09-25",ws:"WS3",gated:"budget",
+ {n:12,absorbed:"H3",name:"Post-migration assurance",start:"2026-09-21",end:"2026-09-25",ws:"WS3",gated:"budget",
   gate:"Parity, load, auth, cold-start and a timed restore drill all pass against the hosted database with no manual intervention.",
   dep:"Requires the migration to be complete. This is the sprint that proves the move did not lose or corrupt anything.",
   items:["Write the post-migration test plan; none exists in any planning document",
@@ -419,7 +419,7 @@ const SPRINTS=[
    "Add a cold-start test for an unreachable or mid-restore database at import time",
    "Reduce browser tests' reliance on internal globals"]},
 
- {n:13,name:"Active monitoring, alerting and agents",start:"2026-09-28",end:"2026-10-09",ws:"WS9",gated:"budget",
+ {n:13,absorbed:"H4",name:"Active monitoring, alerting and agents",start:"2026-09-28",end:"2026-10-09",ws:"WS9",gated:"budget",
   gate:"An unattended refresh detects a real substation becoming unconstrained and reaches a named person outside the app, with source and retrieval date attached.",
   dep:"The scheduler and outbound notifications need the host; recipients need access control. Two weeks: this is the largest remaining build.",
   items:["Build the standing scheduler, driven by the refresh cadences already in the catalogue and currently unused",
@@ -439,7 +439,7 @@ const SPRINTS=[
    "Wire or retire the orphaned ask endpoint and correct the AI guide where it advertises unpopulated tables",
    "Formalise the Tier 1 and Tier 2 agents as definitions rather than hats a session wears"]},
 
- {n:14,name:"Client deliverables, sign-off and interface quality",start:"2026-10-12",end:"2026-10-16",ws:"WS6",gated:"packs",
+ {n:14,absorbed:"H5 and H6",name:"Client deliverables, sign-off and interface quality",start:"2026-10-12",end:"2026-10-16",ws:"WS6",gated:"packs",
   gate:"A fee earner produces a branded site pack with a map, correct metric labels and full attribution, records a named reviewer's sign-off, and does it on a tablet using the keyboard.",
   dep:"Needs the pack format, branding and sign-off placement decided. Governed storage needs the migration; the deliverable object hangs off Projects.",
   items:["Build the site pack: appraisal report, comparison matrix, per-site dossier and story map",
@@ -616,12 +616,12 @@ SPRINTS.forEach(s=>{if(!state[s.n]||state[s.n].checks.length!==s.items.length)st
 let decState=S.get("dec",{});
 // Seeded item states, evidenced in git history (refreshed 25 Sep 2026). Applied once per SEED_VERSION
 // on top of whatever this browser already holds, so a user's own ticks are never removed.
-const SEED_VERSION=39;
-const SEED={0:[0],1:[0],2:[0],3:[0],4:[0,1,2,3],5:[0,1,2,3,4,5,6,7],6:[0,1,2,3,4,5,6,7,8],7:[0,1,2,3,4,5,6,7],8:[0,1,2,3,4,5,6,7,8],9:[0,1,2,3,4,5,6,7,8,9,10,11],10:[0,1,2,3,4,5,6,7,8,9,10],11:[11],16:[0,1],18:[0,1,2,3,4,5,6,7,8,9,10,11,12,14],M1:[0,1,2,3,4,5],M2:[0,1,2,3,4,5],M3:[0,1,2,3,4],M4:[0,1,2,3],H1:[0,1,2,3,4,5,7],H2:[0,1,2,4,5,6],A0:[0,2,4],H3:[1,2],H4:[0,1,2,3,4,5],H5:[2,3],H6:[0],A1:[0,1,2,3,4,5,6,7,8],A2:[1,2,3,5,6,7,8],SY1:[0,1,2,3,4,5,6,7,8],SY2:[0,1,2,3,4,5],SY3:[0,1,2,3,4],SY4:[0,1,2,3],SY5:[0,1,2,3,4,5],SY6:[0,1,2,3,4,5],SY7:[0,1,2,3,4,6,8,9,10,11,15,17,19,20,21,26],SY8:[0,1,2,3,5,6]};
+const SEED_VERSION=40;
+const SEED={0:[0],1:[0],2:[0],3:[0],4:[0,1,2,3],5:[0,1,2,3,4,5,6,7],6:[0,1,2,3,4,5,6,7,8],7:[0,1,2,3,4,5,6,7],8:[0,1,2,3,4,5,6,7,8],9:[0,1,2,3,4,5,6,7,8,9,10,11],10:[0,1,2,3,4,5,6,7,8,9,10],11:[2,4,10,11],12:[0,1,2,3,5],13:[0,1,2,5,8,12,13,14,15],14:[0,3,4,5,6,7],16:[0,1,6],17:[0,1,2,3,5,6,9,11,12,13],18:[0,1,2,3,4,5,6,7,8,9,10,11,12,14],M1:[0,1,2,3,4,5],M2:[0,1,2,3,4,5],M3:[0,1,2,3,4],M4:[0,1,2,3],H1:[0,1,2,3,4,5,7],H2:[0,1,2,4,5,6],A0:[0,2,4],H3:[1,2],H4:[0,1,2,3,4,5],H5:[2,3],H6:[0,2],A1:[0,1,2,3,4,5,6,7,8],A2:[1,2,3,5,6,7,8],SY1:[0,1,2,3,4,5,6,7,8],SY2:[0,1,2,3,4,5],SY3:[0,1,2,3,4],SY4:[0,1,2,3],SY5:[0,1,2,3,4,5],SY6:[0,1,2,3,4,5],SY7:[0,1,2,3,4,6,8,9,10,11,15,17,19,20,21,26],SY8:[0,1,2,3,5,6]};
 const SEED_DEC={github:true};
 const STATUS_NOTE={
  H5:"Owner from 9 Nov 2026: Jacob (the Teams channel bridge, the Copilot Studio agent when licensed, the SharePoint door through the Entra application, the Living Atlas layers). Built ahead of the calendar in Oct and Nov 2026: the channel bridge with the client's context, the shortlist and brief operations, vetting, the pack, the ArcGIS publisher, the OGC front, wind and land cover. Open: the Copilot Studio agent (licence decision) and the SharePoint read and write (the Entra application).",
- H6:"Owner from 9 Nov 2026: Jack (client readiness is product work: the sign-off and reviewer queue in the app, interface quality, the Help rewrite and the brief intake template, the runbooks and training, and the pilot run as the person who did not build it; Mark measures the success criteria and records go or no-go). Item 1 built ahead of the calendar on 6 Nov 2026 by Jacob: the site pack's four pieces (matrix, dossier, appraisal, story map) behind links served by Meg, each rehearsed in the demo channel.",
+ H6:"Owner from 9 Nov 2026: Jack (client readiness is product work: the sign-off and reviewer queue in the app, interface quality, the Help rewrite and the brief intake template, the runbooks and training, and the pilot run as the person who did not build it; Mark measures the success criteria and records go or no-go). Item 1 built ahead of the calendar on 6 Nov 2026 by Jacob: the site pack's four pieces (matrix, dossier, appraisal, story map) behind links served by Meg, each rehearsed in the demo channel. Item 3 (interface quality) ticked 16 Nov 2026 on Jack's merges of 9 to 16 Nov: the responsive pass, the accessibility slices with a gate in CI, the rewritten Help page and the starter-brief intake templates.",
  A0:"Taken up 28 Oct 2026 against the records: the laptop checkout is level with origin/main (Jack's 46 pull requests rebased under the day's work); the accounts were requested and granted (Supabase, Vercel and the Anthropic workspace are in use; the Entra application is with IT); Sprints 10 to 14 are marked absorbed in their status notes. Still Mark's: P1 to P8 as one register in ROADMAP.md (they are cited in decisions 17 and 18 and the programme text), the firm's database policy (Sprint 10 decision 3), and the measurement of the success criteria.",
  H3:"Owner from 9 Nov 2026: Maya (backend assurance: role-based access and tenancy, least-privilege users, the licence register and DPIA, the post-migration test plan and the multi-user load test; Jacob carries the Entra registration with IT under H2). Started early on one item, 20 Oct 2026: an uptime check from outside Vercel (.github/workflows/uptime-check.yml, every 30 minutes and on demand) asks the hosted Meg for health from the database, the app page and one data route, fails the run on any miss and records the timings in the step summary; first run green. The rest of H3 (roles and tenancy, least-privilege users, logging and error tracking, licences and the DPIA, the test plan and load test on the hosted stack) waits for H2's restore and the Entra registration.",
  SY1:"Closed 8 October 2026 (e3ac159 READY on Vercel); the production migration db/158 applied with the product owner's Run click. Owner: the product owner. Links: docs/stack/Synapsis_Stack_Lifecycle_Map.md; docs/stack/openapi.yaml.",
@@ -642,21 +642,19 @@ const STATUS_NOTE={
  H1:"Started 15 Oct 2026, the day after Mark's go-ahead for the hosting track was relayed (Jacob with Claude Code). Built without an account: the Vercel layout (index.py entrypoint, pyproject.toml runtime manifest, vercel.json with London, a 300 s cap and the bundle exclusions, scripts/build_public.py writing the CDN directory with the API's own allowlist: 50 files, 224 MB, 14 over the 4.5 MB function cap and CDN-served); the Supabase migrations generated from the A1 baseline by db/make_migrations.py with a drift check in CI; the database-side caches (materialised views for the smart-meter choropleth, a PlanIt cache table) so a serverless function needs no memory; the secrets homes and the git-history position in SECRETS_AND_ROTATION.md; LICENSE; tests/test_hosting_layout.py. Not yet: the Storage move of the oversized files (needs the bucket) and branch protection (needs the GitHub Team plan). The accounts (Supabase Pro in London, Vercel Pro, GitHub Team), the DNS and Entra requests to IT, and the proof week are listed in workstreams/HOSTING_PROOF_WEEK.md; the builder never creates accounts.",
  M2:"Built 14 Oct 2026 ahead of the calendar (Jacob with Claude Code), under the rule that usage cost must be sustainable: the lowest cost at which the agent functions optimally and answers accurately, measured rather than assumed. Model decision (QUERY_MODEL.md section 11): answers on Sonnet 5.5, routing on Haiku 5.5, about 2.5 cents a question; Haiku 5.5 was rejected for the answer phase because it placed the 600 MW Gate 2 line at the wrong Neilston site. Adversarial check day done 15 Oct (prompt injection through planning text and place names: the cross-check had counted figures inside injected text as known; db/untrusted.py now cuts instruction-like spans from every tool result before the model sees them and the answer discloses the cut; both live vectors refused). Gate still open on one thing: Mark's recorded review of the 12 core questions (workstreams/review_packs/MEG_ANSWERS_partner_review_2026-10-14.docx). Hosting track: Mark's go-ahead relayed 14 Oct; H1 starts 15 Oct. Built: the one loop runs on the Anthropic SDK's Tool Runner over the registry (db/ai.py run_tool_loop keeps the per-round cost, steps, citations with retrieval dates, the rolling cache mark and the pause_turn restart); conversation history (12 turns, disclosed) and web citations carried; confirm chips before any state change (Sprint 18, re-verified); cost and audit on every call with a spend notification (MEG_AI_SPEND_ALERT_USD) and cost per answered question on /ai/usage; four agent definitions in db/agent_defs.py (Meg agent, Review agent, Watchman, Researcher) that the live code reads its models from; a web-query guard so a client or engagement label never enters a web search unflagged; the review phrasing call made optional (review:false on /find-sites and the find tool). The review and brief calls moved to Haiku 5.5 on a like-for-like live check (a sixth and an eighth of the cost, same extraction). Model trial on all 20 golden questions through the new loop, five configurations: Opus 4.8 $0.075 per answered question at 15.9 s p50, Sonnet 5.5 $0.032 at 8.9 s, Haiku 5.5 $0.005 at 6.9 s with the old router; three defects the trial exposed (a plan that ran one of two named sites, a negative figure, a Gate token and a voltage misread by the cross-check, a refusal counted as a forbidden word) fixed; the deciding re-run with the Haiku 5.5 router: Sonnet 5.5 $0.025 at 8.5 s with every figure right, Haiku 5.5 $0.0015 at 6.9 s with one misattributed site.",
  M1:"Closed 14 Oct 2026, ahead of the calendar: db/tools.py (13 read tools), mounted at /mcp and over stdio, registered in Claude Desktop and Claude Code, in-app definitions generated from the registry, a schema and an output-contract test per tool, strict find tools, and the Claude Code evaluation record: the client answered the twenty golden questions with the right route every time and, after three defects the run exposed were fixed the same day, every answer supported (workstreams/MCP_EVAL_2026-10-14_claude-code.md).",
- M2:"Blocked on Anthropic account credit, not on hosting.",
  18:"Track M begins here (M1 registry and local MCP started 12 Oct). Built 12 Oct 2026 by Jacob with Claude Code: items 1 to 13 and 15 shipped and verified on the live laptop database (tier 0 and the Playwright card flow pass with the model stubbed). Item 14 is blocked: the Anthropic account has no credit, so the live router accuracy run, the latency gate, the Sonnet 5 trial and the partner review wait on credit being added. Reference: workstreams/QUERY_MODEL.md; design: workstreams/ADHOC_QUERY_SPRINT_18_DESIGN.md.",
- 17:"Defined 25 Sep 2026 by an agent-team design, adversarially verified; decisions taken by the partner on 28 Sep 2026; assigned to Jacob for 28 Sep to 9 Oct. Items carry acceptance tests in workstreams/EXERCISE_SPRINT_17_DESIGN.md.",
+ 17:"Phase 1 built and verified 8 to 9 Oct 2026 (Jacob with Claude Code), recorded in ROADMAP.md and workstreams/EXERCISE_MODEL.md; the ten items it completed were ticked here on 16 Nov 2026 (they had never been ticked). Built: the closed group list, lineage columns and layer versions (db/create_exercise_tables.py), the run log and gate rows, the append-only mandate record, exercise templates with copy by name, the one bulk upsert under the props contract, the reviewStatus split, the promotion guard, the sensitivity scan with sign-off refusal, tests/test_engagements.py (21 tests) and the contract document. Part built, not ticked: the scoring profiles (screen_v1 and speed_v1 with the score endpoint are in; three speed labels are unpriced and the reproduction test on the 591 screen and 277 speed features is not run) and the deliverable register (table, endpoints and tab are in; registering the real documents is not). Phase 2 (the template seeded from the first engagement's constants, the ranked-layer backfill, the alias rename and those two residues) waits on a dump of two engagements from Mark's database.",
  5:"Closed 31 Jul 2026. Built by Mark (435022b); gate closed on the live database by Jacob (965ca1a).",
  6:"Closed 3 Aug 2026 (684402a).",
  7:"Closed 13 Oct 2026. NESO TEC layer and the seven designation tables were delivered in July (a0cacc8); the six open items were built 12 to 13 Oct on the DB path: /parcel-tile with the app fallback, Welsh and Scottish listed buildings in v_listed through 25 m buffers, attributed listed points (c_listed_pts, 381,768, with a viewport endpoint), the full NGED and SSEN substation sets by viewport, /gas-at in the assessment report, and db/verify_static_layers.py keeping the static exports in step (ROADMAP.md Sprint 7).",
  8:"Closed 11 Aug 2026, a week early, all nine items (7cab915).",
- 9:"Claimed 11 Aug 2026; ten of twelve items delivered by 17 Aug (REPD, OS Open Roads, NaFRA2 flood extensions, peat, detailed ALC, landfill, water resources, PHI, catalogue rows, MCS). No commit found for OS Terrain 50 and slope or the full-resolution designation re-ingest. Not formally closed.",
  10:"Track H (H1/H2 in workstreams/AGENTIC_MEG_PROGRAMME.md section 3a). Started 13 Oct 2026 on the items that need no host: the costed recommendation (item 1, the stack review and the decision paper workstreams/SPRINT10_DECISIONS.md), no host literal in code or app (items 4 and 5), the pooled connection on the API lifespan (item 6), the ordered runbook (item 9, from A1), a missing data repository is an error with MEG_DATA_REPO as the override (item 10), the secrets and rotation procedure (item 11), and the development file server replaced by the API serving the app at /app with a cache policy (item 7); a timed policy dump ran the same day for item 8. Item 2 decided by Mark on 13 Oct 2026: London for both services, with the residency commitment recorded in ROADMAP.md's decision register (the DPA signatory still to be named). Item 3 decided by Mark on 13 Oct 2026: meg.su-llp.com, Vercel-issued TLS, packs in a private Supabase Storage bucket behind signed URLs and the deliverable register (ROADMAP.md decision 18). Item 8 done 13 Oct 2026: dump and restore chosen, the policy dump measured (43.99 GB in 112 minutes) and the restore rehearsed into a scratch database (36 minutes for 48 GB, zero errors, parity identical bar the deliberate parcels exclusion; workstreams/RESTORE_REHEARSAL_2026-10-13.md). All eleven items are done on the laptop; the gate itself needs the hosted accounts. Gated on the hosting budget decision; the stack review Mark asked for was written 13 Oct 2026 (workstreams/HOSTING_STACK_REVIEW.md): Supabase, GitHub and Vercel are suitable at about $160 to $300 a month, conditional on proving the raster extension on a free Supabase project and running the slow queries on Large and XL, with Azure Flexible Server the named fallback. Two disk-full incidents on the laptop database in August are the standing case for it. Six fetch scripts were repointed to the consolidated data repository on 18 Sep (656348d), half of item 9.",
- 11:"Track H (H3). Not started; depends on Sprint 10. Repo transferred to the SustainabilityUnlimited org on 18 Sep (3a95c17); collaborator invites not verified.",
- 12:"Track H (H3). Not started; depends on Sprint 10.",
- 13:"Track H (H4). Cannot start without the host Sprint 10 provides; its three AI items were delivered by Sprint 18 and Track M carries the agent (M2).",
- 14:"Track H (H5/H6). Not started; gated on the pack-format decision.",
+ 11:"Absorbed by H3 (ROADMAP.md sprint table): its items are carried there and it no longer counts as a sprint of its own in the header. Ticked from the record on 16 Nov 2026: a least-privilege database role for the API (meg_app, 29 Oct), structured logging (db/meglog.py, 26 Oct), the LICENSE file and copyright position, and the repository's transfer to the firm's organisation (18 Sep). Open, with H3: sign-in and roles, tenancy, a spend cap (rate limiting is in; the cap is a decision still listed below), error tracking and a metrics endpoint (uptime monitoring is in), the git-history position (recommended in SECRETS_AND_ROTATION.md, awaiting Mark's confirmation), the PlanIt and other unconfirmed licences, the commercial-use flag and the DPIA.",
+ 12:"Absorbed by H3: counted there, not as a sprint of its own. Ticked from the record on 16 Nov 2026: the post-migration test plan (workstreams/POST_MIGRATION_TEST_PLAN.md, Maya, 10 Nov), parity source to target row for row (21 Oct), the regression suite against the hosted address (245 passed, 21 Oct), a load test at 6, 12 and 24 workers after pooling (laptop, 15 Oct; the hosted run is H3's) and the timed backup and restore drill (22 Oct). Open, with H3: tenant isolation tests (they need sign-in), a cold-start test and the browser tests' reliance on internal globals.",
+ 13:"Absorbed by H4, which is complete: counted there, not as a sprint of its own. Ticked from the record on 16 Nov 2026: the weekly scheduled run on a GitHub runner, the one run log with the morning check, the capacity-change diff proved on a real refetch (15 Oct), the weekly line reaching a Teams channel (28 Oct, first runner-written line 2 Nov), the Researcher's dataset sweep, and the four AI items Sprint 18 and M2 delivered (conversation history, citations with retrieval dates, the retired ask endpoint, the agent definitions). Not ticked, because the record does not show them whole: snapshots of the registers beyond export headroom, live counts on Home (the nav badge is in), per-user alert parameters (per-site is in; per-user waits for roles), a target-scoped research dossier, Ofgem and CMP446 monitoring, the Profile of Demand synthesis, and the Review agent on the grid and assessment paths.",
+ 14:"Absorbed by H5 and H6: counted there, not as a sprint of its own. Ticked from the record on 16 Nov 2026: the site pack's four pieces (6 Nov), the sign-off gate (built in Sprint 17 as the deliverable register's named sign-off, refused while scan flags or a count mismatch stand; the identity is self-declared until sign-in exists), and Jack's interface work merged 9 to 16 Nov: the responsive pass, the accessibility slices with a gate in CI, the rewritten Help page and the starter-brief intake templates. Open: a map export control and attribution extended to every source now used.",
  15:"Owner from 9 Nov 2026: Maya (grid depth is her area: the three DNOs' demand headroom, ENWL's circuit capacity, the NGED null voltages, the forward scenario headroom). Not started; gated on NGED, ENWL and SSEN portal accounts. SSEN token still awaited.",
- 16:"Owner from 9 Nov 2026: Maya (the loaders once each commercial decision is Mark's: the EPC geocoding, the energy-user dataset, the smart meter refresh and the occupier expansion; the ownership and parcel routes are decisions first). Partly pulled forward: Scotland title parcels (all 33 RoS counties) loaded and on the map, Hutton agricultural land, HES heritage and SEPA flood loaded 19 to 24 Aug; National Scenic Areas, National Parks and Wild Land Areas loaded 28 Oct. NPF4 peatland out on licence (Mark's call); ownership route undecided."
+ 16:"Owner from 9 Nov 2026: Maya (the loaders once each commercial decision is Mark's: the EPC geocoding, the energy-user dataset, the smart meter refresh and the occupier expansion; the ownership and parcel routes are decisions first). Partly pulled forward: Scotland title parcels (all 33 RoS counties) loaded and on the map, Hutton agricultural land, HES heritage and SEPA flood loaded 19 to 24 Aug; National Scenic Areas, National Parks and Wild Land Areas loaded 28 Oct. Fibre availability ticked 16 Nov 2026: Ofcom Connected Nations (Open Government Licence) loaded 11 Nov for the housing dashboard, 1.74 million postcode units and 361 authorities. NPF4 peatland out on licence (Mark's call); ownership route undecided."
 };
 if(S.get("seedv",0)<SEED_VERSION){
   Object.keys(SEED).forEach(n=>{if(state[n])SEED[n].forEach(i=>{if(i<state[n].checks.length)state[n].checks[i]=true})});
@@ -680,6 +678,7 @@ function trackTag(s){
   if(s.ws==='Track M') return '<span class="pill track m" title="Added 12 Oct 2026 for the MCP goal: runs on the laptop, no host needed">MCP track</span>';
   if(s.ws==='Track H') return '<span class="pill track h" title="Added 12 Oct 2026 for the MCP goal: needs the hosting budget">Hosting track</span>';
   if(s.ws==='programme') return '<span class="pill track a" title="Added 12 Oct 2026 for the MCP goal: shared prerequisite of both tracks">MCP prerequisite</span>';
+  if(s.absorbed) return '';   // the status pill already says which sprint carries it
   if(s.ws==='Synapsis') return '<span class="pill track s" title="The Synapsis track (David, 19 Oct 2026): its own counters and Gantt band; nothing here waits on a Meg sprint">Synapsis track</span>';
   return '';
 }
@@ -687,7 +686,7 @@ function pct(s){const c=state[s.n].checks;return c.length?Math.round(100*c.filte
 // The sprint being worked now and the one after it, set by hand with each update (the calendar
 // dates slid when sprints ran ahead of it, so "current" is a statement, not a date test).
 // alsoOpen: sprints with work in progress alongside, shown as a line of chips.
-const NOW={current:"H5",next:"H3",alsoOpen:["H2","H4","H6"],asOf:"9 Nov 2026"};
+const NOW={current:"H5",next:"H3",alsoOpen:["H2","H4","H6"],asOf:"16 Nov 2026"};
 function sprintByN(n){return SPRINTS.find(s=>s.n===n)}
 // Week-by-week record, written with each update from the commit log and the sprint notes. Each
 // entry is a Monday (wk) with a one-line headline and its items {s: sprint, t: text, st: status};
@@ -816,14 +815,25 @@ const WEEKS=[
   {s:"H5",o:"JV",st:"done",t:"Claude in the channel, option 1 (4 Nov): @Meg analyse runs the same agentic loop Claude Desktop runs over the plug, inside the channel, choosing among Meg's tools over several rounds with the web allow-list and citations, under the guards already in code, and posts one card with findings, recommendation, caveats, sources, tool count and cost; the plain question stays the cheaper cross-checked default; a second webhook name MegAnalyse is accepted on the same callback"},
   {s:"H6",o:"JV",st:"done",t:"The site pack complete on the host (6 Nov): the comparison matrix on every vetting, the dossier for one site, the appraisal of the engagement and the story map with a map per site, each a page served by Meg behind a seven-day signed link and each rehearsed in the demo channel (2, 11 and 19 s); a cross-check gap found on a demo card the same day (a site's own area quoted from its label was marked unverified) fixed and proved; the regression suite 368 passed, one stale floor corrected"},
   {s:"H3",o:"JV",st:"done",t:"The spare Vercel project (a Next.js sign-in app, not Meg) disconnected from the repository on 6 Nov so pushes no longer build it; kept, not deleted, pending David's word; Password Protection on the live project deferred until after the demo (9 Nov decision)"}]},
- {wk:"2026-11-16",head:"Planned: the demo in the client team when the date is fixed; afterwards protection, the laptop's demotion and the decisions carried.",items:[
+ {wk:"2026-11-16",head:"The tracker recounted against the record; a client engagement's connection queue on the map; the demo, protection and the laptop's demotion still to come.",items:[
+   {s:"Tracker",o:"JV",st:"done",t:"The record recounted (16 Nov): Sprint 17's ten built items ticked (Phase 1 of 8 to 9 Oct had never been ticked), Sprints 11 to 14 shown as absorbed by H3 to H6 and no longer counted twice, their delivered items ticked for the history, fibre availability ticked in Sprint 16 and interface quality in H6; a sprint built ahead of its calendar slot no longer reads Not started; two stale status notes that hid the current ones removed"},
+   {s:"Engagements",o:"JV",st:"done",t:"A client engagement set up with its first evidence layer, a connection queue of 37 nearby generation sites numbered by position and coloured by tier, on the laptop and the host; found and fixed on the way: Open map and the Projects board's Show on map opened an empty map for an engagement with layers and no tracked site, the Layers tab's button never opened the map or hid a layer, the queue popup dropped the planning status, and an engagement layer had no key in the map legend (its tiers now list with counts)"},
+   {s:"H6",o:"JL",st:"done",t:"Accessibility hardened and gated (13 to 16 Nov): contrast to AA on the report, the capacity changes, the scores and the RAG pills, in-text links underlined, tables that fit and scroll at phone width, and the accessibility and escaping gates run in CI"},
   {s:"H5",o:"JV",st:"planned",t:"The client-team demo in Demo - BBC (run sheet artifact, Part 2 command by command, Part 3 with Maya), the Part 2 flow re-run in the channel the evening before so the cards and the web map are fresh"},
   {s:"H3",o:"JV",st:"planned",t:"After the demo: Password Protection on all deployments or Entra sign-in, Mark's choice; the laptop demoted to a development copy (H2 item 7) with the switch-over record closed"},
   {s:"H5",o:"MW",st:"waiting",t:"Decisions after the demo: the Copilot Studio licence, the pack's format for clients (pages behind links or PDFs into the channel's Files), an ArcGIS Online named user for Jack, how clients see their maps"},
   {s:"H4",o:"JV",st:"planned",t:"The Researcher's weekly sweep reviewed with decisions and reasons; the Watchman's Monday run read on the Monitoring page"},
   {s:"Dashboard",o:"JV",st:"done",t:"Heat networks (12 Nov), the third technology on the dashboard, from Jacob's zip and DESNZ's Heat Networks Planning Database: 1,505 projects with stage, network type, heat source and connections, Scotland's 6,976 data zones with deprivation and no-central-heating rates, the councils' live pipeline per 1,000 people, nine maps, twelve rank cards, the zip's reports listed as references; on the host the same day with Jacob's say-so, every figure equal to the laptop's"},
   {s:"Dashboard",o:"JV",st:"planned",t:"The domestic EPC new-dwelling certificates once an EPC_API_KEY exists (the housing register itself reached the host on 11 Nov); the renewable energy register (developers, investors, sites) as the fourth technology once its list is supplied"},
-  {s:"H5",o:"JV",st:"planned",t:"Maya's Pro project finished (the OGC connection to the host once the direct connection is fixed, the Imagery basemap, the project in the channel's Files) and the client group in ArcGIS Online with the web map shared to it"}]}
+  {s:"H5",o:"JV",st:"planned",t:"Maya's Pro project finished (the OGC connection to the host once the direct connection is fixed, the Imagery basemap, the project in the channel's Files) and the client group in ArcGIS Online with the web map shared to it"}]},
+  {wk:"2026-11-23",head:"Planned: the client-team demo once the date is fixed, then protection or sign-in, the laptop's demotion and the people-held decisions.",items:[
+   {s:"H5",o:"JV",st:"planned",t:"The client-team demo when the date is fixed, with the Part 2 flow re-run in the channel the evening before"},
+   {s:"H3",o:"MW",st:"waiting",t:"Mark's choice after the demo: Password Protection on all deployments or Entra sign-in; the git-history position confirmed; P1 to P8 recorded as one register"},
+   {s:"H2",o:"JV",st:"planned",t:"The switch-over exit test, then the laptop demoted to a development copy and the record closed (item 8)"},
+   {s:"H2",o:"IT",st:"waiting",t:"The Entra application registration for sign-in through Supabase Auth"},
+   {s:"17",o:"MW",st:"waiting",t:"The dump of two engagements from Mark's database that Sprint 17's Phase 2 needs (the seeded template, the reproduction tests, the real documents registered, the alias rename)"},
+   {s:"A2",o:"MM",st:"planned",t:"The scoring re-run against the five validation sites and the plausibility filters on a real engagement sample, for the reviewers' sign-off"},
+   {s:"Dashboard",o:"JV",st:"planned",t:"The renewable energy register as the fourth technology once its list is supplied; the EPC new-dwelling certificates once a key exists"}]}
 ];
 const ST_LABEL={done:"Done",doing:"In progress",planned:"Planned",waiting:"Waiting"};
 function ymd(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
@@ -878,13 +888,19 @@ function renderNow(){
   document.getElementById("also").innerHTML=also?`<b>Also in progress:</b> ${also}`:"";
 }
 const today=new Date(new Date().toDateString());
+// Sprints 11 to 14 were superseded by the hosting track on 12 Oct 2026 (AGENTIC_MEG_PROGRAMME.md, ROADMAP.md's
+// sprint table): each carries `absorbed` naming the sprint that holds its items. They stay on the page with the
+// ticks the record supports, and are left out of the header counts, where they had counted the same work twice.
+function megCounted(s){return s.ws!=='Synapsis'&&!s.absorbed}
+function megSprintN(){return SPRINTS.filter(megCounted).length}
 function sprintStatus(s){
   const p=pct(s), st=new Date(s.start), en=new Date(s.end);
+  if(s.absorbed)return{label:"Absorbed by "+s.absorbed+" · "+p+"%",cls:"grey",num:""};
   if(p===100)return{label:"Complete",cls:"green",num:"done"};
   if(typeof NOW!=="undefined"&&s.n===NOW.current)return{label:"In progress · "+p+"%",cls:"amber",num:"current"};   // the stated current sprint, whatever the calendar says
   if(s.gated&&!decState[s.gated])return{label:"Decision needed",cls:"red",num:"gated"};
   if(!s.start||!s.end)return{label:"In progress · "+p+"%",cls:"amber",num:"current"};   // a card dated by its status line only (Synapsis)
-  if(today<st)return{label:"Not started",cls:"grey",num:""};
+  if(today<st)return p?{label:"In progress · "+p+"%",cls:"amber",num:"current"}:{label:"Not started",cls:"grey",num:""};   // built ahead of its calendar slot
   if(today>en)return{label:"Overdue",cls:"red",num:"current"};
   return{label:(p?"In progress · "+p+"%":"This sprint"),cls:"amber",num:"current"};
 }
@@ -895,7 +911,7 @@ function render(){
   document.getElementById("sprints").innerHTML=SPRINTS.map(s=>{
     const st=sprintStatus(s),p=pct(s),ticked=state[s.n].checks.filter(Boolean).length;
     if(s.ws==='Synapsis'){sy.n++;if(p===100)sy.doneN++;sy.items+=s.items.length;sy.done+=ticked;}
-    else{if(p===100)doneN++;items+=s.items.length;done+=ticked;if(rank[st.cls]>rank[worst])worst=st.cls;}
+    else if(megCounted(s)){if(p===100)doneN++;items+=s.items.length;done+=ticked;if(rank[st.cls]>rank[worst])worst=st.cls;}
     const open=S.get("open",{})[s.n];
     return `<div class="sprint" id="sp-${s.n}">
       <div class="shead" onclick="togg('${s.n}')">
@@ -925,7 +941,7 @@ function render(){
     <label for="d-${d.id}"><b>${esc(d.t)}</b><span class="who">${esc(d.d)}</span>${decState[d.id]?"":`<span class="by">${esc(d.by)}</span>`}</label></div>`).join("");
   document.getElementById("decisions").innerHTML+=`<div class="ph" style="margin:8px 0 0"><b>Outstanding on the Synapsis side</b> (listed, not gated; no needed-by dates until the pilot date exists): ${SY_DECISIONS.map(esc).join("; ")}.</div>`;
   const openBlk=DECISIONS.filter(d=>!decState[d.id]).length;
-  document.getElementById("k-done").textContent=doneN+"/"+(SPRINTS.length-sy.n);
+  document.getElementById("k-done").textContent=doneN+"/"+megSprintN();
   document.getElementById("k-items").textContent=done+"/"+items;
   document.getElementById("k-sy").textContent=sy.done+"/"+sy.items;
   document.getElementById("k-sy-l").textContent="Synapsis items · "+sy.doneN+" of "+sy.n+" sprints complete";
@@ -983,7 +999,7 @@ function tvOverview(k){
       <div class="tvk"><div class="v">3</div><div class="l">Connected platforms</div></div>
     </div>
     ${plat("","Platform 1 · Opportunity intelligence","Meg","Find and assess the best opportunities in energy, property and infrastructure.",megPct,
-      fig(k.done+" of "+k.items,"deliverables shipped")+fig(k.doneN+" of "+(SPRINTS.length-sy.n),"sprints complete"),
+      fig(k.done+" of "+k.items,"deliverables shipped")+fig(k.doneN+" of "+megSprintN(),"sprints complete"),
       (cur?`<b>Now:</b> ${esc(cur.n+" "+cur.name)}, ${pct(cur)}%. `:""))}
     ${plat("b","Platform 2 · Professional practice management","Synapsis","Turn opportunities into deliverable projects with integrated professional services.",syPct,
       fig(sy.done+" of "+sy.items,"deliverables shipped")+fig(sy.doneN+" of "+sy.n,"sprints complete"),
@@ -1022,7 +1038,7 @@ function renderTv(k){
       <div class="tvk"><div class="v">${lw?lw.d:"-"}${lw?sub+"/"+lw.n+"</span>":""}</div><div class="l">Last week done</div></div>
       <div class="tvk"><div class="v">${tw?tw.d:"-"}${tw?sub+"/"+tw.n+"</span>":""}</div><div class="l">This week done${tw&&tw.g?" · "+tw.g+" in progress":""}</div></div>
       <div class="tvk"><div class="v">${k.done}${sub}/${k.items}</span></div><div class="l">Deliverables shipped</div></div>
-      <div class="tvk"><div class="v">${k.doneN}${sub}/${SPRINTS.length-(k.sy?k.sy.n:0)}</span></div><div class="l">Meg sprints complete</div></div>
+      <div class="tvk"><div class="v">${k.doneN}${sub}/${megSprintN()}</span></div><div class="l">Meg sprints complete</div></div>
       <div class="tvk rag-${k.rag}"><div class="v">${k.rag}</div><div class="l">Plan RAG</div></div>
       <div class="tvk"><div class="v">${cur?cur.n:"-"}</div><div class="l">Current sprint · ${now.toLocaleDateString("en-GB",{day:"numeric",month:"short"})}</div></div>
     </div>
@@ -1119,9 +1135,9 @@ function copyReport(){
   const t=new Date().toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
   let md="**Project Meg build - status "+t+"**\n\n";
   let items=0,done=0;
-  SPRINTS.forEach(s=>{items+=s.items.length;done+=state[s.n].checks.filter(Boolean).length;
+  SPRINTS.forEach(s=>{if(megCounted(s)){items+=s.items.length;done+=state[s.n].checks.filter(Boolean).length;}
     md+="Sprint "+s.n+" ("+s.name+", "+dateLine(s)+"): "+sprintStatus(s).label+", "+pct(s)+"%."+(state[s.n].notes?" Note: "+state[s.n].notes:"")+"\n";});
-  md+="\nOverall: "+done+" of "+items+" items across "+SPRINTS.length+" sprints. Target usable platform 16 Oct 2026 (core), data expansion to 30 Oct.\n";
+  md+="\nOverall: "+done+" of "+items+" items across "+megSprintN()+" Meg sprints (the Synapsis track and the four absorbed sprints listed above are not in this figure). Target usable platform 16 Oct 2026 (core), data expansion to 30 Oct.\n";
   const ob=DECISIONS.filter(d=>!decState[d.id]);
   md+="Decisions outstanding: "+(ob.length?ob.map(d=>d.t+" ("+d.by+")").join("; "):"none")+".\n";
   navigator.clipboard.writeText(md).then(()=>toast("Status report copied")).catch(()=>toast("Copy blocked by the browser"));
