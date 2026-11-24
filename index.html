@@ -616,7 +616,7 @@ SPRINTS.forEach(s=>{if(!state[s.n]||state[s.n].checks.length!==s.items.length)st
 let decState=S.get("dec",{});
 // Seeded item states, evidenced in git history (refreshed 25 Sep 2026). Applied once per SEED_VERSION
 // on top of whatever this browser already holds, so a user's own ticks are never removed.
-const SEED_VERSION=43;
+const SEED_VERSION=44;
 const SEED={0:[0],1:[0],2:[0],3:[0],4:[0,1,2,3],5:[0,1,2,3,4,5,6,7],6:[0,1,2,3,4,5,6,7,8],7:[0,1,2,3,4,5,6,7],8:[0,1,2,3,4,5,6,7,8],9:[0,1,2,3,4,5,6,7,8,9,10,11],10:[0,1,2,3,4,5,6,7,8,9,10],11:[2,4,10,11],12:[0,1,2,3,5],13:[0,1,2,5,8,12,13,14,15],14:[0,3,4,5,6,7],16:[0,1,6],17:[0,1,2,3,5,6,9,11,12,13],18:[0,1,2,3,4,5,6,7,8,9,10,11,12,14],M1:[0,1,2,3,4,5],M2:[0,1,2,3,4,5],M3:[0,1,2,3,4],M4:[0,1,2,3],H1:[0,1,2,3,4,5,7],H2:[0,1,2,4,5,6],A0:[0,2,4],H3:[1,2],H4:[0,1,2,3,4,5],H5:[2,3],H6:[0,2],A1:[0,1,2,3,4,5,6,7,8],A2:[1,2,3,5,6,7,8],SY1:[0,1,2,3,4,5,6,7,8],SY2:[0,1,2,3,4,5],SY3:[0,1,2,3,4],SY4:[0,1,2,3],SY5:[0,1,2,3,4,5],SY6:[0,1,2,3,4,5],SY7:[0,1,2,3,4,6,8,9,10,11,15,17,19,20,21,26],SY8:[0,1,2,3,5,6]};
 const SEED_DEC={github:true};
 const STATUS_NOTE={
@@ -686,7 +686,7 @@ function pct(s){const c=state[s.n].checks;return c.length?Math.round(100*c.filte
 // The sprint being worked now and the one after it, set by hand with each update (the calendar
 // dates slid when sprints ran ahead of it, so "current" is a statement, not a date test).
 // alsoOpen: sprints with work in progress alongside, shown as a line of chips.
-const NOW={current:"H5",next:"H3",alsoOpen:["H2","H4","H6"],asOf:"19 Nov 2026"};
+const NOW={current:"H5",next:"H3",alsoOpen:["H2","H4","H6"],asOf:"24 Nov 2026"};
 function sprintByN(n){return SPRINTS.find(s=>s.n===n)}
 // Week-by-week record, written with each update from the commit log and the sprint notes. Each
 // entry is a Monday (wk) with a one-line headline and its items {s: sprint, t: text, st: status};
@@ -837,6 +837,7 @@ const WEEKS=[
   {s:"Dashboard",o:"JV",st:"planned",t:"The domestic EPC new-dwelling certificates once an EPC_API_KEY exists (the housing register itself reached the host on 11 Nov); the renewable energy register (developers, investors, sites) as the fourth technology once its list is supplied"},
   {s:"H5",o:"JV",st:"planned",t:"Maya's Pro project finished (the OGC connection to the host once the direct connection is fixed, the Imagery basemap, the project in the channel's Files) and the client group in ArcGIS Online with the web map shared to it"}]},
   {wk:"2026-11-23",head:"Planned, with the client-team demo done: protection or sign-in, the laptop's demotion and the people-held decisions.",items:[
+   {s:"Polish",o:"JV",st:"done",t:"Less text on every page (24 Nov, on request): long text is cut to one or two lines with an ellipsis and the full text opens on hover, on a tap or on keyboard focus, by one mechanism that finds long text on any page; answers, assessment reports, dialogs and Help keep their full text. Icons and tiles replace wording on the exercise cards, the project cards, the search results, the Data catalogue and the Monitoring morning check, which is now a tile per scheduled job"},
    {s:"H5",o:"MW",st:"waiting",t:"The decisions the demo was waiting on: the Copilot Studio licence, the pack's format for clients, an ArcGIS Online named user for Jack, how clients see their maps"},
    {s:"H3",o:"MW",st:"waiting",t:"Mark's choice, due now the demo is done: Password Protection on all deployments or Entra sign-in; the git-history position confirmed; P1 to P8 recorded as one register"},
    {s:"H2",o:"JV",st:"planned",t:"The switch-over exit test, then the laptop demoted to a development copy and the record closed (item 8)"},
